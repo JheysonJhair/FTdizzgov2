@@ -2,19 +2,27 @@ import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
+import { useFonts, Montserrat_800ExtraBold } from "@expo-google-fonts/montserrat";
 
 const Load = () => {
   const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({
+    Montserrat_800ExtraBold,
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate("Login");
+      navigation.navigate("Welcome");
     }, 4000);
 
     return () => {
       clearTimeout(timer);
     };
   }, [navigation]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
@@ -28,65 +36,20 @@ const Load = () => {
 };
 
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#030303",
+    backgroundColor: "#1E1E1E",
   },
   containerLogo: {
-    flex: 3,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   containerLogoText: {
     color: "#fff",
-    fontSize: 50,
-    fontWeight: 700,
-    letterSpacing: 2,
-  },
-  containerForm: {
-    flex: 1,
-    backgroundColor: "#fff",
-    width: "100%",
-    height: "25%",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: "5%",
-    paddingEnd: "5%",
-  },
-  Title: {
-    fontSize: 24,
-    fontWeight: 700,
-    paddingTop: 28,
-    paddingBottom: 10,
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 400,
-    color: "#00000080",
-    paddingBottom: 20,
-  },
-  button: {
-    position: "absolute",
-    backgroundColor: "#ff0000",
-    borderRadius: 50,
-    paddingVertical: 10,
-    width: "60%",
-    alignSelf: "center",
-    bottom: "15%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "#fff",
-  },
-  logo: {
-    width: 120,
-    height: 120,
-    alignSelf: "center",
-    marginBottom: 20,
+    fontSize: 38,
+    fontFamily: "Montserrat_800ExtraBold",
   },
 });
 

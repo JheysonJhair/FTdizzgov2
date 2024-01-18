@@ -5,12 +5,32 @@ import {
   View,
   KeyboardAvoidingView,
 } from "react-native";
-const Register = () => {
+import Button from "../../components/forms/Button";
+import ButtonTwo from "../../components/forms/ButtonTwo";
+import { useFonts, Montserrat_800ExtraBold } from "@expo-google-fonts/montserrat";
+import { useNavigation } from "@react-navigation/native";
+
+const Welcome = () => {
+    const navigation = useNavigation();
+    const [fontsLoaded] = useFonts({
+        Montserrat_800ExtraBold,
+      });
+      if (!fontsLoaded) {
+        return null;
+      }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
     >
+      <Text style={styles.h1}>DIZZGO</Text>
+      <Text style={styles.h2}>Bienvenido!</Text>
+
+      <View style={styles.formContainer}>
+        <Button title="Crear Cuenta" onPress={() => navigation.navigate("Register")} />
+        <ButtonTwo title="Ingresar" onPress={() => navigation.navigate("Login")}  />
+      </View>
+
       <View style={styles.terminos}>
         <Text style={styles.h3}>Nuestros Términos y Condiciones</Text>
       </View>
@@ -55,4 +75,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Register;
+export default Welcome;
