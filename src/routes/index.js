@@ -4,6 +4,7 @@ import Load from '../screens/home/Load'
 import Welcome from '../screens/home/Welcome'
 import Login from '../screens/auth/Login'
 import Register from '../screens/auth/Register'
+import RegisterTwo from '../screens/auth/RegisterTwo'
 import Chat from '../screens/chat/Chat'
 
 
@@ -16,6 +17,7 @@ export default function Routes(){
             <Stack.Screen name='Welcome' component={Welcome} options={{headerShown: false}}/>
             <Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>
             <Stack.Screen name='Register' component={Register} options={{headerShown: false}}/>
+            <Stack.Screen name='RegisterTwo' component={RegisterTwo} options={{headerShown: false}}/>
             <Stack.Screen name='Chat' component={Chat} />
        </Stack.Navigator> 
     )
