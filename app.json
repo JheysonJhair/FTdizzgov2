@@ -15,16 +15,29 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jhair.dizzgo"
     },
     "android": {
+      "package": "com.jhair.dizzgo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleSignIn": {
+          "apiKey": "TU_CLAVE_API"
+        },
+        "scheme": "dizzgo"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "849372f0-4733-4184-bd2d-6715dcb0f193"
+      }
     }
   }
 }
