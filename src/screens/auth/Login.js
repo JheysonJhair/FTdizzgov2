@@ -25,13 +25,17 @@ export default function Login() {
 
   const onHandleLogin = async (email, password) => {
     try {
+      if (!email || !password) {
+        Alert.alert("Campos vacíos", "Por favor, complete todos los campos.");
+        return;
+      }
       const user = await loginUser(email, password);
 
       if (user) {
         const birthDate = new Date(user.birthDate);
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
-
+        console.log(  age)
         if (age >= 16) {
           console.log("Ingreso!");
           navigation.navigate("Home", {
@@ -39,11 +43,11 @@ export default function Login() {
             imgPerfil: user.profileImage,
           });
         } else {
-          console.log("No eres mayor de 16 años.");
+          Alert.alert("Upps!", "Usted aún es menor de edad!");
         }
       } else {
         console.log("Error de ingreso!");
-        Alert.alert("Error de ingreso", "Crea una cuenta.");
+        Alert.alert("Error de ingreso", "Crea una cuenta, es muy rápido!");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);

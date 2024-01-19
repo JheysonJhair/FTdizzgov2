@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 
 const PhoneNumberInput = ({ onPhoneNumberChange }) => {
-  const [countryCode, setCountryCode] = useState('+51');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState("+51");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleCountryCodeChange = (text) => {
     setCountryCode(text);
@@ -24,6 +24,7 @@ const PhoneNumberInput = ({ onPhoneNumberChange }) => {
           value={countryCode}
           onChangeText={handleCountryCodeChange}
           placeholderTextColor="#C6CBD9"
+          editable={false}
         />
       </View>
       <View style={[styles.inputContainer, { flex: 8, marginLeft: 5 }]}>
@@ -33,6 +34,7 @@ const PhoneNumberInput = ({ onPhoneNumberChange }) => {
           value={phoneNumber}
           onChangeText={handlePhoneNumberChange}
           keyboardType="numeric"
+          maxLength={9}
           placeholderTextColor="#C6CBD9"
         />
       </View>
@@ -42,21 +44,21 @@ const PhoneNumberInput = ({ onPhoneNumberChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '95%',
-    justifyContent: 'space-between',
-    marginBottom:10
+    flexDirection: "row",
+    alignItems: "center",
+    width: "95%",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
   input: {
-    backgroundColor: 'transparent',
-    borderColor: '#C6CBD9',
+    backgroundColor: "transparent",
+    borderColor: "#C6CBD9",
     borderWidth: 1,
     padding: 14,
     borderRadius: 6,
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    width: '100%',
+    width: "100%",
   },
 });
 

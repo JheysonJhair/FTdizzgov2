@@ -8,6 +8,7 @@ const Input = ({ placeholder, onChangeText, value }) => {
       placeholder={placeholder}
       onChangeText={onChangeText}
       value={value}
+      autoCapitalize="none"
       placeholderTextColor="#C6CBD9"
     />
   );

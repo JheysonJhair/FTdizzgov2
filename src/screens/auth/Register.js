@@ -15,19 +15,47 @@ import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
 
-
 export default function Register() {
   const navigation = useNavigation();
-  const handleGoogleSignIn = async () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const onHandleLogin = () => {
-    navigation.navigate("RegisterTwo");
-    console.log("Register success");
+    if (!email || !password || !confirmPassword) {
+      Alert.alert("Error", "Por favor, completa todos los campos.");
+      return;
+    }
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email) || !email.includes("@gmail.com")) {
+      Alert.alert(
+        "Error",
+        "Ingresa una dirección de correo electrónico válida con '@gmail.com'."
+      );
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Las contraseñas no coinciden.");
+      return;
+    }
+    if (password.length < 8) {
+      Alert.alert("Error", "La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+
+    navigation.navigate("RegisterTwo", { email, password });
+    clearForm();
   };
 
   const handleLogin = () => {
     navigation.navigate("Login");
     console.log("Register success");
+  };
+
+  const clearForm = () => {
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -36,13 +64,22 @@ export default function Register() {
       <Text style={styles.h2}>Crea tu nueva cuenta</Text>
 
       <View style={styles.formContainer}>
-        <Input placeholder="Email" />
-        <InputPassword placeholder="Contraseña" />
-        <InputPassword placeholder="Confirma tu contraseña" />
-        <Button
-          title="Siguiente paso"
-          onPress={() => onHandleLogin()}
+        <Input
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
+        <InputPassword
+          placeholder="Contraseña"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+        <InputPassword
+          placeholder="Confirma tu contraseña"
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
+        />
+        <Button title="Siguiente paso" onPress={() => onHandleLogin()} />
       </View>
 
       <View style={styles.texto}>
@@ -59,10 +96,7 @@ export default function Register() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity
-          style={styles.socialButton}
-          onPress={handleGoogleSignIn}
-        >
+        <TouchableOpacity style={styles.socialButton}>
           <Text style={styles.socialButtonText}>G</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
