@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../config/firebase";
-
+import GoogleButton from "../../components/forms/GoogleButton";
+import FacebookButton from "../../components/forms/FacebookButton";
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
@@ -96,12 +89,12 @@ export default function Register() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>G</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>F</Text>
-        </TouchableOpacity>
+        <GoogleButton
+          onPress={() => console.log("Botón de Google presionado")}
+        />
+        <FacebookButton
+          onPress={() => console.log("Botón de Facebook presionado")}
+        />
       </View>
     </KeyboardAvoidingView>
   );
@@ -167,18 +160,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     width: "95%",
-  },
-  socialButton: {
-    backgroundColor: "#40A5E7",
-    borderRadius: 25,
-    marginEnd: 4,
-    marginStart: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-  },
-  socialButtonText: {
-    fontSize: 20,
-    color: "#fff",
-    fontFamily: "Montserrat_800ExtraBold",
   },
 });

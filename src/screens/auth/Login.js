@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import Checkbox from "expo-checkbox";
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/apiLogin";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
+import GoogleButton from "../../components/forms/GoogleButton";
+import FacebookButton from "../../components/forms/FacebookButton";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -21,12 +17,27 @@ export default function Login() {
   const [isChecked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
 
   const onHandleLogin = async (email, password) => {
     try {
       if (!email || !password) {
         Alert.alert("Campos vacíos", "Por favor, complete todos los campos.");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Alert.alert(
+          "Correo electrónico inválido",
+          "Ingresa un correo electrónico válido."
+        );
+        return;
+      }
+
+      if (!email.toLowerCase().endsWith("@gmail.com")) {
+        Alert.alert(
+          "Correo electrónico no válido",
+          "Por favor, utiliza una cuenta de Gmail."
+        );
         return;
       }
       const user = await loginUser(email, password);
@@ -35,7 +46,7 @@ export default function Login() {
         const birthDate = new Date(user.birthDate);
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
-        console.log(  age)
+        console.log(age);
         if (age >= 16) {
           console.log("Ingreso!");
           navigation.navigate("Home", {
@@ -111,12 +122,12 @@ export default function Login() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>G</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>F</Text>
-        </TouchableOpacity>
+        <GoogleButton
+          onPress={() => console.log("Botón de Google presionado")}
+        />
+        <FacebookButton
+          onPress={() => console.log("Botón de Facebook presionado")}
+        />
       </View>
     </KeyboardAvoidingView>
   );
@@ -212,18 +223,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     width: "95%",
-  },
-  socialButton: {
-    backgroundColor: "#40A5E7",
-    borderRadius: 25,
-    marginEnd: 4,
-    marginStart: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-  },
-  socialButtonText: {
-    fontSize: 20,
-    color: "#fff",
-    fontFamily: "Montserrat_800ExtraBold",
   },
 });
