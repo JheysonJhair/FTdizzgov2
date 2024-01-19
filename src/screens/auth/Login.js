@@ -9,8 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { loginUser } from "../../api/apiLogin";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
@@ -24,33 +23,35 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleGoogleSignIn = async () => {};
-  const [isModalVisible, setModalVisible] = useState(false);
+  const onHandleLogin = async (email, password) => {
+    try {
+      const user = await loginUser(email, password);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const onHandleLogin = (email, password) => {
-    if (email !== "" && password !== "") {
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => console.log("Login success"))
-        .catch((err) => Alert.alert("Login error", err.message));
+      if (user) {
+        const birthDate = new Date(user.birthDate);
+        const today = new Date();
+        const age = today.getFullYear() - birthDate.getFullYear();
+
+        if (age >= 16) {
+          console.log("Ingreso!");
+          navigation.navigate("Home", {
+            userName: user.firstName,
+            imgPerfil: user.profileImage,
+          });
+        } else {
+          console.log("No eres mayor de 16 años.");
+        }
+      } else {
+        console.log("Error de ingreso!");
+        Alert.alert("Error de ingreso", "Crea una cuenta.");
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
     }
-  };
-  const handleLogin = async () => {
-    navigation.navigate("ProductCard", {
-      userName: user.firstName,
-      imgPerfil: user.profileImage,
-    });
   };
 
   const handleRegister = () => {
     navigation.navigate("Register");
-    console.log("Register success");
-  };
-
-  const handleForgotPassword = () => {
-    console.log("Olvidaste tu contraseña?");
   };
 
   return (
@@ -59,8 +60,16 @@ export default function Login() {
       <Text style={styles.h2}>Inicia Sesión para continuar</Text>
 
       <View style={styles.formContainer}>
-        <Input placeholder="Email" />
-        <InputPassword placeholder="Contraseña" />
+        <Input
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+        <InputPassword
+          placeholder="Contraseña"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
         <View style={styles.checkboxContainer}>
           <View style={styles.rowContainer}>
             <View style={styles.izquierda}>
@@ -72,10 +81,7 @@ export default function Login() {
               <Text style={styles.checkboxLabel}>Recuérdame</Text>
             </View>
             <View style={styles.derecha}>
-              <Text
-                style={styles.forgotPassword}
-                onPress={handleForgotPassword}
-              >
+              <Text style={styles.forgotPassword}>
                 Olvidaste tu contraseña?
               </Text>
             </View>
@@ -101,10 +107,7 @@ export default function Login() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity
-          style={styles.socialButton}
-          onPress={handleGoogleSignIn}
-        >
+        <TouchableOpacity style={styles.socialButton}>
           <Text style={styles.socialButtonText}>G</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>

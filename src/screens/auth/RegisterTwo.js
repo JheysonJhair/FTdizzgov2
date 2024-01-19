@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../config/firebase";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
