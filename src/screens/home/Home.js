@@ -23,9 +23,9 @@ export default function Home() {
   const navigation = useNavigation();
   const sampleProduct = {
     title: "Four Loko ",
-    sabor: "Blue",
-    price: 19.99,
-    image: "https://sumon.com.pe/assets/img/Image-27-05-21-to-12-12-49PINKpng",
+    sabor: "blue",
+    price: 12,
+    image: "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
   };
 
   return (
@@ -144,9 +144,6 @@ export default function Home() {
           <Icon name="shopping-cart" size={25} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="cog" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.absoluteIcon}>
           <Icon name="bars" size={25} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -187,7 +184,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   separatorLine: {
-    borderBottomColor: "#fff",
+    borderBottomColor: "#74797c",
     borderBottomWidth: 1,
     marginVertical: 10,
   },
@@ -234,7 +231,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 15,  
     borderTopWidth: 1,  
-    borderTopColor: "#fff", 
+    borderTopColor: "#74797c", 
   },
   absoluteIcon: {
     marginHorizontal: 25, 

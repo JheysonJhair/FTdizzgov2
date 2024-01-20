@@ -1,74 +1,91 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ProductCard = ({ product }) => {
   return (
     <View style={styles.cardContainer}>
-      <View style={styles.card}>
+      <LinearGradient
+        colors={getGradientColors(product.sabor)}
+        style={styles.card}
+      >
         <View style={styles.content}>
           <Text style={styles.h1}>{product.title}</Text>
           <Text style={styles.h2}>Sabor: {product.sabor}</Text>
-          <Text style={styles.h3}>${product.price}</Text>
+          <Text style={styles.h3}>s/{product.price}</Text>
         </View>
-      </View>
+      </LinearGradient>
       <Image source={{ uri: product.image }} style={styles.image} />
     </View>
   );
+};
+
+const getGradientColors = (sabor) => {
+  switch (sabor) {
+    case 'blue':
+      return ['#0635a3', '#0686a0']; 
+    case 'red':
+      return ['#FF1493', '#FF4500']; 
+    case 'neutral':
+      return ['#FFFACD', '#D3D3D3']; 
+    default:
+      return ['#b9bac9', '#71727f']; 
+  }
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
     margin: 6,
     position: 'relative',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   card: {
     width: 130,
     height: 170,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#fff',
-    elevation: 3,
-    alignItems: 'center',
     overflow: 'hidden',
     position: 'relative',
+    textAlign: 'center',
     zIndex: 1,
   },
-  content: {
-    paddingTop: 100,
-    alignItems: 'left',
-    position: 'absolute',
-    zIndex: 2,
-  },
+
   image: {
-    width: 90,
-    height: 130,
+    width: 80,
+    height: 120,
     resizeMode: 'cover',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     transform: [{ rotate: '10deg' }],
-    marginTop: -18,
+    marginTop: -24,
     position: 'absolute',
     zIndex: 3,
   },
+  content: {
+    paddingTop: 100,
+    alignItems: 'center', 
+    position: 'absolute',
+    zIndex: 2,
+    width: '100%', 
+  },
   h1: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    zIndex: 4, 
+    fontSize: 17,
+    color: '#000',
+    fontFamily: "Montserrat_800ExtraBold", 
+    textAlign: 'center', 
   },
   h2: {
-    fontSize: 14,
-    color: '#888',
-    marginTop: 2,
-    zIndex: 4,
+    fontSize: 12,
+    color: '#000',
+    textAlign: 'center',
   },
   h3: {
-    fontSize: 11,
-    color: '#000000',
-    marginLeft: 'auto', 
+    fontSize: 12,
+    color: '#000',
+    fontFamily: "Montserrat_800ExtraBold", 
+    marginLeft: 'auto',
     marginTop: 2,
-    zIndex: 4,
+    textAlign: 'center',
+    marginEnd: 30,
   },
 });
 
