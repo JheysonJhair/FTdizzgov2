@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   image: {
-    width: 100,
-    height: 120,
+    width: 90,
+    height: 130,
     resizeMode: 'cover',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 16,
     fontWeight: 'bold',
-    zIndex: 4, // Asegurar que el texto esté por encima de la imagen
+    zIndex: 4, 
   },
   h2: {
     fontSize: 14,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   h3: {
     fontSize: 11,
     color: '#000000',
-    marginLeft: 'auto', // Mueve el h3 hacia la derecha
+    marginLeft: 'auto', 
     marginTop: 2,
     zIndex: 4,
   },

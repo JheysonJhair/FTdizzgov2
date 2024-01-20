@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Alert } from "react-native";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import GoogleButton from "../../components/forms/GoogleButton";
-// import FacebookButton from "../../components/forms/FacebookButton";
+import GoogleButton from "../../components/forms/GoogleButton";
+import FacebookButton from "../../components/forms/FacebookButton";
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
@@ -89,12 +89,12 @@ export default function Register() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-        {/*<GoogleButton
+        <GoogleButton
           onPress={() => console.log("Botón de Google presionado")}
         />
         <FacebookButton
           onPress={() => console.log("Botón de Facebook presionado")}
-        />*/}
+        />
       </View>
     </KeyboardAvoidingView>
   );

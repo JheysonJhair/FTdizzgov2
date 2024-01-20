@@ -8,8 +8,8 @@ import { loginUser } from "../../api/apiLogin";
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
-// import GoogleButton from "../../components/forms/GoogleButton";
-// import FacebookButton from "../../components/forms/FacebookButton";
+import GoogleButton from "../../components/forms/GoogleButton";
+import FacebookButton from "../../components/forms/FacebookButton";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -122,12 +122,12 @@ export default function Login() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-              {/* <GoogleButton
+              <GoogleButton
           onPress={() => console.log("Botón de Google presionado")}
         />
         <FacebookButton
           onPress={() => console.log("Botón de Facebook presionado")}
-        />*/}
+        />
       </View>
     </KeyboardAvoidingView>
   );
