@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import CardProduct from '../../components/products/CardProduct'; 
 
 export default function Home() {
   const route = useRoute();
@@ -14,7 +15,12 @@ export default function Home() {
   const perfil = route.params?.imgPerfil || "";
 
   const navigation = useNavigation();
-
+  const sampleProduct = {
+    title: 'Four Loko ',
+    sabor: "Blue",
+    price: 19.99,
+    image: 'https://sumon.com.pe/assets/img/Image-27-05-21-to-12-12-49PINKpng',
+  };
   return (
     <View style={styles.c}>
         <View style={styles.container}>
@@ -36,6 +42,7 @@ export default function Home() {
             }}
             style={styles.productImage}
           />
+          <CardProduct product={sampleProduct} />
         </View>
     </View>
   );
