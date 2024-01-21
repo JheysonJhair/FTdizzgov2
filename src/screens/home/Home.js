@@ -27,6 +27,9 @@ export default function Home() {
     price: 12,
     image: "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
   };
+  const handleProductClick = () => {
+    navigation.navigate("Information", { product });
+  };
 
   return (
     <View style={styles.Container}>
@@ -90,7 +93,7 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} />
+              <CardProduct product={sampleProduct}  />
               <CardProduct product={sampleProduct} />
               <CardProduct product={sampleProduct} />
               <CardProduct product={sampleProduct} />
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
   scrollVerticalContainer: {
     position: "relative",
     paddingEnd:12,
-    paddingStart:10,
+    paddingStart:12,
     flex: 8,
     paddingBottom:60,
   },

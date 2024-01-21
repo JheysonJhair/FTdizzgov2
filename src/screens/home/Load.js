@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-import { useFonts, Montserrat_800ExtraBold } from "@expo-google-fonts/montserrat";
+import { useFonts, Montserrat_800ExtraBold,Montserrat_400Regular_Italic } from "@expo-google-fonts/montserrat";
 
 const Load = () => {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
+    Montserrat_400Regular_Italic
   });
 
   useEffect(() => {

@@ -1,331 +1,227 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { LinearGradient } from "expo-linear-gradient";
+import CardProductBuy from "../../components/products/CardProductBuy";
 
-const ProductScreen = ({ route }) => {
-  const [selectedFlavor, setSelectedFlavor] = useState("green");
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-
-  const { product } = route.params;
-
-  const navigation = useNavigation();
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: "XGOSTORE",
-      headerStyle: {
-        backgroundColor: "rgba(14, 12, 20, 1)",
-      },
-      headerTitleAlign: "center",
-      headerTitleStyle: {
-        color: "white",
-      },
-      headerTintColor: "white",
-    });
-  }, [navigation]);
-
-  const handleFavoriteToggle = () => {
-    setIsFavorite(!isFavorite);
+const ProductInformation = ({ route, navigation }) => {
+  const handleGoBack = () => {
+    navigation.goBack();
   };
-
-  const handleIncrementQuantity = () => {
-    setQuantity(quantity + 1);
+  const product = {
+    tipo: "Vodka",
+    nombre: "Ruskaya ",
+    alcohol: "20",
+    sabor: "Apple",
+    price: 23,
+    ml: "750",
+    image: "https://sumon.com.pe/assets/img/Image-27-05-21-to-12-12-49PINKpng",
   };
-
-  const handleDecrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+  const sampleProduct = {
+    title: "Four Loko ",
+    sabor: "blue",
+    price: 12,
+    image:
+      "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
   };
-
-  const handleFlavorSelect = (flavor) => {
-    setSelectedFlavor(flavor);
-  };
-
   return (
-    <View style={styles.cont}>
-      <View style={styles.container}>
-        <View style={styles.leftColumn}>
-          <Text style={styles.productFlavor}>Sabores</Text>
-          <TouchableOpacity
-            style={[
-              styles.flavorCircle,
-              {
-                backgroundColor:
-                  selectedFlavor === "#C7E707" ? "transparent" : "#C7E707",
-              },
-              selectedFlavor === "#C7E707" ? styles.selectedFlavor : null,
-            ]}
-            onPress={() => handleFlavorSelect("#C7E707")}
-          />
-          <TouchableOpacity
-            style={[
-              styles.flavorCircle,
-              {
-                backgroundColor:
-                  selectedFlavor === "#06A003" ? "transparent" : "#06A003",
-              },
-              selectedFlavor === "#06A003" ? styles.selectedFlavor : null,
-            ]}
-            onPress={() => handleFlavorSelect("#06A003")}
-          />
-          <TouchableOpacity
-            style={[
-              styles.flavorCircle,
-              {
-                backgroundColor:
-                  selectedFlavor === "#B91B96" ? "transparent" : "#B91B96",
-              },
-              selectedFlavor === "#B91B96" ? styles.selectedFlavor : null,
-            ]}
-            onPress={() => handleFlavorSelect("#B91B96")}
-          />
-          <TouchableOpacity
-            style={[
-              styles.flavorCircle,
-              {
-                backgroundColor:
-                  selectedFlavor === "#1153FC" ? "transparent" : "#1153FC",
-              },
-              selectedFlavor === "#1153FC" ? styles.selectedFlavor : null,
-            ]}
-            onPress={() => handleFlavorSelect("#1153FC")}
-          />
-        </View>
-        <View style={styles.mlVolContainer}>
-          <Text style={styles.mlText}>{product.productMl}</Text>
-          <Text style={styles.volText}>{product.productVol} vl</Text>
-        </View>
-        <View style={styles.middleColumn}>
-          <Text style={styles.productName}>{product.productName}</Text>
-
-          <Text style={styles.productFlavor}>
-            Con saborisante {product.productFlavor}
-          </Text>
-          <Image
-            source={{ uri: product.imgProduct }}
-            style={styles.productImage}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.rightColumn}>
-          <Text style={styles.productFlavor}>Favorito</Text>
-          <TouchableOpacity onPress={handleFavoriteToggle}>
-            <Icon
-              name={isFavorite ? "heart" : "heart-o"}
-              size={24}
-              style={{ marginBottom: 20, marginTop: 5 }}
-              color={isFavorite ? "red" : "gray"}
-            />
+    <View style={styles.container}>
+      <View>
+        <LinearGradient
+          colors={["#40A5E7", "#40A5E7"]}
+          style={styles.containerGradient}
+        >
+          <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
+            <Ionicons name="arrow-back" size={23} color="white" />
           </TouchableOpacity>
-          <Text style={styles.productFlavor}>Cantidad</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity onPress={handleIncrementQuantity}>
-              <View style={styles.squareBorder}>
-                <Icon name="plus" size={18} color="white" />
+        </LinearGradient>
+      </View>
+      <View>
+        <LinearGradient
+          colors={["#40A5E7", "#1153FC"]}
+          style={styles.containerInformation}
+        >
+          <Text style={styles.hh1}>{product.tipo}</Text>
+          <Text style={styles.h1}>{product.nombre}</Text>
+          <View style={styles.containerProduct}>
+            <View style={styles.productDetails}>
+              <View style={styles.sabor}>
+                <Text style={styles.h3}>SABOR</Text>
+                <Text style={styles.h2}>{product.sabor}</Text>
               </View>
-            </TouchableOpacity>
-            <View style={styles.squareBorder}>
-              <Text style={styles.quantityText}>{quantity}</Text>
+              <View style={styles.alcohol}>
+                <Text style={styles.h3}>ALCOHOL</Text>
+                <Text style={styles.h2}>{product.alcohol}%</Text>
+              </View>
             </View>
-            <TouchableOpacity onPress={handleDecrementQuantity}>
-              <View style={styles.squareBorder}>
-                <Icon name="minus" size={18} color="white" />
+            <View style={styles.productDetails}>
+              <View style={styles.sabor2}>
+                <Text style={styles.h3}>ML</Text>
+                <Text style={styles.h2}>{product.ml}</Text>
               </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <View style={styles.bottomRow}>
-        <View style={styles.bottomLeft}>
-          <Text style={styles.productPrice}>
-            s/{product.productPrice.toFixed(2)}
-          </Text>
-        </View>
-        <View style={styles.bottomRight}>
-          <Text style={styles.productFlavor}>Mezclar</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity>
-              <View style={styles.squareBorder}>
-                <Icon name="key" size={24} color="white" />
+              <View style={styles.alcohol}>
+                <Text style={styles.h3}>PRECIO</Text>
+                <Text style={styles.h2}>s/{product.price}</Text>
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
-        </View>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>RESERVAR</Text>
+          </TouchableOpacity>
+          <Image
+            source={require("../../assets/rus.png")}
+            style={[styles.image, styles.absoluteImage]}
+          />
+        </LinearGradient>
       </View>
-      <View style={styles.waveContainer}>
-        <View style={styles.wave}></View>
+      <View style={styles.containerTextos}>
+        <Text style={[styles.t1]}>COMBINA</Text>
+        <Text style={[styles.t2]}>PARA UNA MAYOR</Text>
+        <Text style={[styles.t3]}>EXPERIENCIA</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("SelectedProduct", {
-            productName: product.productName,
-            productPrice: product.productPrice.toFixed(2),
-            productQuantity: quantity,
-            productFlavor: selectedFlavor,
-          });
-        }}
-      >
-        <Icon name="cart-plus" size={45} color="white" style={styles.logo} />
-      </TouchableOpacity>
+
+      <View style={styles.scrollVerticalContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollVertical}
+        >
+          <View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.enlaces}
+            >
+              <CardProductBuy product={sampleProduct} />
+              <CardProductBuy product={sampleProduct} />
+              <CardProductBuy product={sampleProduct} />
+              <CardProductBuy product={sampleProduct} />
+            </ScrollView>
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  cont: {
-    backgroundColor: "rgba(14, 12, 20, 1)",
-    flex: 1,
-  },
   container: {
     flex: 1,
+    backgroundColor: "#161B21",
+  },
+  containerGradient: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(14, 12, 20, 1)",
+    paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  leftColumn: {
-    position: "absolute",
-    height: "95%",
-    left: 10, // Ajusta la posición izquierda según tus necesidades
-    alignItems: "center",
+  //
+  backButton: {
+    marginRight: 10,
   },
-  flavorCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginBottom: 10,
-    borderWidth: 2,
-    borderColor: "white",
+  containerInformation: {
+    paddingBottom: 35,
+    paddingTop: 10,
+    paddingLeft: 30,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
-  selectedFlavor: {
-    borderColor: "white",
-  },
-  mlVolContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  mlText: {
-    fontSize: 15,
-    color: "rgba(255, 255, 255, 0.6)",
-    marginTop: 200,
-  },
-  volText: {
-    fontSize: 15,
-    color: "rgba(255, 255, 255, 0.6)",
-    marginTop: 5,
-  },
-  /*-------------------------*/
-  middleColumn: {
-    alignItems: "center",
-    height: "85%",
-  },
-  productName: {
-    fontSize: 19,
-    textTransform: "uppercase",
-    fontWeight: "bold",
+  hh1: {
     color: "white",
+    fontSize: 26,
+    fontFamily: "Montserrat_800ExtraBold",
+    zIndex: 99,
   },
-  productFlavor: {
+  h1: {
+    color: "white",
+    fontSize: 48,
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  containerProduct: {
+    paddingTop: 20,
+  },
+  productDetails: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  sabor: {
+    marginEnd: 50,
+  },
+  sabor2: {
+    marginEnd: 76,
+  },
+  h2: {
+    color: "white",
+    fontSize: 22,
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  h3: {
+    fontFamily: "Montserrat_800ExtraBold",
     fontSize: 16,
-    marginBottom: 10,
-    color: "rgba(255, 255, 255, 0.6)",
   },
-  productImage: {
-    marginTop: 18,
-    width: 270,
-    height: 390,
+  button: {
+    marginTop: 17,
+    backgroundColor: "#161B21",
+    padding: 10,
+    width: 200,
+    borderRadius: 9,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  //
+  containerTextos: {
+    textAlign: "left",
+    alignContent: "left",
+    padding: 30,
+  },
+  t1: {
+    color: "#40A5E7",
+    fontSize: 30,
+    textAlign: "left",
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  t2: {
+    textAlign: "left",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  t3: {
+    fontSize: 32,
+    color: "white",
+    textAlign: "left",
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  scrollVerticalContainer: {
+    position: "relative",
+    paddingEnd: 12,
+    paddingStart: 12,
+    flex: 8,
+    paddingBottom: 60,
+  },
+  //
+  image: {
+    width: 200,
+    height: 350,
+    borderRadius: 10,
     resizeMode: "cover",
-    marginBottom: 20,
-  },
-  /*-------------------------*/
-  rightColumn: {
     position: "absolute",
-    right: 10, // Ajusta la posición derecha según tus necesidades
-    height: "95%",
-    alignItems: "center",
   },
-  quantityContainer: {
-    alignItems: "center",
-  },
-  quantityText: {
-    color: "white",
-    fontWeight: "bold",
-    marginRight: 3,
-    marginLeft: 3,
-  },
-  squareBorder: {
-    borderWidth: 1,
-    borderColor: "white",
-    borderRadius: 5,
-    padding: 8,
-    marginBottom: 12,
-  },
-  productPrice: {
-    fontSize: 20,
-    color: "green",
-    fontWeight: "bold",
-    color: "white",
-  },
-  mixButton: {
-    backgroundColor: "blue",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
-  mixButtonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  /* -----------------*/
-  bottomRow: {
-    position: "absolute",
-    bottom: 150,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    borderTopColor: "rgba(255, 255, 255, 0.2)",
-  },
-  bottomLeft: {
-    flex: 1,
-  },
-  bottomRight: {
-    marginLeft: 20,
-  },
-  addButton: {
-    backgroundColor: "blue",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
-  addButtonText: {
-    position: "absolute",
-    color: "white",
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  /*--------*/
-  waveContainer: {
-    position: "absolute",
-    bottom: -360,
-    width: "100%",
-    alignItems: "center",
-  },
-  wave: {
-    width: 500,
-    height: 500,
-    borderRadius: 240,
-    backgroundColor: "#8B4BF2",
-    opacity: 0.7,
-  },
-  logo: {
-    bottom: 40,
-    alignSelf: "center",
+
+  absoluteImage: {
+    top: 50,
+    right: -30,
   },
 });
 
-export default ProductScreen;
+export default ProductInformation;

@@ -28,7 +28,7 @@ const Welcome = () => {
 
       <View style={styles.formContainer}>
         <Button title="Crear Cuenta" onPress={() => navigation.navigate("Register")} />
-        <ButtonTwo title="Ingresar" onPress={() => navigation.navigate("Login")}  />
+        <ButtonTwo title="Ingresar" onPress={() => navigation.navigate("Information")}  />
       </View>
 
       <View style={styles.terminos}>
