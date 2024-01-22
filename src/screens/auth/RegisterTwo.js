@@ -27,11 +27,11 @@ export default function RegisterTwo() {
       Alert.alert("Error", "Por favor, completa todos los campos.");
       return;
     }
-    const phoneNumberRegex = /^\d{9}$/;
-    if (!phoneNumberRegex.test(telefono)) {
-      Alert.alert("Error", "El número de teléfono debe tener 9 dígitos.");
-      return;
-    }
+    // const phoneNumberRegex = /^\d{9}$/;
+    // if (!phoneNumberRegex.test(telefono)) {
+    //   Alert.alert("Error", "El número de teléfono debe tener 9 dígitos.");
+    //   return;
+    // }
 
     try {
       const response = await registerUser({
