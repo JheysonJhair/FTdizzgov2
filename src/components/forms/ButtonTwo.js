@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 
 const Button = ({ onPress, title }) => {
   return (
@@ -7,26 +7,33 @@ const Button = ({ onPress, title }) => {
       style={styles.boton}
       onPress={onPress}
     >
-      <Text style={styles.textoBoton}>{title}</Text>
+      <View style={styles.content}>
+        <Text style={styles.textoBoton}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   boton: {
-    backgroundColor: 'transparent',  
-    borderColor: '#C6CBD9',           
-    borderWidth: 1,  
+    backgroundColor: 'transparent',
+    borderColor: '#C6CBD9',
+    borderWidth: 1,
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    margin: 10,
+    marginTop: 10,
     width: '95%',
+    alignSelf: 'center', 
+  },
+  content: {
+    width: '100%', 
+    alignItems: 'center',
   },
   textoBoton: {
     color: 'white',
     fontSize: 19,
-    fontFamily: "Montserrat_800ExtraBold", 
+    fontFamily: "Montserrat_800ExtraBold",
   },
 });
 

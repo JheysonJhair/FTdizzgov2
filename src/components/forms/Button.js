@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   boton: {
     borderRadius: 10,
     alignItems: 'center',
-    margin: 10,
-    width: '95%',
+    marginTop: 10,
     marginBottom: 5,
+    width: '100%',
   },
   linearGradient: {
     borderRadius: 10,
     padding: 15,
-    width: '100%',
+    width: '95%',
     alignItems: 'center',
   },
   textoBoton: {

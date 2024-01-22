@@ -1,28 +1,91 @@
-import { createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Load from '../screens/home/Load'
-import Welcome from '../screens/home/Welcome'
-import Login from '../screens/auth/Login'
-import Register from '../screens/auth/Register'
-import RegisterTwo from '../screens/auth/RegisterTwo'
-import Home from '../screens/home/Home'
-import ProductInformation from '../screens/products/ProductInformation'
-import Chat from '../screens/chat/Chat'
-
+import Load from "../screens/home/Load";
+import Welcome from "../screens/home/Welcome";
+import Login from "../screens/auth/Login";
+import Register from "../screens/auth/Register";
+import RegisterTwo from "../screens/auth/RegisterTwo";
+import Home from "../screens/home/Home";
+import ProductInformation from "../screens/products/ProductInformation";
+import Perfil from "../screens/perfil/Perfil";
+import EditPerfil from "../screens/perfil/EditPerfil";
+import Chat from "../screens/chat/Chat";
 
 const Stack = createNativeStackNavigator();
 
-export default function Routes(){
-    return(
-       <Stack.Navigator>
-            <Stack.Screen name='Load' component={Load} options={{headerShown: false}}/>
-            <Stack.Screen name='Welcome' component={Welcome} options={{headerShown: false}}/>
-            <Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>
-            <Stack.Screen name='Register' component={Register} options={{headerShown: false}}/>
-            <Stack.Screen name='RegisterTwo' component={RegisterTwo} options={{headerShown: false}}/>
-            <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
-            <Stack.Screen name='Information' component={ProductInformation} options={{headerShown: false}}/>
-            <Stack.Screen name='Chat' component={Chat} />
-       </Stack.Navigator> 
-    )
+export default function Routes() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Load"
+        component={Load}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterTwo"
+        component={RegisterTwo}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Information"
+        component={ProductInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Perfil"
+        component={Perfil}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="EditPerfil"
+        component={EditPerfil}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+          title: "Editar perfil", 
+        }}
+      />
+
+      <Stack.Screen name="Chat" component={Chat} />
+    </Stack.Navigator>
+  );
 }

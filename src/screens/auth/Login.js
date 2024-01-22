@@ -10,9 +10,12 @@ import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
 import GoogleButton from "../../components/forms/GoogleButton";
 import FacebookButton from "../../components/forms/FacebookButton";
+import { useUser } from "../../components/utils/UserContext";
+
 
 export default function Login() {
   const navigation = useNavigation();
+  const { setUserInfo } = useUser();
 
   const [isChecked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
@@ -43,16 +46,15 @@ export default function Login() {
       const user = await loginUser(email, password);
 
       if (user) {
+        setUserInfo({
+          idUser: user.idUser,
+          profileImage: user.profileImage,
+        });
         const birthDate = new Date(user.birthDate);
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
-        console.log(age);
         if (age >= 16) {
-          console.log("Ingreso!");
-          navigation.navigate("Home", {
-            userName: user.firstName,
-            imgPerfil: user.profileImage,
-          });
+          navigation.navigate("Home");
         } else {
           Alert.alert("Upps!", "Usted aún es menor de edad!");
         }
@@ -122,7 +124,7 @@ export default function Login() {
         <View style={styles.dividerLine}></View>
       </View>
       <View style={styles.socialButtonsContainer}>
-              <GoogleButton
+        <GoogleButton
           onPress={() => console.log("Botón de Google presionado")}
         />
         <FacebookButton

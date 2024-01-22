@@ -1,35 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
-  Image,  
+  Image,
   TouchableOpacity,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CardProduct from "../../components/products/CardProduct";
 import SearchInput from "../../components/forms/SearchInput";
+import Footer from "../../components/utils/Footer";
+import { useUser } from "../../components/utils/UserContext";
 
 export default function Home() {
-  const route = useRoute();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const userName = route.params?.userName || "";
-  const perfil = route.params?.imgPerfil || "";
+  const { userData } = useUser();
 
   const navigation = useNavigation();
   const sampleProduct = {
-    title: "Four Loko ",
-    sabor: "blue",
+    nombre: "Ruskaya ",
+    tipo:"Vodka",
+    sabor: "aple",
     price: 12,
-    image: "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
+    alcohol:"20",
+    ml:"750",
+    image:
+      "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
-  const handleProductClick = () => {
+  const handleProductClick = (product) => {
     navigation.navigate("Information", { product });
   };
+  
+  
 
   return (
     <View style={styles.Container}>
@@ -49,7 +54,10 @@ export default function Home() {
               <Icon name="bell" size={22} color="#fff" />
             </TouchableOpacity>
             <View style={styles.profileImageContainer}>
-              <Image source={{ uri: perfil }} style={styles.profileImage} />
+              <Image
+                source={{ uri: userData.profileImage }}
+                style={styles.profileImage}
+              />
             </View>
           </View>
         </View>
@@ -93,10 +101,10 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct}  />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
             </ScrollView>
           </View>
           <View>
@@ -109,10 +117,10 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
             </ScrollView>
           </View>
           <View>
@@ -125,30 +133,20 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
-              <CardProduct product={sampleProduct} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
             </ScrollView>
           </View>
         </ScrollView>
       </View>
       <View style={styles.absoluteIconsContainer}>
-        <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="home" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="comments" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="star" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="shopping-cart" size={25} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.absoluteIcon}>
-          <Icon name="bars" size={25} color="#fff" />
-        </TouchableOpacity>
+        <Footer iconName="home" selectedIcon={"home"} />
+        <Footer iconName="comments" selectedIcon={null} />
+        <Footer iconName="star" selectedIcon={null} />
+        <Footer iconName="shopping-cart" selectedIcon={null} />
+        <Footer iconName="user" selectedIcon={null} />
       </View>
     </View>
   );
@@ -219,10 +217,10 @@ const styles = StyleSheet.create({
   },
   scrollVerticalContainer: {
     position: "relative",
-    paddingEnd:12,
-    paddingStart:12,
+    paddingEnd: 12,
+    paddingStart: 12,
     flex: 8,
-    paddingBottom:60,
+    paddingBottom: 80,
   },
   //
   absoluteIconsContainer: {
@@ -232,12 +230,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     justifyContent: "center",
-    paddingVertical: 15,  
-    borderTopWidth: 1,  
-    borderTopColor: "#74797c", 
-  },
-  absoluteIcon: {
-    marginHorizontal: 25, 
-    alignItems: "center",  
+    paddingVertical: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#74797c",
   },
 });

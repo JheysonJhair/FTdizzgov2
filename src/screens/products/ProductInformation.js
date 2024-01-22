@@ -15,18 +15,10 @@ const ProductInformation = ({ route, navigation }) => {
   const handleGoBack = () => {
     navigation.goBack();
   };
-  const product = {
-    tipo: "Vodka",
-    nombre: "Ruskaya ",
-    alcohol: "20",
-    sabor: "Apple",
-    price: 23,
-    ml: "750",
-    image: "https://sumon.com.pe/assets/img/Image-27-05-21-to-12-12-49PINKpng",
-  };
+  const { product } = route.params;
   const sampleProduct = {
     title: "Four Loko ",
-    sabor: "blue",
+    sabor: "Neutral",
     price: 12,
     image:
       "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
@@ -76,7 +68,7 @@ const ProductInformation = ({ route, navigation }) => {
             <Text style={styles.buttonText}>RESERVAR</Text>
           </TouchableOpacity>
           <Image
-            source={require("../../assets/rus.png")}
+            source={{ uri: product.image }}
             style={[styles.image, styles.absoluteImage]}
           />
         </LinearGradient>
@@ -212,7 +204,7 @@ const styles = StyleSheet.create({
   //
   image: {
     width: 200,
-    height: 350,
+    height: 370,
     borderRadius: 10,
     resizeMode: "cover",
     position: "absolute",
