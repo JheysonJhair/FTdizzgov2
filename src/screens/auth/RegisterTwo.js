@@ -13,9 +13,10 @@ import { registerUser } from "../../api/apiLogin";
 export default function RegisterTwo() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const route = useRoute();
+  const navigation = useNavigation();
+
   const email = route.params?.email || "";
   const password = route.params?.password || "";
-  const navigation = useNavigation();
 
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -27,11 +28,12 @@ export default function RegisterTwo() {
       Alert.alert("Error", "Por favor, completa todos los campos.");
       return;
     }
-    // const phoneNumberRegex = /^\d{9}$/;
-    // if (!phoneNumberRegex.test(telefono)) {
-    //   Alert.alert("Error", "El número de teléfono debe tener 9 dígitos.");
-    //   return;
-    // }
+    const phoneNumberRegex = /^\+51\d{9}$/;
+
+    if (!phoneNumberRegex.test(telefono)) {
+      Alert.alert("Error", "El número de teléfono debe tener 9 dígitos.");
+      return;
+    }
 
     try {
       const response = await registerUser({
@@ -40,11 +42,10 @@ export default function RegisterTwo() {
         firstName: nombre,
         lastName: apellidos,
         birthDate: fechaNacimiento,
-        phoneNumber,
+        phoneNumber: telefono,
         profileImage:
           "https://i.pinimg.com/736x/4b/a3/43/4ba343a87d8da59e1e4d0bdf7dc09484.jpg",
       });
-
       if (response.status === 201) {
         Alert.alert("Registrado!", "Usted se registró correctamente!");
         navigation.navigate("Login");
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   },
   terminos: {
     position: "absolute",
-    bottom: 40,
+    bottom: 30,
   },
   h3: {
     color: "#A3AABF",

@@ -1,30 +1,41 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
 import GoogleButton from "../../components/forms/GoogleButton";
 import FacebookButton from "../../components/forms/FacebookButton";
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
+import VerificationInput from "../../components/forms/VerificationInput ";
+
+import { verifyEmail } from "../../api/apiLogin";
+import { verifyCode } from "../../api/apiLogin";
+
+import LoadingModal from "../../components/modals/LoadingModal";
 
 export default function Register() {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+
+  const [isVerified, setIsVerified] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [isReceivingCode, setIsReceivingCode] = useState(false);
 
   const onHandleLogin = () => {
     if (!email || !password || !confirmPassword) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
-      return;
-    }
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email) || !email.includes("@gmail.com")) {
-      Alert.alert(
-        "Error",
-        "Ingresa una dirección de correo electrónico válida con '@gmail.com'."
-      );
       return;
     }
     if (password !== confirmPassword) {
@@ -40,9 +51,59 @@ export default function Register() {
     clearForm();
   };
 
-  const handleLogin = () => {
-    navigation.navigate("Login");
-    console.log("Register success");
+  const handleReceiveCode = async () => {
+    const emailRegex = /\S+@\S+\.\S+/;
+
+    if (!emailRegex.test(email) || !email.includes("@gmail.com")) {
+      Alert.alert(
+        "Error",
+        "Ingresa una dirección de correo electrónico válida con '@gmail.com'."
+      );
+      return;
+    }
+    try {
+      const verificationResponse = await verifyEmail(email);
+
+      if (verificationResponse && verificationResponse.success) {
+        setIsReceivingCode(true);
+      } else {
+        Alert.alert(
+          "Error",
+          "Hubo un problema al verificar el correo electrónico. Por favor, inténtalo de nuevo."
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Hubo un problema al verificar el correo electrónico. Por favor, inténtalo de nuevo."
+      );
+    }
+  };
+
+  const handleVerficar = async () => {
+    try {
+      const verificationResponse = await verifyCode(verificationCode);
+
+      if (verificationResponse && verificationResponse.success) {
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+
+        setIsVerified(true);
+        setIsCorrect(true);
+      } else {
+        Alert.alert(
+          "Error",
+          "Hubo un problema al verificar el codigo. Por favor, inténtalo de nuevo."
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Hubo un problema al verificar el codigo. Por favor, inténtalo de nuevo."
+      );
+    }
   };
 
   const clearForm = () => {
@@ -51,6 +112,10 @@ export default function Register() {
     setConfirmPassword("");
   };
 
+  const handleLogin = () => {
+    navigation.navigate("Login");
+    console.log("Register success");
+  };
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.h1}>DIZZGO</Text>
@@ -61,18 +126,42 @@ export default function Register() {
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
+          isVerified={isReceivingCode}
         />
-        <InputPassword
-          placeholder="Contraseña"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <InputPassword
-          placeholder="Confirma tu contraseña"
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-        />
-        <Button title="Siguiente paso" onPress={() => onHandleLogin()} />
+        {isReceivingCode ? (
+          <View style={styles.formContainer2}>
+            <VerificationInput
+              placeholder="Ingrese el código"
+              onChangeText={(text) => setVerificationCode(text)}
+              value={verificationCode}
+              isVerified={isVerified}
+            />
+            {isCorrect ? (
+              <View style={styles.formContainer2}>
+                <InputPassword
+                  placeholder="Contraseña"
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                  editable={isVerified}
+                />
+                <InputPassword
+                  placeholder="Confirma tu contraseña"
+                  value={confirmPassword}
+                  onChangeText={(text) => setConfirmPassword(text)}
+                  editable={isVerified}
+                />
+                <Button
+                  title="Siguiente paso"
+                  onPress={() => onHandleLogin()}
+                />
+              </View>
+            ) : (
+              <Button title="Verificar" onPress={() => handleVerficar()} />
+            )}
+          </View>
+        ) : (
+          <Button title="Recibir Código" onPress={() => handleReceiveCode()} />
+        )}
       </View>
 
       <View style={styles.texto}>
@@ -96,6 +185,7 @@ export default function Register() {
           onPress={() => console.log("Botón de Facebook presionado")}
         />
       </View>
+      <LoadingModal visible={loading} text={"Verificando..."} />
     </KeyboardAvoidingView>
   );
 }
@@ -110,6 +200,11 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  formContainer2: {
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },

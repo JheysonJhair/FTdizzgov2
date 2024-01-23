@@ -34,6 +34,7 @@ const Welcome = () => {
       <View style={styles.terminos}>
         <Text style={styles.h3}>Nuestros Términos y Condiciones</Text>
       </View>
+
     </KeyboardAvoidingView>
   );
 };

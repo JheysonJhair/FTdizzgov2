@@ -13,24 +13,27 @@ import {
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
 import { KeyboardAvoidingView } from "react-native";
+
 import InputTwo from "../../components/forms/InputTwo";
 import Button from "../../components/forms/Button";
 
 import { useUser } from "../../components/utils/UserContext";
+import LoadingModal from "../../components/modals/LoadingModal";
 
 const EditPerfil = () => {
   const { userData } = useUser();
+  const [loading, setLoading] = useState(false);
+
   const [usuario, setUsuario] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [image, setImage] = useState(null); // Estado para la imagen seleccionada
+  const [image, setImage] = useState(null);
 
   const [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
   });
 
   useEffect(() => {
-    // Solicitar permisos para acceder a la galería de imágenes
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =
@@ -65,6 +68,13 @@ const EditPerfil = () => {
       setDescripcion(text);
     }
   };
+  const onHandleUpdate = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
@@ -88,7 +98,7 @@ const EditPerfil = () => {
             <InputTwo
               placeholder="Usuario"
               onChangeText={(text) => setUsuario(text)}
-              value={usuario}
+              value={userData.firstName}
             />
           </View>
 
@@ -97,7 +107,7 @@ const EditPerfil = () => {
             <InputTwo
               placeholder="Apellidos"
               onChangeText={(text) => setApellidos(text)}
-              value={apellidos}
+              value={userData.lastName}
             />
           </View>
 
@@ -116,10 +126,11 @@ const EditPerfil = () => {
         <View style={styles.containerButon}>
           <Button
             title="Actualizar Perfil"
-            onPress={() => onHandleLogin(email, password)}
+            onPress={() => onHandleUpdate()}
           />
         </View>
       </View>
+      <LoadingModal visible={loading} text={"Actualizando..."} />
     </KeyboardAvoidingView>
   );
 };

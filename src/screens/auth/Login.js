@@ -48,6 +48,9 @@ export default function Login() {
       if (user) {
         setUserInfo({
           idUser: user.idUser,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          birthDate: user.birthDate,
           profileImage: user.profileImage,
         });
         const birthDate = new Date(user.birthDate);
@@ -93,7 +96,7 @@ export default function Login() {
               <Checkbox
                 value={isChecked}
                 onValueChange={setChecked}
-                color={isChecked ? "#4630EB" : undefined}
+                color={isChecked ? "#40A5E7" : undefined}
               />
               <Text style={styles.checkboxLabel}>Recuérdame</Text>
             </View>

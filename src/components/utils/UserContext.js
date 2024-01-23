@@ -5,11 +5,16 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     idUser: "",
-    profileImage: "", 
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    profileImage: ""
   });
 
-  const setUserInfo = ({ idUser, profileImage }) => {
-    setUserData({ ...userData, idUser, profileImage });
+  const setUserInfo = ({ idUser, email, password, firstName, lastName, birthDate, profileImage }) => {
+    setUserData({ ...userData, idUser, email, password, firstName, lastName, birthDate, profileImage });
   };
 
   return (
