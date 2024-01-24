@@ -2,7 +2,12 @@ import React from "react";
 import { TextInput, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const VerificationInput = ({ placeholder, onChangeText, value, isVerified }) => {
+const VerificationInput = ({
+  placeholder,
+  onChangeText,
+  value,
+  isVerified,
+}) => {
   const handleTextChange = (text) => {
     const numericText = text.replace(/[^0-9]/g, "");
     const truncatedText = numericText.slice(0, 6);
@@ -21,7 +26,7 @@ const VerificationInput = ({ placeholder, onChangeText, value, isVerified }) => 
         maxLength={6}
         autoCapitalize="none"
         placeholderTextColor="#C6CBD9"
-        editable={!isVerified} 
+        editable={!isVerified}
       />
       {isVerified && value.length === 6 && (
         <View style={styles.successContainer}>
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   disabledInput: {
-    opacity: 0.6, // Reducción de opacidad cuando isVerified es true
+    opacity: 0.6, 
   },
   successContainer: {
     flexDirection: "row",

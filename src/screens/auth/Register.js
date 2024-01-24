@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import { Alert } from "react-native";
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import GoogleButton from "../../components/forms/GoogleButton";
@@ -14,15 +8,19 @@ import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
 import VerificationInput from "../../components/forms/VerificationInput ";
+import StatusModal from "../../components/modals/StatusModal ";
 
 import { verifyEmail } from "../../api/apiLogin";
 import { verifyCode } from "../../api/apiLogin";
 
-import LoadingModal from "../../components/modals/LoadingModal";
-
 export default function Register() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("error");
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,15 +33,24 @@ export default function Register() {
 
   const onHandleLogin = () => {
     if (!email || !password || !confirmPassword) {
-      Alert.alert("Error", "Por favor, completa todos los campos.");
+      setModalStatus("error");
+      setModalVisible(true);
+      setText("Campos vacios");
+      setText2("Complete todos los campos, es necesario!");
       return;
     }
     if (password !== confirmPassword) {
-      Alert.alert("Error", "Las contraseñas no coinciden.");
+      setModalStatus("warning");
+      setModalVisible(true);
+      setText("Advertencia");
+      setText2("Las contraseñas no coinciden!");
       return;
     }
     if (password.length < 8) {
-      Alert.alert("Error", "La contraseña debe tener al menos 8 caracteres.");
+      setModalStatus("error");
+      setModalVisible(true);
+      setText("Error");
+      setText2("Asegurate de que las contraseñas sea minimo de 8 caracteres!");
       return;
     }
 
@@ -55,36 +62,26 @@ export default function Register() {
     const emailRegex = /\S+@\S+\.\S+/;
 
     if (!emailRegex.test(email) || !email.includes("@gmail.com")) {
-      Alert.alert(
-        "Error",
-        "Ingresa una dirección de correo electrónico válida con '@gmail.com'."
-      );
+      setModalStatus("error");
+      setModalVisible(true);
+      setText("Correo invalido");
+      setText2("Por favor, utiliza una cuenta de Gmail.");
       return;
     }
-    try {
-      const verificationResponse = await verifyEmail(email);
-
-      if (verificationResponse && verificationResponse.success) {
-        setIsReceivingCode(true);
-      } else {
-        Alert.alert(
-          "Error",
-          "Hubo un problema al verificar el correo electrónico. Por favor, inténtalo de nuevo."
-        );
-      }
-    } catch (error) {
-      Alert.alert(
-        "Error",
-        "Hubo un problema al verificar el correo electrónico. Por favor, inténtalo de nuevo."
-      );
+    const verificationResponse = await verifyEmail(email);
+    if (verificationResponse.status === 200) {
+    setModalStatus("loading");
+    setModalVisible(true);
+    setText("Correo invalido");
+    setText2("Por favor, utiliza una cuenta de Gmail.");
+    setIsReceivingCode(true);
     }
   };
 
   const handleVerficar = async () => {
     try {
       const verificationResponse = await verifyCode(verificationCode);
-
-      if (verificationResponse && verificationResponse.success) {
+      if (verificationResponse.value === true) {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
@@ -93,16 +90,15 @@ export default function Register() {
         setIsVerified(true);
         setIsCorrect(true);
       } else {
-        Alert.alert(
-          "Error",
+        setModalStatus("error");
+        setModalVisible(true);
+        setText("Error");
+        setText2(
           "Hubo un problema al verificar el codigo. Por favor, inténtalo de nuevo."
         );
       }
     } catch (error) {
-      Alert.alert(
-        "Error",
-        "Hubo un problema al verificar el codigo. Por favor, inténtalo de nuevo."
-      );
+      console.log(error);
     }
   };
 
@@ -114,8 +110,18 @@ export default function Register() {
 
   const handleLogin = () => {
     navigation.navigate("Login");
-    console.log("Register success");
   };
+  
+  useEffect(() => {
+    if (modalVisible) {
+      const timeout = setTimeout(() => {
+        setModalVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [modalVisible]);
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.h1}>DIZZGO</Text>
@@ -185,7 +191,12 @@ export default function Register() {
           onPress={() => console.log("Botón de Facebook presionado")}
         />
       </View>
-      <LoadingModal visible={loading} text={"Verificando..."} />
+      <StatusModal
+        visible={modalVisible}
+        status={modalStatus}
+        text={text}
+        text2={text2}
+      />
     </KeyboardAvoidingView>
   );
 }

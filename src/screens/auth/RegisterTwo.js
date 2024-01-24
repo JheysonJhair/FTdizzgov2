@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-native";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import DatePickerInput from "../../components/forms/DatePickerInput";
 import PhoneNumberInput from "../../components/forms/PhoneNumberInput ";
-import { useRoute } from "@react-navigation/native";
+
+import StatusModal from "../../components/modals/StatusModal ";
+
 import { registerUser } from "../../api/apiLogin";
 
 export default function RegisterTwo() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const route = useRoute();
   const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("error");
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
 
   const email = route.params?.email || "";
   const password = route.params?.password || "";
@@ -25,29 +32,39 @@ export default function RegisterTwo() {
 
   const onHandleRegister = async () => {
     if (!nombre || !apellidos || !fechaNacimiento || !telefono) {
-      Alert.alert("Error", "Por favor, completa todos los campos.");
+      setModalStatus("error");
+      setModalVisible(true);
+      setText("Campos vacios");
+      setText2("Complete todos los campos, es necesario!");
       return;
     }
     const phoneNumberRegex = /^\+51\d{9}$/;
 
     if (!phoneNumberRegex.test(telefono)) {
-      Alert.alert("Error", "El número de teléfono debe tener 9 dígitos.");
+      setModalStatus("error");
+      setModalVisible(true);
+      setText("Error");
+      setText2("Asegurate de que sea un número valido!");
       return;
     }
 
     try {
       const response = await registerUser({
-        email,
-        password,
-        firstName: nombre,
-        lastName: apellidos,
-        birthDate: fechaNacimiento,
-        phoneNumber: telefono,
-        profileImage:
+        Email: email,
+        Password: password,
+        FirstName: nombre,
+        LastName: apellidos,
+        BirthDate: fechaNacimiento,
+        PhoneNumber: telefono,
+        ProfileImage:
           "https://i.pinimg.com/736x/4b/a3/43/4ba343a87d8da59e1e4d0bdf7dc09484.jpg",
       });
+      console.log(response);
       if (response.status === 201) {
-        Alert.alert("Registrado!", "Usted se registró correctamente!");
+        setModalStatus("succes");
+        setModalVisible(true);
+        setText("Registrado con exito");
+        setText2("Usted se registro conrrectamente!");
         navigation.navigate("Login");
       } else {
         console.error(
@@ -61,13 +78,21 @@ export default function RegisterTwo() {
   };
 
   const handleDateChange = (date) => {
-    console.log("Selected date:", date.toISOString().split("T")[0]);
     setFechaNacimiento(date);
   };
   const handlePhoneNumberChange = (phoneNumber) => {
-    console.log("Número de teléfono:", phoneNumber);
     setTelefono(phoneNumber);
   };
+
+  useEffect(() => {
+    if (modalVisible) {
+      const timeout = setTimeout(() => {
+        setModalVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [modalVisible]);
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -92,6 +117,12 @@ export default function RegisterTwo() {
       <View style={styles.terminos}>
         <Text style={styles.h3}>Nuestros Términos y Condiciones</Text>
       </View>
+      <StatusModal
+        visible={modalVisible}
+        status={modalStatus}
+        text={text}
+        text2={text2}
+      />
     </KeyboardAvoidingView>
   );
 }

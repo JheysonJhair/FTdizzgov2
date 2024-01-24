@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { View, TextInput, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const SearchInput = ({ placeholder, onChangeText, value }) => {
   return (
@@ -19,10 +19,10 @@ const SearchInput = ({ placeholder, onChangeText, value }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#212834',
-    borderColor:'#212834',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#212834",
+    borderColor: "#212834",
     borderWidth: 1,
     borderRadius: 20,
     marginVertical: 1,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: 'white',
+    color: "white",
     fontSize: 14,
     paddingVertical: 8,
   },

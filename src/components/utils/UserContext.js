@@ -4,17 +4,37 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
-    idUser: "",
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    profileImage: ""
+    IdUser: "",
+    Email: "",
+    Password: "",
+    FirstName: "",
+    LastName: "",
+    BirthDate: "",
+    Phone: "",
+    ProfileImage: "",
   });
 
-  const setUserInfo = ({ idUser, email, password, firstName, lastName, birthDate, profileImage }) => {
-    setUserData({ ...userData, idUser, email, password, firstName, lastName, birthDate, profileImage });
+  const setUserInfo = ({
+    IdUser,
+    Email,
+    Password,
+    FirstName,
+    LastName,
+    BirthDate,
+    Phone,
+    ProfileImage,
+  }) => {
+    setUserData({
+      ...userData,
+      IdUser,
+      Email,
+      Password,
+      FirstName,
+      LastName,
+      BirthDate,
+      Phone,
+      ProfileImage,
+    });
   };
 
   return (

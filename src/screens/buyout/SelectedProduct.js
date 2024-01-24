@@ -4,12 +4,8 @@ import { useRoute } from "@react-navigation/native";
 
 const SelectedProduct = () => {
   const route = useRoute();
-  const {
-    productName,
-    productPrice,
-    productQuantity,
-    productFlavor,
-  } = route.params;
+  const { productName, productPrice, productQuantity, productFlavor } =
+    route.params;
 
   return (
     <View>

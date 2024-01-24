@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from "react";
+import { TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const InputPassword = ({ placeholder, onChangeText, value, editable }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +22,11 @@ const InputPassword = ({ placeholder, onChangeText, value, editable }) => {
         editable={editable}
       />
       <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon}>
-        <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color="#C6CBD9" />
+        <Icon
+          name={showPassword ? "eye" : "eye-slash"}
+          size={20}
+          color="#C6CBD9"
+        />
       </TouchableOpacity>
     </View>
   );
@@ -30,27 +34,28 @@ const InputPassword = ({ placeholder, onChangeText, value, editable }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    borderColor: '#C6CBD9',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderColor: "#C6CBD9",
     borderWidth: 1,
     borderRadius: 6,
     marginVertical: 10,
-    width: '95%',
+    width: "95%",
     paddingHorizontal: 12,
+    padding: 2,
   },
   notEditable: {
-    opacity: 0.5, 
+    opacity: 0.5,
   },
   input: {
     flex: 1,
-    color: 'white',
+    color: "white",
     fontSize: 16,
     paddingVertical: 10,
   },
   notEditableText: {
-    color: 'gray',
+    color: "gray",
   },
   eyeIcon: {
     padding: 10,

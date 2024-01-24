@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import React from "react";
+import { TextInput, StyleSheet } from "react-native";
 
 const InputTwo = ({ placeholder, onChangeText, value }) => {
   return (
@@ -16,14 +16,14 @@ const InputTwo = ({ placeholder, onChangeText, value }) => {
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: '#212834',
-    borderColor: '#212834',
+    backgroundColor: "#212834",
+    borderColor: "#212834",
     borderWidth: 1,
     padding: 11,
     borderRadius: 6,
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    width: "50%",
+    width: "100%",
     marginBottom: 8,
   },
 });

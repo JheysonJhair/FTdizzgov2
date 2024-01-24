@@ -18,11 +18,15 @@ import InputTwo from "../../components/forms/InputTwo";
 import Button from "../../components/forms/Button";
 
 import { useUser } from "../../components/utils/UserContext";
-import LoadingModal from "../../components/modals/LoadingModal";
+import StatusModal from "../../components/modals/StatusModal ";
 
 const EditPerfil = () => {
   const { userData } = useUser();
-  const [loading, setLoading] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("error");
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
 
   const [usuario, setUsuario] = useState("");
   const [apellidos, setApellidos] = useState("");
@@ -69,9 +73,15 @@ const EditPerfil = () => {
     }
   };
   const onHandleUpdate = () => {
-    setLoading(true);
+    setModalStatus("loading");
+    setModalVisible(true);
+    setText("Verificando...");
+    setText2(
+      "Recuerda que no podrás cambiar el nombre de usuario pasado 7 días."
+    );
+
     setTimeout(() => {
-      setLoading(false);
+      setModalVisible(false);
     }, 3000);
   };
 
@@ -84,7 +94,7 @@ const EditPerfil = () => {
               <Image source={{ uri: image }} style={styles.profileImage} />
             ) : (
               <Image
-                source={{ uri: userData.profileImage }}
+                source={{ uri: userData.ProfileImage }}
                 style={styles.profileImage}
               />
             )}
@@ -98,7 +108,7 @@ const EditPerfil = () => {
             <InputTwo
               placeholder="Usuario"
               onChangeText={(text) => setUsuario(text)}
-              value={userData.firstName}
+              value={userData.FirstName}
             />
           </View>
 
@@ -107,7 +117,7 @@ const EditPerfil = () => {
             <InputTwo
               placeholder="Apellidos"
               onChangeText={(text) => setApellidos(text)}
-              value={userData.lastName}
+              value={userData.LastName}
             />
           </View>
 
@@ -124,13 +134,15 @@ const EditPerfil = () => {
           </View>
         </View>
         <View style={styles.containerButon}>
-          <Button
-            title="Actualizar Perfil"
-            onPress={() => onHandleUpdate()}
-          />
+          <Button title="Actualizar Perfil" onPress={() => onHandleUpdate()} />
         </View>
       </View>
-      <LoadingModal visible={loading} text={"Actualizando..."} />
+      <StatusModal
+        visible={modalVisible}
+        status={modalStatus}
+        text={text}
+        text2={text2}
+      />
     </KeyboardAvoidingView>
   );
 };

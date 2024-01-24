@@ -81,7 +81,7 @@ export default function Routes() {
           },
           headerTitleAlign: "center",
           headerTintColor: "#fff",
-          title: "Editar perfil", 
+          title: "Editar perfil",
         }}
       />
 

@@ -29,14 +29,14 @@ const Perfil = () => {
     return null;
   }
   const sampleProduct1 = {
-    title: "Four Loko ",
+    nombre: "Four Loko ",
     sabor: "blue",
     price: 12,
     image:
       "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
   };
   const sampleProduct2 = {
-    title: "Everrs ",
+    nombre: "Everrs ",
     sabor: "Neutral",
     price: 5,
     image:
@@ -49,7 +49,7 @@ const Perfil = () => {
       <View style={styles.profileContainer}>
         <TouchableOpacity style={styles.editButton}>
           <Image
-            source={{ uri: userData.profileImage }}
+            source={{ uri: userData.ProfileImage }}
             style={styles.profileImage}
           />
           <View style={styles.editIconContainer}>

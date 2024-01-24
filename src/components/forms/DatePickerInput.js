@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { TextInput, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import React, { useState } from "react";
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const DatePickerInput = ({ onDateChange }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -15,9 +20,9 @@ const DatePickerInput = ({ onDateChange }) => {
   };
 
   const handleConfirm = (date) => {
-    console.warn('A date has been picked: ', date);
+    console.warn("A date has been picked: ", date);
     hideDatePicker();
-    setSelectedDate(date.toISOString().split('T')[0]); 
+    setSelectedDate(date.toISOString().split("T")[0]);
     onDateChange(date);
   };
 
@@ -48,12 +53,12 @@ const DatePickerInput = ({ onDateChange }) => {
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: 'transparent',
-    borderColor: '#C6CBD9',
+    backgroundColor: "transparent",
+    borderColor: "#C6CBD9",
     borderWidth: 1,
     padding: 14,
     borderRadius: 6,
-    color: 'white',
+    color: "white",
     fontSize: 16,
     width: 300,
     marginBottom: 8,

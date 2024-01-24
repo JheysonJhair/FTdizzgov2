@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Alert } from "react-native";
+import React, { useState, useEffect } from "react";
 import Checkbox from "expo-checkbox";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -10,11 +9,17 @@ import Input from "../../components/forms/Input";
 import InputPassword from "../../components/forms/InputPassword";
 import GoogleButton from "../../components/forms/GoogleButton";
 import FacebookButton from "../../components/forms/FacebookButton";
-import { useUser } from "../../components/utils/UserContext";
+import StatusModal from "../../components/modals/StatusModal ";
 
+import { useUser } from "../../components/utils/UserContext";
 
 export default function Login() {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalStatus, setModalStatus] = useState("error");
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
+
   const { setUserInfo } = useUser();
 
   const [isChecked, setChecked] = useState(false);
@@ -24,46 +29,51 @@ export default function Login() {
   const onHandleLogin = async (email, password) => {
     try {
       if (!email || !password) {
-        Alert.alert("Campos vacíos", "Por favor, complete todos los campos.");
+        setModalStatus("error");
+        setModalVisible(true);
+        setText("Campos vacios");
+        setText2("Complete todos los campos, es necesario!");
         return;
       }
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        Alert.alert(
-          "Correo electrónico inválido",
-          "Ingresa un correo electrónico válido."
-        );
+        setModalStatus("error");
+        setModalVisible(true);
+        setText("Correo invalido");
+        setText2("Por favor, utiliza una cuenta de Gmail.");
         return;
       }
 
-      if (!email.toLowerCase().endsWith("@gmail.com")) {
-        Alert.alert(
-          "Correo electrónico no válido",
-          "Por favor, utiliza una cuenta de Gmail."
-        );
-        return;
-      }
       const user = await loginUser(email, password);
 
-      if (user) {
+      if (user.msg != "credenciales invalidas") {
         setUserInfo({
-          idUser: user.idUser,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          birthDate: user.birthDate,
-          profileImage: user.profileImage,
+          IdUser: user.IdUser,
+          FirstName: user.FirstName,
+          LastName: user.LastName,
+          BirthDate: user.BirthDate,
+          Phone: user.Phone,
+          ProfileImage: user.ProfileImage,
         });
+
         const birthDate = new Date(user.birthDate);
         const today = new Date();
+
         const age = today.getFullYear() - birthDate.getFullYear();
-        if (age >= 16) {
+        if (age >= 16 || birthDate) {
           navigation.navigate("Home");
         } else {
-          Alert.alert("Upps!", "Usted aún es menor de edad!");
+          setModalStatus("warning");
+          setModalVisible(true);
+          setText("Opps! menor de edad");
+          setText2("Usted no cumple con los requisitos mínimos");
         }
       } else {
-        console.log("Error de ingreso!");
-        Alert.alert("Error de ingreso", "Crea una cuenta, es muy rápido!");
+        setModalStatus("error");
+        setModalVisible(true);
+        setText("Error de ingreso");
+        setText2("Crea una cuenta, es muy rápido!");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -73,6 +83,16 @@ export default function Login() {
   const handleRegister = () => {
     navigation.navigate("Register");
   };
+
+  useEffect(() => {
+    if (modalVisible) {
+      const timeout = setTimeout(() => {
+        setModalVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [modalVisible]);
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -89,6 +109,7 @@ export default function Login() {
           placeholder="Contraseña"
           onChangeText={(text) => setPassword(text)}
           value={password}
+          editable={true}
         />
         <View style={styles.checkboxContainer}>
           <View style={styles.rowContainer}>
@@ -134,6 +155,12 @@ export default function Login() {
           onPress={() => console.log("Botón de Facebook presionado")}
         />
       </View>
+      <StatusModal
+        visible={modalVisible}
+        status={modalStatus}
+        text={text}
+        text2={text2}
+      />
     </KeyboardAvoidingView>
   );
 }

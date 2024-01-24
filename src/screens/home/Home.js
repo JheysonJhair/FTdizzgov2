@@ -22,19 +22,16 @@ export default function Home() {
   const navigation = useNavigation();
   const sampleProduct = {
     nombre: "Ruskaya ",
-    tipo:"Vodka",
+    tipo: "Vodka",
     sabor: "aple",
     price: 12,
-    alcohol:"20",
-    ml:"750",
-    image:
-      "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
+    alcohol: "20",
+    ml: "750",
+    image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
   const handleProductClick = (product) => {
     navigation.navigate("Information", { product });
   };
-  
-  
 
   return (
     <View style={styles.Container}>
@@ -55,7 +52,7 @@ export default function Home() {
             </TouchableOpacity>
             <View style={styles.profileImageContainer}>
               <Image
-                source={{ uri: userData.profileImage }}
+                source={{ uri: userData.ProfileImage }}
                 style={styles.profileImage}
               />
             </View>
@@ -101,10 +98,22 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
             </ScrollView>
           </View>
           <View>
@@ -117,10 +126,22 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
             </ScrollView>
           </View>
           <View>
@@ -133,10 +154,22 @@ export default function Home() {
               showsHorizontalScrollIndicator={false}
               style={styles.enlaces}
             >
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
-              <CardProduct product={sampleProduct} onPress={() => handleProductClick(sampleProduct)} />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
+              <CardProduct
+                product={sampleProduct}
+                onPress={() => handleProductClick(sampleProduct)}
+              />
             </ScrollView>
           </View>
         </ScrollView>
