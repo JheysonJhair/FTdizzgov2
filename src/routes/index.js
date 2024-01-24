@@ -10,6 +10,7 @@ import ProductInformation from "../screens/products/ProductInformation";
 import Perfil from "../screens/perfil/Perfil";
 import EditPerfil from "../screens/perfil/EditPerfil";
 import ShoppingCart from "../screens/buyout/ShoppingCart";
+import Buy from "../screens/buyout/Buy";
 import Chat from "../screens/chat/Chat";
 
 const Stack = createNativeStackNavigator();
@@ -101,6 +102,11 @@ export default function Routes() {
           headerTintColor: "#fff",
           title: "Tú carrito",
         }}
+      />
+      <Stack.Screen
+        name="Compra"
+        component={Buy}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="Chat" component={Chat} />
     </Stack.Navigator>

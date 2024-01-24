@@ -9,9 +9,11 @@ import {
 import CardShopingCar from "../../components/products/CardShopingCar";
 import CardShopingMescla from "../../components/products/CardShopingMescla";
 import Footer from "../../components/utils/Footer";
+import { useNavigation } from "@react-navigation/native";
 
 const ShoppingCart = () => {
   const [activeTab, setActiveTab] = useState("pedidos");
+  const navigation = useNavigation();
 
   const product2 = {
     nombre: "Ruskaya",
@@ -27,8 +29,8 @@ const ShoppingCart = () => {
     image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
 
-  const handleProductPress = () => {
-    console.log("Producto presionado");
+  const handleProductClick = (product) => {
+    navigation.navigate("Compra", { product });
   };
 
   return (
@@ -85,15 +87,15 @@ const ShoppingCart = () => {
               <>
                 <CardShopingMescla
                   product={product2}
-                  onPress={handleProductPress}
+                  onPresss={() => handleProductClick(product2)}
                 />
                 <CardShopingMescla
                   product={product2}
-                  onPress={handleProductPress}
+                  onPresss={() => handleProductClick(product2)}
                 />
                 <CardShopingMescla
                   product={product2}
-                  onPress={handleProductPress}
+                  onPresss={() => handleProductClick(product2)}
                 />
               </>
             )}
@@ -101,11 +103,11 @@ const ShoppingCart = () => {
               <>
               <CardShopingCar
                 product={product}
-                onPress={handleProductPress}
+                onPresss={() => handleProductClick(product)}
               />
               <CardShopingCar
                 product={product}
-                onPress={handleProductPress}
+                onPresss={() => handleProductClick(product)}
               />
             </>
             )}

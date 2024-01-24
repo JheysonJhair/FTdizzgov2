@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const CardShopingCar = ({ product, onPress }) => {
+const CardShopingCar = ({ product, onPresss }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrement = () => {
@@ -30,32 +30,34 @@ const CardShopingCar = ({ product, onPress }) => {
   };
   return (
     <View style={styles.cardContainer}>
-      <LinearGradient
-        colors={getGradientColors(product.sabor)}
-        style={styles.card}
-      >
-        <Image source={{ uri: product.image }} style={styles.image} />
-        <View style={styles.content}>
-          <Text style={styles.h1}>{product.nombre}</Text>
-          <Text style={styles.h2}>Sabor {product.sabor}</Text>
-          <Text style={styles.h2}>{product.ml} ml</Text>
-        </View>
-        <View style={styles.quantityContainer}>
-          <TouchableOpacity
-            onPress={handleDecrement}
-            style={styles.quantityButton}
-          >
-            <Text style={styles.quantityButtonText}>-</Text>
-          </TouchableOpacity>
-          <Text style={styles.quantityText}>{quantity}</Text>
-          <TouchableOpacity
-            onPress={handleIncrement}
-            style={styles.quantityButton2}
-          >
-            <Text style={styles.quantityButtonText}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
+      <TouchableOpacity onPress={onPresss}>
+        <LinearGradient
+          colors={getGradientColors(product.sabor)}
+          style={styles.card}
+        >
+          <Image source={{ uri: product.image }} style={styles.image} />
+          <View style={styles.content}>
+            <Text style={styles.h1}>{product.nombre}</Text>
+            <Text style={styles.h2}>Sabor {product.sabor}</Text>
+            <Text style={styles.h2}>{product.ml} ml</Text>
+          </View>
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity
+              onPress={handleDecrement}
+              style={styles.quantityButton}
+            >
+              <Text style={styles.quantityButtonText}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity
+              onPress={handleIncrement}
+              style={styles.quantityButton2}
+            >
+              <Text style={styles.quantityButtonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
     marginTop: 4,
   },
+  //
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",

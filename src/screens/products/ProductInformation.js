@@ -37,7 +37,7 @@ const ProductInformation = ({ route, navigation }) => {
       </View>
       <View>
         <LinearGradient
-          colors={["#40A5E7", "#1153FC"]}
+          colors={["#40A5E7", "#161B21"]}
           style={styles.containerInformation}
         >
           <Text style={styles.hh1}>{product.tipo}</Text>
@@ -126,11 +126,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   containerInformation: {
-    paddingBottom: 35,
+    paddingBottom: 65,
     paddingTop: 10,
     paddingLeft: 30,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
   },
   hh1: {
     color: "white",
