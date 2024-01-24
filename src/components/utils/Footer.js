@@ -24,7 +24,7 @@ const Footer = ({ iconName, selectedIcon }) => {
         navigation.navigate("Estrellas");
         break;
       case "shopping-cart":
-        navigation.navigate("Compra");
+        navigation.navigate("Carrito");
         break;
       default:
         break;

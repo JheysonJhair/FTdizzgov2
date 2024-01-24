@@ -65,7 +65,7 @@ const ProductInformation = ({ route, navigation }) => {
             </View>
           </View>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>RESERVAR</Text>
+            <Text style={styles.buttonText}>Mezclar</Text>
           </TouchableOpacity>
           <Image
             source={{ uri: product.image }}
@@ -73,28 +73,36 @@ const ProductInformation = ({ route, navigation }) => {
           />
         </LinearGradient>
       </View>
-      <View style={styles.containerTextos}>
-        <Text style={[styles.t1]}>COMBINA</Text>
-        <Text style={[styles.t2]}>PARA UNA MAYOR</Text>
-        <Text style={[styles.t3]}>EXPERIENCIA</Text>
+      <View style={styles.containerBotones}>
+        <TouchableOpacity style={styles.botonComprar}>
+          <Ionicons name="cart" size={24} color="#A3AABF" />
+          <Text style={styles.botonText}>Agregar</Text>
+        </TouchableOpacity>
+        <View style={styles.botonCircularContainer}>
+          <TouchableOpacity style={styles.botonCircular}>
+            <Ionicons name="bookmark" size={24} color="#A3AABF" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.botonCircular}>
+            <Ionicons name="heart" size={24} color="#A3AABF" />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      <View style={styles.scrollVerticalContainer}>
+      <View style={styles.producto} >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={styles.scrollVertical}
         >
           <View>
+            <Text style={styles.hh}>Productos Similares</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
             >
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
-            </ScrollView>
+            </ScrollView> 
           </View>
         </ScrollView>
       </View>
@@ -130,6 +138,13 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
     zIndex: 99,
   },
+  hh:{
+    color: "white",
+    fontSize: 26,
+    fontWeight: "bold",
+    marginStart: 10,
+    marginBottom: 10,
+  },
   h1: {
     color: "white",
     fontSize: 48,
@@ -159,10 +174,10 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 17,
-    backgroundColor: "#161B21",
+    backgroundColor: "#40A5E7",
     padding: 10,
-    width: 200,
-    borderRadius: 9,
+    width: 210,
+    borderRadius: 4,
   },
   buttonText: {
     color: "#fff",
@@ -171,35 +186,42 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
   },
   //
-  containerTextos: {
-    textAlign: "left",
-    alignContent: "left",
-    padding: 30,
+  containerBotones: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "70%",
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    backgroundColor: "#161B21",
+    marginBottom: 20,
   },
-  t1: {
-    color: "#40A5E7",
-    fontSize: 30,
-    textAlign: "left",
-    fontFamily: "Montserrat_800ExtraBold",
+  botonComprar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#212834",
+    borderRadius: 5,
+    paddingLeft: 14,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 14,
   },
-  t2: {
-    textAlign: "left",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 18,
+  botonText: {
+    color: "#A3AABF",
+    marginLeft: 10,
   },
-  t3: {
-    fontSize: 32,
-    color: "white",
-    textAlign: "left",
-    fontFamily: "Montserrat_800ExtraBold",
+  botonCircularContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  scrollVerticalContainer: {
-    position: "relative",
-    paddingEnd: 12,
-    paddingStart: 12,
-    flex: 8,
-    paddingBottom: 60,
+  botonCircular: {
+    backgroundColor: "#212834",
+    borderRadius: 50,
+    padding: 10,
+    marginLeft: 10,
+  },
+  producto:{
+    padding: 10,
   },
   //
   image: {

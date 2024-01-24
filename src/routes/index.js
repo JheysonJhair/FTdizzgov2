@@ -9,6 +9,7 @@ import Home from "../screens/home/Home";
 import ProductInformation from "../screens/products/ProductInformation";
 import Perfil from "../screens/perfil/Perfil";
 import EditPerfil from "../screens/perfil/EditPerfil";
+import ShoppingCart from "../screens/buyout/ShoppingCart";
 import Chat from "../screens/chat/Chat";
 
 const Stack = createNativeStackNavigator();
@@ -84,7 +85,23 @@ export default function Routes() {
           title: "Editar perfil",
         }}
       />
-
+      <Stack.Screen
+        name="Carrito"
+        component={ShoppingCart}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+          title: "Tú carrito",
+        }}
+      />
       <Stack.Screen name="Chat" component={Chat} />
     </Stack.Navigator>
   );
