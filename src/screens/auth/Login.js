@@ -36,7 +36,7 @@ export default function Login() {
         return;
       }
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /\S+@\S+\.\S+/;
       if (!emailRegex.test(email)) {
         setModalStatus("error");
         setModalVisible(true);
@@ -47,14 +47,14 @@ export default function Login() {
 
       const user = await loginUser(email, password);
 
-      if (user.msg != "credenciales invalidas") {
+      if (user.msg == "Ingreso correctamente") {
         setUserInfo({
-          IdUser: user.IdUser,
-          FirstName: user.FirstName,
-          LastName: user.LastName,
-          BirthDate: user.BirthDate,
-          Phone: user.Phone,
-          ProfileImage: user.ProfileImage,
+          IdUser: user.value.IdUser,
+          FirstName: user.value.FirstName,
+          LastName: user.value.LastName,
+          BirthDate: user.value.BirthDate,
+          Phone: user.value.Phone,
+          ProfileImage: user.value.ProfileImage,
         });
 
         const birthDate = new Date(user.birthDate);

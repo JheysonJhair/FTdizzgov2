@@ -60,23 +60,26 @@ export default function Register() {
 
   const handleReceiveCode = async () => {
     const emailRegex = /\S+@\S+\.\S+/;
-
-    if (!emailRegex.test(email) || !email.includes("@gmail.com")) {
+  
+    if (!emailRegex.test(email)) {
       setModalStatus("error");
       setModalVisible(true);
       setText("Correo invalido");
-      setText2("Por favor, utiliza una cuenta de Gmail.");
+      setText2("Por favor, ingresa una dirección de correo electrónico válida.");
       return;
     }
+  
     const verificationResponse = await verifyEmail(email);
+  
     if (verificationResponse.status === 200) {
-    setModalStatus("loading");
-    setModalVisible(true);
-    setText("Correo invalido");
-    setText2("Por favor, utiliza una cuenta de Gmail.");
-    setIsReceivingCode(true);
+      setModalStatus("loading");
+      setModalVisible(true);
+      setText("Verificando...");
+      setText2("Te hemos enviado un código a tu correo. Por favor, verifica en la carpeta de spam si no lo encuentras en la bandeja de entrada.");
+      setIsReceivingCode(true);
     }
   };
+  
 
   const handleVerficar = async () => {
     try {

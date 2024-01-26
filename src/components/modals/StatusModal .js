@@ -60,18 +60,21 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
+    paddingTop: 30,
     backgroundColor: "#212834",
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
+    width: "75%",
+    paddingBottom: 40,
   },
   Text: {
-    width: "60%",
+    width: "85%",
     textAlign: "center",
   },
   loadingText: {
     marginTop: 10,
-    fontSize: 22,
+    fontSize: 27,
     color: "white",
     textAlign: "center",
     fontFamily: "Montserrat_800ExtraBold",
@@ -79,12 +82,13 @@ const styles = StyleSheet.create({
   loadingText2: {
     color: "#A3AABF",
     marginTop: 10,
+    fontSize: 15,
     textAlign: "center",
     fontWeight: "bold",
   },
   icon: {
     marginTop: 10,
-    fontSize: 40,
+    fontSize: 60,
   },
   successIcon: {
     color: "#40A5E7",

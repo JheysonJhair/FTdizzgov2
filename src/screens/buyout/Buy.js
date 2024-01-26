@@ -82,7 +82,7 @@ const Buy = ({ route, navigation }) => {
     <View style={styles.bottomContainer2}>
     <Button
       title="Comprar"
-      onPress={() => onHandleLogin(email, password)}
+      onPress={() => console.log("Comprar")}
     />
   </View>
   </View>

@@ -3,7 +3,7 @@ import axios from "axios";
 //Login
 export const loginUser = async (email, password) => {
   try {
-    const response = await fetch("https://xgoobk.ccontrolz.com/user/login", {
+    const response = await fetch("https://dizzgob.ccontrolz.com/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const registerUser = async ({
 }) => {
   try {
     const response = await axios.post(
-      "https://xgoobk.ccontrolz.com/user/insert",
+      "https://dizzgob.ccontrolz.com/user/insert",
       {
         Email,
         Password,
@@ -56,7 +56,7 @@ export const registerUser = async ({
 //Verficar email
 export const verifyEmail = async (email) => {
   try {
-    const url = `https://xgoobk.ccontrolz.com/auth-validate?email=${encodeURIComponent(
+    const url = `https://dizzgob.ccontrolz.com/auth-validate?email=${encodeURIComponent(
       email
     )}`;
     const response = await axios.get(url);
@@ -70,7 +70,7 @@ export const verifyEmail = async (email) => {
 //Verficcar codigo
 export const verifyCode = async (code, gmail) => {
   try {
-    const url = "https://xgoobk.ccontrolz.com/user/validate";
+    const url = "https://dizzgob.ccontrolz.com/user/validate";
     const response = await axios.post(url, {
       Email: gmail,
       Code: code,

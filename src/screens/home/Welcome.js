@@ -29,7 +29,7 @@ const Welcome = () => {
         />
         <ButtonTwo
           title="Ingresar"
-          onPress={() => navigation.navigate("Carrito")}
+          onPress={() => navigation.navigate("Login")}
         />
       </View>
 

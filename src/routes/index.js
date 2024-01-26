@@ -108,7 +108,23 @@ export default function Routes() {
         component={Buy}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+          title: "Fiesta Dizzgo",
+        }}
+      />
     </Stack.Navigator>
   );
 }
