@@ -6,32 +6,44 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import {
   useFonts,
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
-import { KeyboardAvoidingView } from "react-native";
 
+import TextArea from "../../components/forms/TextArea";
 import InputTwo from "../../components/forms/InputTwo";
 import Button from "../../components/forms/Button";
 
 import { useUser } from "../../components/utils/UserContext";
 import StatusModal from "../../components/modals/StatusModal ";
+import { updateProfile } from "../../api/apiPerfil";
 
 const EditPerfil = () => {
-  const { userData } = useUser();
+  const { userData, setUserInfo } = useUser();
+
+  const [initialUsuario, setInitialUsuario] = useState(
+    userData.UserName ||
+      userData.FirstName.replace(/\s+/g, "").toLowerCase() +
+        userData.LastName.split(" ")[0].replace(/\s+/g, "").toLowerCase()
+  );
+  const [initialDescripcion, setInitialDescripcion] = useState(
+    userData.Description ||
+      "Experimenté soledad en un vaso, sin encontrar la compañía que esperada."
+  );
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalStatus, setModalStatus] = useState("error");
   const [text, setText] = useState("");
   const [text2, setText2] = useState("");
 
-  const [usuario, setUsuario] = useState("");
-  const [apellidos, setApellidos] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [usuario, setUsuario] = useState(initialUsuario);
+  const [descripcion, setDescripcion] = useState(initialDescripcion);
   const [image, setImage] = useState(null);
+  const MAX_CARACTERES = 71;
 
   const [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -57,7 +69,7 @@ const EditPerfil = () => {
       quality: 1,
     });
 
-    if (!result.canceled) {
+    if (!result.cancelled) {
       setImage(result.assets[0].uri);
     }
   };
@@ -65,24 +77,48 @@ const EditPerfil = () => {
   if (!fontsLoaded) {
     return null;
   }
-  const MAX_CARACTERES = 40;
+
+  const handleUsuarioChange = (text) => {
+    setUsuario(text);
+  };
 
   const handleDescripcionChange = (text) => {
     if (text.length <= MAX_CARACTERES) {
       setDescripcion(text);
     }
   };
-  const onHandleUpdate = () => {
-    setModalStatus("loading");
-    setModalVisible(true);
-    setText("Verificando...");
-    setText2(
-      "Recuerda que no podrás cambiar el nombre de usuario pasado 7 días."
-    );
 
-    setTimeout(() => {
-      setModalVisible(false);
-    }, 3000);
+  const onHandleUpdate = async () => {
+    try {
+      setModalStatus("loading");
+      setModalVisible(true);
+      setText("Verificando...");
+      setText2(
+        "Recuerda que no podrás cambiar el nombre de usuario pasado 7 días."
+      );
+
+      const formData = new FormData();
+      formData.append("UserName", usuario);
+      formData.append("Description", descripcion);
+      formData.append("IdUser", userData.IdUser);
+
+      console.log("FormData:", formData);
+
+      const { success, error } = await updateProfile(formData);
+
+      if (success) {
+        console.error("Actualizacion exitosa:");
+        setUserInfo({ ...userData, UserName: usuario });
+      } else {
+        console.error("Error:", error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -102,28 +138,18 @@ const EditPerfil = () => {
           <Text style={styles.labelFoto}>Cambiar foto</Text>
         </View>
         <View style={styles.containerForm}>
-          <Text style={styles.labelTu}>Aserca de ti</Text>
+          <Text style={styles.labelTu}>Acerca de ti</Text>
           <View style={styles.formSection}>
             <Text style={styles.label}>Nombre de usuario</Text>
             <InputTwo
               placeholder="Usuario"
-              onChangeText={(text) => setUsuario(text)}
-              value={userData.FirstName}
+              onChangeText={handleUsuarioChange}
+              value={usuario}
             />
           </View>
-
-          <View style={styles.formSection}>
-            <Text style={styles.label}>Apellidos</Text>
-            <InputTwo
-              placeholder="Apellidos"
-              onChangeText={(text) => setApellidos(text)}
-              value={userData.LastName}
-            />
-          </View>
-
           <View style={styles.formSection}>
             <Text style={styles.label}>Descripción Corta</Text>
-            <InputTwo
+            <TextArea
               placeholder="Descripción"
               onChangeText={handleDescripcionChange}
               value={descripcion}
@@ -134,7 +160,7 @@ const EditPerfil = () => {
           </View>
         </View>
         <View style={styles.containerButon}>
-          <Button title="Actualizar Perfil" onPress={() => onHandleUpdate()} />
+          <Button title="Actualizar Perfil" onPress={onHandleUpdate} />
         </View>
       </View>
       <StatusModal
@@ -146,7 +172,6 @@ const EditPerfil = () => {
     </KeyboardAvoidingView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

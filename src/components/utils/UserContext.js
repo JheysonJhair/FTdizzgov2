@@ -7,6 +7,8 @@ export const UserProvider = ({ children }) => {
     IdUser: "",
     Email: "",
     Password: "",
+    UserName: "",
+    Description: "",
     FirstName: "",
     LastName: "",
     BirthDate: "",
@@ -18,6 +20,8 @@ export const UserProvider = ({ children }) => {
     IdUser,
     Email,
     Password,
+    UserName,
+    Description,
     FirstName,
     LastName,
     BirthDate,
@@ -29,6 +33,8 @@ export const UserProvider = ({ children }) => {
       IdUser,
       Email,
       Password,
+      UserName,
+      Description,
       FirstName,
       LastName,
       BirthDate,
@@ -46,4 +52,8 @@ export const UserProvider = ({ children }) => {
 
 export const useUser = () => {
   return useContext(UserContext);
+};
+
+export const setUserData = (data) => {
+  setUserInfo(data);
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -11,19 +11,53 @@ import {
   useFonts,
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
-import Footer from "../../components/utils/Footer";
-import { useUser } from "../../components/utils/UserContext";
 import Icon from "react-native-vector-icons/FontAwesome";
+import * as ImagePicker from "expo-image-picker"; 
 import CardProduct from "../../components/products/CardProduct";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import Footer from "../../components/utils/Footer";
+import { updateProfileImage } from "../../api/apiPerfil";
+
+import { useUser } from "../../components/utils/UserContext";
 
 const Perfil = () => {
-  const { userData } = useUser();
+  const { userData, setUserInfo } = useUser();
   const [selectedButton, setSelectedButton] = useState("bookmark");
   const navigation = useNavigation();
+  const [image, setImage] = useState(null);
+
   const [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
   });
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const formData = new FormData();
+      formData.append("file", {
+        uri: result.uri,
+        type: "image/jpeg",
+        name: "file",
+      });
+
+      const updateResult = await updateProfileImage(userData.IdUser, formData);
+
+      if (updateResult.success) {
+        setImage(result.uri);
+        setUserInfo({ ...userData, ProfileImage: result.uri });
+      } else {
+        console.error(
+          "Error al actualizar la imagen de perfil:",
+          updateResult.error
+        );
+      }
+    }
+  };
 
   if (!fontsLoaded) {
     return null;
@@ -42,27 +76,50 @@ const Perfil = () => {
     image:
       "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
   };
+
   const selectedProduct =
     selectedButton === "bookmark" ? sampleProduct1 : sampleProduct2;
+
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.editButton}>
-          <Image
-            source={{ uri: userData.ProfileImage }}
-            style={styles.profileImage}
-          />
-          <View style={styles.editIconContainer}>
-            <Icon name="plus" size={20} color="#fff" />
-          </View>
+        <TouchableOpacity style={styles.editButton} onPress={pickImage}>
+          {image ? (
+            <>
+              <Image source={{ uri: image }} style={styles.profileImage} />
+              <View style={styles.editIconContainer}>
+                <Icon name="plus" size={20} color="#fff" />
+              </View>
+            </>
+          ) : (
+            <>
+              <Image
+                source={{ uri: userData.ProfileImage }}
+                style={styles.profileImage}
+              />
+              <View style={styles.editIconContainer}>
+                <Icon name="plus" size={20} color="#fff" />
+              </View>
+            </>
+          )}
         </TouchableOpacity>
 
-        <Text style={styles.profileName}>@jhairarone</Text>
-        <Text style={styles.profileDescription}>
-          Soy Jhair y me gusta tomar con mis amigos
+        <Text style={styles.profileName}>
+          @
+          {userData.UserName ||
+            userData.FirstName.replace(/\s+/g, "").toLowerCase() +
+              userData.LastName.split(" ")[0].replace(/\s+/g, "").toLowerCase()}
         </Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('EditPerfil')} style={styles.editProfileButton}>
+        <Text style={styles.profileDescription}>
+          {userData.Description ||
+            "Experimenté soledad en un vaso, sin encontrar la compañía que esperada."}
+        </Text>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("EditPerfil")}
+          style={styles.editProfileButton}
+        >
           <Text style={styles.editProfileButtonText}>Editar perfil</Text>
         </TouchableOpacity>
       </View>

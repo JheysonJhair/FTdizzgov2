@@ -52,7 +52,9 @@ export default function Home() {
             </TouchableOpacity>
             <View style={styles.profileImageContainer}>
               <Image
-                source={{ uri: userData.ProfileImage }}
+                source={{
+                  uri: `${userData.ProfileImage}?v=${userData.ProfileImageVersion}`,
+                }}
                 style={styles.profileImage}
               />
             </View>
