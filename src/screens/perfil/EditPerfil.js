@@ -21,7 +21,7 @@ import Button from "../../components/forms/Button";
 import { useUser } from "../../components/utils/UserContext";
 import StatusModal from "../../components/modals/StatusModal ";
 import { updateProfile } from "../../api/apiPerfil";
-
+import { updateProfileImage } from "../../api/apiPerfil";
 const EditPerfil = () => {
   const { userData, setUserInfo } = useUser();
 
@@ -70,7 +70,31 @@ const EditPerfil = () => {
     });
 
     if (!result.cancelled) {
-      setImage(result.assets[0].uri);
+      const formData = new FormData();
+      formData.append("file", {
+        uri: result.uri,
+        type: "image/jpeg",
+        name: "file",
+      });
+
+      const updateResult = await updateProfileImage(userData.IdUser, formData);
+
+      if (updateResult.success) {
+        setImage(result.uri);
+        setModalStatus("success");
+        setModalVisible(true);
+        setText("Actualizado con exito");
+        setText2("Su perfil se subió exitosamente!.");
+        setTimeout(() => {
+          setModalVisible(false);
+        }, 2000);
+        setUserInfo({ ...userData, ProfileImage: result.uri });
+      } else {
+        console.error(
+          "Error al actualizar la imagen de perfil:",
+          updateResult.error
+        );
+      }
     }
   };
 
@@ -90,27 +114,30 @@ const EditPerfil = () => {
 
   const onHandleUpdate = async () => {
     try {
-      setModalStatus("loading");
-      setModalVisible(true);
-      setText("Verificando...");
-      setText2(
-        "Recuerda que no podrás cambiar el nombre de usuario pasado 7 días."
-      );
-
       const formData = new FormData();
       formData.append("UserName", usuario);
       formData.append("Description", descripcion);
       formData.append("IdUser", userData.IdUser);
 
-      console.log("FormData:", formData);
-
       const { success, error } = await updateProfile(formData);
 
       if (success) {
-        console.error("Actualizacion exitosa:");
-        setUserInfo({ ...userData, UserName: usuario });
+        setUserInfo({
+          ...userData,
+          UserName: usuario,
+          Description: descripcion,
+        });
+        setModalStatus("loading");
+        setModalVisible(true);
+        setText("Verificando...");
+        setText2(
+          "Recuerda que no podrás cambiar el nombre de usuario pasado 7 días."
+        );
       } else {
-        console.error("Error:", error);
+        setModalStatus("error");
+        setModalVisible(true);
+        setText("Opps! algo salió mal");
+        setText2("Intentalo mas tarde porfavor.");
       }
     } catch (error) {
       console.error("Error:", error);

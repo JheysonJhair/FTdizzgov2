@@ -23,8 +23,8 @@ export default function Login() {
   const { setUserInfo } = useUser();
 
   const [isChecked, setChecked] = useState(false);
-  const [email, setEmail] = useState("edsghot@gmail.com");
-  const [password, setPassword] = useState("erick54321");
+  const [email, setEmail] = useState("201054@unamba.edu.pe");
+  const [password, setPassword] = useState("12345678");
 
   const onHandleLogin = async (email, password) => {
     try {
@@ -56,7 +56,7 @@ export default function Login() {
           Phone: user.value.Phone,
           ProfileImage: user.value.ProfileImage,
           UserName: user.value.UserName,
-          Description: user.value.Description,          
+          Description: user.value.Description,
         });
 
         const birthDate = new Date(user.birthDate);

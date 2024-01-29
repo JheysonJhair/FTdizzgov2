@@ -35,7 +35,7 @@ const Chat = () => {
     };
     fetchMensajes();
 
-    const intervalId = setInterval(fetchMensajes, 1000);
+    const intervalId = setInterval(fetchMensajes, 500);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -59,17 +59,24 @@ const Chat = () => {
   };
 
   const renderSendButton = (props) => {
-    return (
-      <TouchableOpacity onPress={() => onSend(props.text)}>
-        <Icon
-          name="arrow-circle-right"
-          size={36}
-          color="#66bef4"
-          style={{ marginLeft: 10,marginRight: 10, color: "#66bef4" }}
-        />
-      </TouchableOpacity>
-    );
+    const { text } = props;
+    
+    if (text && text.trim().length > 0) {
+      return (
+        <TouchableOpacity onPress={() => onSend(props.text)}>
+          <Icon
+            name="arrow-circle-right"
+            size={36}
+            color="#66bef4"
+            style={{ marginLeft: 10, marginRight: 10, color: "#66bef4" }}
+          />
+        </TouchableOpacity>
+      );
+    }
+  
+    return null;
   };
+  
 
   const CustomInputToolbar = (props) => {
     return (
