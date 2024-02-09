@@ -23,8 +23,8 @@ export default function Login() {
   const { setUserInfo } = useUser();
 
   const [isChecked, setChecked] = useState(false);
-  const [email, setEmail] = useState("201054@unamba.edu.pe");
-  const [password, setPassword] = useState("123456788");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onHandleLogin = async (email, password) => {
     try {

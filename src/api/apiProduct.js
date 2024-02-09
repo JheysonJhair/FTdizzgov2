@@ -56,6 +56,7 @@ export const getRecommended = async (cantidad) => {
   }
 };
 
+//Arma tu propia fiesta
 export const getPartyWeapon = async (cantidad) => {
     try {
       const products = await fetch(
@@ -84,3 +85,31 @@ export const getPartyWeapon = async (cantidad) => {
     }
   };
   
+
+// Filtro
+export const getFiltradoTipoBebida = async (cantidad,tipo) => {
+  try {
+    const products = await fetch(
+      `https://dizzgob.ccontrolz.com/products/Type/${cantidad}/${tipo}`
+    );
+
+    if (!products.ok) {
+      throw new Error(`Error en la solicitud: ${products.statusText}`);
+    }
+
+    const data = await products.json();
+    if (Array.isArray(data.value)) {
+      return { success: true, data: data.value };
+    } else {
+      throw new Error(
+        "La respuesta de la API no contiene un arreglo de productos."
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Error al obtener los el filtrado:",
+      error.message
+    );
+    return { success: false, error: error.message };
+  }
+};

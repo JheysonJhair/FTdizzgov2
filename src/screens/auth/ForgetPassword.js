@@ -17,7 +17,7 @@ import { verifyCode } from "../../api/apiLogin";
 const ForgetPassword = () => {
   const navigation = useNavigation();
 
-  const [email, setEmail] = useState("201054@unamba.edu.pe");
+  const [email, setEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
