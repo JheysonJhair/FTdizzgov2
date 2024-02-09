@@ -16,6 +16,52 @@ const ProductInformation = ({ route, navigation }) => {
     navigation.goBack();
   };
   const { product } = route.params;
+  const getProductType = (type) => {
+    switch (type) {
+      case 0:
+        return "Whisky";
+      case 1:
+        return "Ron";
+      case 2:
+        return "Gaseosa";
+      case 3:
+        return "Agua";
+      case 4:
+        return "Licor de Malta";
+      case 5:
+        return "Vodka";
+      default:
+        return "Desconocido";
+    }
+  };
+  const getGradientColors = (sabor) => {
+    switch (sabor) {
+      case "blue":
+        return ["#0635a3", "#161B21"];
+      case "red":
+        return ["#FF1493", "#161B21"];
+      case "neutral":
+        return ["#FFFACD", "#161B21"];
+      case "Apple":
+        return ["#468949", "#161B21"];
+      default:
+        return ["#a04e38", "#161B21"];
+    }
+  };
+  const getGradientColors2 = (sabor) => {
+    switch (sabor) {
+      case "blue":
+        return ["#0635a3", "#0635a3"];
+      case "red":
+        return ["#FF1493", "#FF1493"];
+      case "neutral":
+        return ["#FFFACD", "#FFFACD"];
+      case "Apple":
+        return ["#468949", "#468949"];
+      default:
+        return ["#a04e38", "#a04e38"];
+    }
+  };
   const sampleProduct = {
     title: "Four Loko ",
     sabor: "Neutral",
@@ -27,7 +73,7 @@ const ProductInformation = ({ route, navigation }) => {
     <View style={styles.container}>
       <View>
         <LinearGradient
-          colors={["#40A5E7", "#40A5E7"]}
+          colors={getGradientColors2(product.Flavor)}
           style={styles.containerGradient}
         >
           <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
@@ -37,30 +83,30 @@ const ProductInformation = ({ route, navigation }) => {
       </View>
       <View>
         <LinearGradient
-          colors={["#40A5E7", "#161B21"]}
+          colors={getGradientColors(product.Flavor)}
           style={styles.containerInformation}
         >
-          <Text style={styles.hh1}>{product.tipo}</Text>
-          <Text style={styles.h1}>{product.nombre}</Text>
+          <Text style={styles.hh1}>{getProductType(product.Type)}</Text>
+          <Text style={styles.h1}>{product.Name}</Text>
           <View style={styles.containerProduct}>
             <View style={styles.productDetails}>
               <View style={styles.sabor}>
                 <Text style={styles.h3}>SABOR</Text>
-                <Text style={styles.h2}>{product.sabor}</Text>
+                <Text style={styles.h2}>{product.Flavor}</Text>
               </View>
               <View style={styles.alcohol}>
                 <Text style={styles.h3}>ALCOHOL</Text>
-                <Text style={styles.h2}>{product.alcohol}%</Text>
+                <Text style={styles.h2}>{product.Volume*100}%</Text>
               </View>
             </View>
             <View style={styles.productDetails}>
               <View style={styles.sabor2}>
                 <Text style={styles.h3}>ML</Text>
-                <Text style={styles.h2}>{product.ml}</Text>
+                <Text style={styles.h2}>{product.Ml}</Text>
               </View>
               <View style={styles.alcohol}>
                 <Text style={styles.h3}>PRECIO</Text>
-                <Text style={styles.h2}>s/{product.price}</Text>
+                <Text style={styles.h2}>s/{product.PriceProduct}</Text>
               </View>
             </View>
           </View>
@@ -68,7 +114,7 @@ const ProductInformation = ({ route, navigation }) => {
             <Text style={styles.buttonText}>Mezclar</Text>
           </TouchableOpacity>
           <Image
-            source={{ uri: product.image }}
+            source={{ uri: product.ImgProduct }}
             style={[styles.image, styles.absoluteImage]}
           />
         </LinearGradient>
@@ -88,21 +134,16 @@ const ProductInformation = ({ route, navigation }) => {
         </View>
       </View>
 
-      <View style={styles.producto} >
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-        >
+      <View style={styles.producto}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <Text style={styles.hh}>Productos Similares</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            >
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
               <CardProductBuy product={sampleProduct} />
-            </ScrollView> 
+            </ScrollView>
           </View>
         </ScrollView>
       </View>
@@ -126,26 +167,27 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   containerInformation: {
-    paddingBottom: 65,
+    paddingBottom: 15,
     paddingTop: 10,
     paddingLeft: 30,
   },
   hh1: {
-    color: "white",
+    color: "#eaedff",
     fontSize: 26,
-    fontFamily: "Montserrat_800ExtraBold",
+    fontWeight: "bold",
     zIndex: 99,
   },
-  hh:{
+  hh: {
     color: "white",
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "bold",
     marginStart: 10,
     marginBottom: 10,
   },
   h1: {
     color: "white",
-    fontSize: 48,
+    fontSize: 40,
+    width: "80%",
     fontFamily: "Montserrat_800ExtraBold",
   },
   containerProduct: {
@@ -156,14 +198,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sabor: {
-    marginEnd: 50,
+    width: "40%",
   },
   sabor2: {
-    marginEnd: 76,
+    width: "40%",
   },
   h2: {
     color: "white",
-    fontSize: 22,
+    fontSize: 19,
     fontFamily: "Montserrat_800ExtraBold",
   },
   h3: {
@@ -172,7 +214,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 17,
-    backgroundColor: "#40A5E7",
+    backgroundColor: "#a04e38",
     padding: 10,
     width: 210,
     borderRadius: 4,
@@ -192,7 +234,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 15,
     backgroundColor: "#161B21",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   botonComprar: {
     flexDirection: "row",
@@ -218,21 +260,22 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 10,
   },
-  producto:{
+  producto: {
     padding: 10,
   },
   //
   image: {
-    width: 200,
-    height: 370,
+    width: "60%",
+    height: "110%",
     borderRadius: 10,
     resizeMode: "cover",
     position: "absolute",
+    zIndex:100
   },
 
   absoluteImage: {
-    top: 50,
-    right: -30,
+    top: 100,
+    right: -40,
   },
 });
 

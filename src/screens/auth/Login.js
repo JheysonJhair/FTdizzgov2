@@ -24,7 +24,7 @@ export default function Login() {
 
   const [isChecked, setChecked] = useState(false);
   const [email, setEmail] = useState("201054@unamba.edu.pe");
-  const [password, setPassword] = useState("12345678");
+  const [password, setPassword] = useState("123456788");
 
   const onHandleLogin = async (email, password) => {
     try {
@@ -85,6 +85,9 @@ export default function Login() {
   const handleRegister = () => {
     navigation.navigate("Register");
   };
+  const handleForgotPassword = () => {
+    navigation.navigate("ForgetPassword");
+  };
 
   useEffect(() => {
     if (modalVisible) {
@@ -124,7 +127,10 @@ export default function Login() {
               <Text style={styles.checkboxLabel}>Recuérdame</Text>
             </View>
             <View style={styles.derecha}>
-              <Text style={styles.forgotPassword}>
+              <Text
+                style={styles.forgotPassword}
+                onPress={handleForgotPassword}
+              >
                 Olvidaste tu contraseña?
               </Text>
             </View>

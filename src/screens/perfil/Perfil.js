@@ -76,18 +76,18 @@ const Perfil = () => {
     return null;
   }
   const sampleProduct1 = {
-    nombre: "Four Loko ",
-    sabor: "blue",
-    price: 12,
-    image:
-      "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
+    Name: "Four Loko ",
+    Flavor: "blue",
+    PriceProduct: 12,
+    ImgProduct:
+      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
   };
   const sampleProduct2 = {
-    nombre: "Everrs ",
-    sabor: "Neutral",
-    price: 5,
-    image:
-      "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
+    Name: "Everrs ",
+    Flavor: "Neutral",
+    PriceProduct: 5,
+    ImgProduct:
+      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
   };
 
   const selectedProduct =

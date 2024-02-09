@@ -12,6 +12,8 @@ import EditPerfil from "../screens/perfil/EditPerfil";
 import ShoppingCart from "../screens/buyout/ShoppingCart";
 import Buy from "../screens/buyout/Buy";
 import Chat from "../screens/chat/Chat";
+import ForgetPassword from "../screens/auth/ForgetPassword";
+import NewPassword from "../screens/auth/NewPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +28,16 @@ export default function Routes() {
       <Stack.Screen
         name="Welcome"
         component={Welcome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NewPassword"
+        component={NewPassword}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -83,7 +83,7 @@ export default function Register() {
 
   const handleVerficar = async () => {
     try {
-      const verificationResponse = await verifyCode(verificationCode);
+      const verificationResponse = await verifyCode(verificationCode, email);
       if (verificationResponse.value === true) {
         setLoading(true);
         setTimeout(() => {

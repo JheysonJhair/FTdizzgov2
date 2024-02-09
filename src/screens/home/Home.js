@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,22 +13,49 @@ import CardProduct from "../../components/products/CardProduct";
 import SearchInput from "../../components/forms/SearchInput";
 import Footer from "../../components/utils/Footer";
 import { useUser } from "../../components/utils/UserContext";
+import {
+  getBestSellers,
+  getRecommended,
+  getPartyWeapon,
+} from "../../api/apiProduct";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [bestSellers, setBestSellers] = useState([]);
+  const [recommended, setRecommended] = useState([]);
+  const [partyWeapon, setPartyWeapon] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("Todos"); 
 
   const { userData } = useUser();
-
   const navigation = useNavigation();
-  const sampleProduct = {
-    nombre: "Ruskaya ",
-    tipo: "Vodka",
-    sabor: "aple",
-    price: 12,
-    alcohol: "20",
-    ml: "750",
-    image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
-  };
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+        const response1 = await getBestSellers(100);
+        const response2 = await getRecommended(100);
+        // const response3 = await getPartyWeapon(3);
+
+        if (Array.isArray(response1.data)) {
+          setBestSellers(response1.data);
+          setPartyWeapon(response1.data);
+        }
+        if (Array.isArray(response2.data)) {
+           setRecommended(response2.data);
+         }
+        // if (Array.isArray(response3.data)) {
+        //   setPartyWeapon(response3.data);
+        // } else {
+        //   console.error("Error, no es un arreglo los productos");
+        // }
+      } catch (error) {
+        console.error("No se encontro productos, api error:", error.message);
+      }
+    };
+
+    fetchBestSellers();
+  }, []);
+
   const handleProductClick = (product) => {
     navigation.navigate("Information", { product });
   };
@@ -66,116 +93,85 @@ export default function Home() {
             showsHorizontalScrollIndicator={false}
             style={styles.enlaces}
           >
-            <TouchableOpacity style={styles.enlace}>
-              <Text style={styles.h2}>Todos</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.enlace}>
-              <Text style={styles.h2}>Recomendaciones</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.enlace}>
-              <Text style={styles.h2}>Enlatados</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.enlace}>
-              <Text style={styles.h2}>Ron</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.enlace}>
-              <Text style={styles.h2}>Vinos</Text>
-            </TouchableOpacity>
+            {["Todos", "Whisky", "Pisco", "Ron", "Vinos", "Enlatados", "Refrescos"].map(category => (
+              <TouchableOpacity
+                key={category}
+                style={[styles.enlace, { backgroundColor: selectedCategory === category ? '#40A5E7' : '#141B20' }]}
+                onPress={() => setSelectedCategory(category)}
+              >
+                <Text style={[styles.h2, { color: selectedCategory === category ? '#fff' : '#fff' }]}>{category}</Text>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
       </View>
       <View style={styles.separatorLine}></View>
-      <View style={styles.scrollVerticalContainer}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={styles.scrollVertical}
-        >
-          <View>
-            <View style={styles.content}>
-              <Text style={styles.h3}>Lo más vendido</Text>
-              <Icon name="arrow-right" size={22} color="#fff" />
+      {selectedCategory === "Todos" && (
+        <View style={styles.scrollVerticalContainer}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scrollVertical}
+          >
+            <View>
+              <View style={styles.content}>
+                <Text style={styles.h3}>Lo más vendido</Text>
+                <Icon name="arrow-right" size={22} color="#fff" />
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.enlaces}
+              >
+                {bestSellers.map((product) => (
+                  <CardProduct
+                    key={product.IdProduct}
+                    product={product}
+                    onPress={() => handleProductClick(product)}
+                  />
+                ))}
+              </ScrollView>
             </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
-            >
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-            </ScrollView>
-          </View>
-          <View>
-            <View style={styles.content}>
-              <Text style={styles.h3}>Recomendado</Text>
-              <Icon name="arrow-right" size={22} color="#fff" />
+            <View>
+              <View style={styles.content}>
+                <Text style={styles.h3}>Recomendado</Text>
+                <Icon name="arrow-right" size={22} color="#fff" />
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.enlaces}
+              >
+                {recommended.map((product) => (
+                  <CardProduct
+                    key={product.IdProduct}
+                    product={product}
+                    onPress={() => handleProductClick(product)}
+                  />
+                ))}
+              </ScrollView>
             </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
-            >
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-            </ScrollView>
-          </View>
-          <View>
-            <View style={styles.content}>
-              <Text style={styles.h3}>Arma tú propia fiesta</Text>
-              <Icon name="arrow-right" size={22} color="#fff" />
+            <View>
+              <View style={styles.content}>
+                <Text style={styles.h3}>Arma tú propia fiesta</Text>
+                <Icon name="arrow-right" size={22} color="#fff" />
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.enlaces}
+              >
+                {partyWeapon.map((product) => (
+                  <CardProduct
+                    key={product.IdProduct}
+                    product={product}
+                    onPress={() => handleProductClick(product)}
+                  />
+                ))}
+              </ScrollView>
             </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
-            >
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-              <CardProduct
-                product={sampleProduct}
-                onPress={() => handleProductClick(sampleProduct)}
-              />
-            </ScrollView>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      )}
       <View style={styles.absoluteIconsContainer}>
         <Footer iconName="home" selectedIcon={"home"} />
         <Footer iconName="comments" selectedIcon={null} />
