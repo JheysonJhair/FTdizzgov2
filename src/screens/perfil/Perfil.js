@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     paddingEnd: 5,
     paddingStart: 5,
     flex: 8,
-    paddingBottom: 80,
+    paddingBottom: 58,
   },
   //
   containerButtons: {

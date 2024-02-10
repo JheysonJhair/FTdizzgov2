@@ -11,7 +11,9 @@ import PhoneNumberInput from "../../components/forms/PhoneNumberInput ";
 import StatusModal from "../../components/modals/StatusModal ";
 
 import { registerUser } from "../../api/apiLogin";
+import { loginUser } from "../../api/apiLogin";
 
+import { useUser } from "../../components/utils/UserContext";
 export default function RegisterTwo() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const route = useRoute();
@@ -21,6 +23,8 @@ export default function RegisterTwo() {
   const [modalStatus, setModalStatus] = useState("error");
   const [text, setText] = useState("");
   const [text2, setText2] = useState("");
+
+  const { setUserInfo } = useUser();
 
   const email = route.params?.email || "";
   const password = route.params?.password || "";
@@ -59,13 +63,26 @@ export default function RegisterTwo() {
         ProfileImage:
           "https://i.pinimg.com/736x/4b/a3/43/4ba343a87d8da59e1e4d0bdf7dc09484.jpg",
       });
-      console.log(response);
+
       if (response.status === 201) {
         setModalStatus("succes");
         setModalVisible(true);
         setText("Registrado con exito");
         setText2("Usted se registro conrrectamente!");
-        navigation.navigate("Login");
+        ////
+        const user = await loginUser(email, password);
+        setUserInfo({
+          IdUser: user.value.IdUser,
+          FirstName: user.value.FirstName,
+          LastName: user.value.LastName,
+          BirthDate: user.value.BirthDate,
+          Phone: user.value.Phone,
+          ProfileImage: user.value.ProfileImage,
+          UserName: user.value.UserName,
+          Description: user.value.Description,
+        });
+        navigation.navigate("Home");
+        clearForm();
       } else {
         console.error(
           "Error en la solicitud de registro: Código de estado",
@@ -76,7 +93,12 @@ export default function RegisterTwo() {
       console.error("Error en la solicitud de registro", error);
     }
   };
-
+  const clearForm = () => {
+    setNombre("");
+    setApellidos("");
+    setDatePickerVisibility("");
+    setTelefono("");
+  };
   const handleDateChange = (date) => {
     setFechaNacimiento(date);
   };

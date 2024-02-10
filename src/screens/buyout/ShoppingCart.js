@@ -15,14 +15,14 @@ const ShoppingCart = () => {
   const [activeTab, setActiveTab] = useState("pedidos");
   const navigation = useNavigation();
 
-  const product2 = {
-    nombre: "Ruskaya",
+  const mescla = {
+    nombre: "Mescla",
     options: "Four loko, hielo",
     image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
 
-  const product = {
-    nombre: "Mescla",
+  const producto = {
+    nombre: "Four loko",
     sabor: "red",
     ml: 250,
     price: 10,
@@ -85,31 +85,31 @@ const ShoppingCart = () => {
           >
             {activeTab === "pedidos" && (
               <>
-                <CardShopingMescla
-                  product={product2}
-                  onPresss={() => handleProductClick(product2)}
+                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
                 />
-                <CardShopingMescla
-                  product={product2}
-                  onPresss={() => handleProductClick(product2)}
-                />
-                <CardShopingMescla
-                  product={product2}
-                  onPresss={() => handleProductClick(product2)}
+                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
                 />
               </>
             )}
             {activeTab === "mezclas" && (
               <>
-              <CardShopingCar
-                product={product}
-                onPresss={() => handleProductClick(product)}
-              />
-              <CardShopingCar
-                product={product}
-                onPresss={() => handleProductClick(product)}
-              />
-            </>
+                <CardShopingMescla
+                  product={mescla}
+                  onPresss={() => handleProductClick(mescla)}
+                />
+                <CardShopingMescla
+                  product={mescla}
+                  onPresss={() => handleProductClick(mescla)}
+                />
+                <CardShopingMescla
+                  product={mescla}
+                  onPresss={() => handleProductClick(mescla)}
+                />
+              </>
             )}
           </ScrollView>
         </View>

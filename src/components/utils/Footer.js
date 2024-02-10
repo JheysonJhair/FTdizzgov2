@@ -48,9 +48,9 @@ const Footer = ({ iconName, selectedIcon }) => {
 
 const styles = {
   absoluteIcon: {
-    marginHorizontal: 25,
+    marginHorizontal: 23,
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 0,
     paddingHorizontal: 5,
     borderRadius: 5,
   },

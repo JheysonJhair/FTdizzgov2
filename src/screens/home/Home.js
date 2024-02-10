@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CardProduct from "../../components/products/CardProduct";
+import CardProductParty from "../../components/products/CardProductParty";
 import SearchInput from "../../components/forms/SearchInput";
 import Footer from "../../components/utils/Footer";
 import { useUser } from "../../components/utils/UserContext";
@@ -29,6 +30,16 @@ export default function Home() {
 
   const { userData } = useUser();
   const navigation = useNavigation();
+
+
+  const party = {
+    Name: "La combinació perfecta ",
+    Flavor: "Pack Whisky Something Special: Botella 750ml + Botella 200ml",
+    PriceProduct: 220,
+    ImgProduct:
+      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
+  };
+
 
   const filterProductsByType = async (type) => {
     let typeId;
@@ -95,7 +106,7 @@ export default function Home() {
             <TouchableOpacity
               onPress={() => navigation.navigate("Notifications")}
             >
-              <Icon name="bell" size={22} color="#fff" />
+              <Icon name="bell" size={20} color="#fff" />
             </TouchableOpacity>
             <View style={styles.profileImageContainer}>
               <Image
@@ -124,19 +135,19 @@ export default function Home() {
             ].map((category) => (
               <TouchableOpacity
                 key={category}
-                style={[
-                  styles.enlace,
-                  {
-                    backgroundColor:
-                      selectedCategory === category ? "#40A5E7" : "#141B20",
-                  },
-                ]}
+                style={styles.enlace}
                 onPress={() => setSelectedCategory(category)}
               >
                 <Text
                   style={[
                     styles.h2,
-                    { color: selectedCategory === category ? "#fff" : "#fff" },
+                    {
+                      color: selectedCategory === category ? "#40A5E7" : "#fff",
+                      borderBottomColor:
+                        selectedCategory === category ? "#40A5E7" : "#1E1E1E",
+                      borderBottomWidth: 1,
+                      fontWeight: "bold",
+                    },
                   ]}
                 >
                   {category}
@@ -156,7 +167,7 @@ export default function Home() {
             {selectedCategory === "Para ti" ? (
               <>
                 <View style={styles.content}>
-                <Text style={styles.h3}>Lo más vendido</Text>
+                  <Text style={styles.h3}>Lo más vendido</Text>
                   <Icon name="arrow-right" size={22} color="#fff" />
                 </View>
                 <ScrollView
@@ -183,23 +194,20 @@ export default function Home() {
                   </Text>
                 </View>
                 <ScrollView
-  showsVerticalScrollIndicator={false}
-  contentContainerStyle={styles.scrollViewContent}
->
-  <View style={styles.cardContainer}>
-    {filteredProducts.map((product) => (
-      <CardProduct
-        key={product.IdProduct}
-        product={product}
-        onPress={() => handleProductClick(product)}
-        style={styles.cardItem} // Añade este estilo si es necesario
-      />
-    ))}
-  </View>
-</ScrollView>
-
-
-                
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.scrollViewContent}
+                >
+                  <View style={styles.cardContainer}>
+                    {filteredProducts.map((product) => (
+                      <CardProduct
+                        key={product.IdProduct}
+                        product={product}
+                        onPress={() => handleProductClick(product)}
+                        style={styles.cardItem}
+                      />
+                    ))}
+                  </View>
+                </ScrollView>
               </>
             )}
             {selectedCategory === "Para ti" && (
@@ -237,6 +245,16 @@ export default function Home() {
                       onPress={() => handleProductClick(product)}
                     />
                   ))} */}
+                  <CardProductParty
+                    key={party.IdProduct}
+                    product={party}
+                    onPress={() => handleProductClick(party)}
+                  />
+                  <CardProductParty
+                    key={party.IdProduct}
+                    product={party}
+                    onPress={() => handleProductClick(party)}
+                  />
                 </ScrollView>
               </>
             )}
@@ -276,19 +294,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileImageContainer: {
-    borderRadius: 50,
+    borderRadius: 40,
     overflow: "hidden",
     marginLeft: 10,
   },
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
   },
   separatorLine: {
     borderBottomColor: "#74797c",
     borderBottomWidth: 1,
-    marginVertical: 10,
+    marginTop: 20,
   },
   enlaces: {
     flexDirection: "row",
@@ -319,7 +337,7 @@ const styles = StyleSheet.create({
     paddingEnd: 12,
     paddingStart: 12,
     flex: 8,
-    paddingBottom: 80,
+    paddingBottom: 58,
   },
   absoluteIconsContainer: {
     position: "absolute",
@@ -331,19 +349,19 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderTopWidth: 1,
     borderTopColor: "#74797c",
-  },    scrollViewContent: {
+  },
+  scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   cardContainer: {
-    width: '102%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    width: "102%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   cardItem: {
-    width: '30%', // Aproximadamente un tercio del ancho total
+    width: "30%",
   },
 });
-

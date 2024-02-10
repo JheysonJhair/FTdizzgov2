@@ -14,6 +14,7 @@ import Buy from "../screens/buyout/Buy";
 import Chat from "../screens/chat/Chat";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import NewPassword from "../screens/auth/NewPassword";
+import ProductMix from "../screens/products/ProductMix";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,11 @@ export default function Routes() {
       <Stack.Screen
         name="Information"
         component={ProductInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Mix"
+        component={ProductMix}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -8,144 +8,101 @@ import {
   Image,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { LinearGradient } from "expo-linear-gradient";
-import CardProductBuy from "../../components/products/CardProductBuy";
 
 const ProductInformation = ({ route, navigation }) => {
   const handleGoBack = () => {
     navigation.goBack();
   };
   const { product } = route.params;
-  const getProductType = (type) => {
-    switch (type) {
-      case 0:
-        return "Whisky";
-      case 1:
-        return "Ron";
-      case 2:
-        return "Gaseosa";
-      case 3:
-        return "Agua";
-      case 4:
-        return "Licor de Malta";
-      case 5:
-        return "Vodka";
-      default:
-        return "Desconocido";
-    }
-  };
-  const getGradientColors = (sabor) => {
-    switch (sabor) {
-      case "blue":
-        return ["#0635a3", "#161B21"];
-      case "red":
-        return ["#FF1493", "#161B21"];
-      case "neutral":
-        return ["#FFFACD", "#161B21"];
-      case "Apple":
-        return ["#468949", "#161B21"];
-      default:
-        return ["#a04e38", "#161B21"];
-    }
-  };
-  const getGradientColors2 = (sabor) => {
-    switch (sabor) {
-      case "blue":
-        return ["#0635a3", "#0635a3"];
-      case "red":
-        return ["#FF1493", "#FF1493"];
-      case "neutral":
-        return ["#FFFACD", "#FFFACD"];
-      case "Apple":
-        return ["#468949", "#468949"];
-      default:
-        return ["#a04e38", "#a04e38"];
-    }
-  };
-  const sampleProduct = {
-    title: "Four Loko ",
-    sabor: "Neutral",
-    price: 12,
-    image:
-      "https://res.cloudinary.com/dgbtcphdn/image/upload/v1695007501/XGOO/productos/hhcdith9uikjalo0xfaz.png",
+
+  const handleProductClick = (product) => {
+    navigation.navigate("Mix", { product });
   };
   return (
     <View style={styles.container}>
-      <View>
-        <LinearGradient
-          colors={getGradientColors2(product.Flavor)}
-          style={styles.containerGradient}
-        >
-          <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-            <Ionicons name="arrow-back" size={23} color="white" />
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
-      <View>
-        <LinearGradient
-          colors={getGradientColors(product.Flavor)}
-          style={styles.containerInformation}
-        >
-          <Text style={styles.hh1}>{getProductType(product.Type)}</Text>
-          <Text style={styles.h1}>{product.Name}</Text>
-          <View style={styles.containerProduct}>
-            <View style={styles.productDetails}>
-              <View style={styles.sabor}>
-                <Text style={styles.h3}>SABOR</Text>
-                <Text style={styles.h2}>{product.Flavor}</Text>
-              </View>
-              <View style={styles.alcohol}>
-                <Text style={styles.h3}>ALCOHOL</Text>
-                <Text style={styles.h2}>{product.Volume*100}%</Text>
-              </View>
-            </View>
-            <View style={styles.productDetails}>
-              <View style={styles.sabor2}>
-                <Text style={styles.h3}>ML</Text>
-                <Text style={styles.h2}>{product.Ml}</Text>
-              </View>
-              <View style={styles.alcohol}>
-                <Text style={styles.h3}>PRECIO</Text>
-                <Text style={styles.h2}>s/{product.PriceProduct}</Text>
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Mezclar</Text>
-          </TouchableOpacity>
-          <Image
-            source={{ uri: product.ImgProduct }}
-            style={[styles.image, styles.absoluteImage]}
-          />
-        </LinearGradient>
-      </View>
-      <View style={styles.containerBotones}>
-        <TouchableOpacity style={styles.botonComprar}>
-          <Ionicons name="cart" size={24} color="#A3AABF" />
-          <Text style={styles.botonText}>Agregar</Text>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
+          <Ionicons name="arrow-back" size={23} color="white" />
         </TouchableOpacity>
-        <View style={styles.botonCircularContainer}>
-          <TouchableOpacity style={styles.botonCircular}>
-            <Ionicons name="bookmark" size={24} color="#A3AABF" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.botonCircular}>
-            <Ionicons name="heart" size={24} color="#A3AABF" />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.backButton2} >
+          <Ionicons name="cart" size={23} color="white" />
+        </TouchableOpacity>
       </View>
+      <ScrollView style={styles.content}>
+        <View style={styles.productContainer}>
+          <Image source={{ uri: product.ImgProduct }} style={styles.image} />
 
-      <View style={styles.producto}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View>
-            <Text style={styles.hh}>Productos Similares</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <CardProductBuy product={sampleProduct} />
-              <CardProductBuy product={sampleProduct} />
-              <CardProductBuy product={sampleProduct} />
-              <CardProductBuy product={sampleProduct} />
-            </ScrollView>
+          <Text style={styles.title}>{product.Name}</Text>
+          <View style={styles.ratingContainer}>
+            <View style={styles.ratingContainerItem}>
+              <Text style={styles.rating}>
+                <Ionicons sty name="star" size={16} color="white" />
+                <Text> 4.5</Text>
+              </Text>
+            </View>
+            <View style={styles.ratingContainerItem}>
+              <Ionicons name="star" size={16} color="yellow" />
+            </View>
           </View>
-        </ScrollView>
+          <View style={styles.detailsContainer}>
+            <View>
+              <Text style={styles.price}>s/ {product.PriceProduct}</Text>
+              <Text style={styles.points}>10 puntos</Text>
+            </View>
+            <View style={styles.actionsContainer}>
+              <TouchableOpacity style={styles.actionButton}>
+                <Ionicons name="bookmark" size={20} color="#A3AABF" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.actionButton}>
+                <Ionicons name="heart" size={20} color="#A3AABF" />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.contendorValores}>
+            <View style={styles.valorContainer}>
+              <View style={styles.ratingContainerItem2}>
+                <Text style={styles.valor}>{product.Flavor}</Text>
+              </View>
+              <Text style={styles.subtitile}>Sabor</Text>
+            </View>
+            <View style={styles.valorContainer}>
+              <View style={styles.ratingContainerItem2}>
+                <Text style={styles.valor}>{product.Volume * 100}%</Text>
+              </View>
+              <Text style={styles.subtitile}>% Alcohol</Text>
+            </View>
+            <View style={styles.valorContainer}>
+              <View style={styles.ratingContainerItem2}>
+                <Text style={styles.valor}>{product.Ml}</Text>
+              </View>
+              <Text style={styles.subtitile}>Ml</Text>
+            </View>
+          </View>
+
+          <View style={styles.containerMap}>
+            <View style={styles.storeContainer}>
+              <Text style={styles.descriptionTitle}>Licorería más cercana</Text>
+              <Text style={styles.storeName}>"Al que te dije"</Text>
+              <Text style={styles.closingTime}>Cierra en 18 horas</Text>
+            </View>
+            <View style={styles.storeContainer2}>
+              <Ionicons name="md-map" size={20} color="white" />
+            </View>
+          </View>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.descriptionTitle}>Descripción</Text>
+            <Text style={styles.description}>{product.Description}</Text>
+          </View>
+        </View>
+      </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.addButton}>
+          <Ionicons name="cart" size={24} color="#000" />
+          <Text style={styles.addButtonText}>Agregar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.mixButton} onPress={() => handleProductClick(product)}>
+          <Text style={styles.mixButtonText}>Mezclar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -156,126 +113,204 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#161B21",
   },
-  containerGradient: {
+  header: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  //
   backButton: {
     marginRight: 10,
   },
-  containerInformation: {
-    paddingBottom: 15,
-    paddingTop: 10,
-    paddingLeft: 30,
+  backButton2: {
+    position: "absolute",
+    right: 15,
+    top: 12
   },
-  hh1: {
-    color: "#eaedff",
-    fontSize: 26,
-    fontWeight: "bold",
-    zIndex: 99,
+  content: {
+    flex: 1,
   },
-  hh: {
+  productContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  image: {
+    width: 220,
+    height: 270,
+    borderRadius: 10,
+    alignSelf: "center",
+    marginTop: "auto",
+    marginBottom: "auto",
+  },
+  title: {
     color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginStart: 10,
+    fontSize: 30,
+    fontFamily: "Montserrat_800ExtraBold",
     marginBottom: 10,
   },
-  h1: {
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  ratingContainerItem: {
+    backgroundColor: "#212834",
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 12,
+    paddingRight: 12,
+    borderRadius: 25,
+    marginEnd: 20,
+  },
+  ratingContainerItem2: {
+    backgroundColor: "#212834",
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 12,
+    paddingRight: 12,
+    borderRadius: 25,
+  },
+  hc: {
+    padding: 10,
+  },
+  subtitile: {
     color: "white",
-    fontSize: 40,
-    width: "80%",
+    fontSize: 14,
+  },
+  rating: {
+    color: "white",
+  },
+  detailsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  containerMap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  storeContainer2:{
+    width: 40,
+    height: 40,
+    backgroundColor: "#0C98B7",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center", 
+  },
+  detailsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  price: {
+    color: "white",
+    fontSize: 25,
     fontFamily: "Montserrat_800ExtraBold",
   },
-  containerProduct: {
-    paddingTop: 20,
+  points: {
+    color: "#0C98B7",
   },
-  productDetails: {
+  actionsContainer: {
     flexDirection: "row",
+  },
+  actionButton: {
+    backgroundColor: "#212834",
+    borderRadius: 30,
+    padding: 15,
+    marginLeft: 10,
+  },
+  flavor: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  volume: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Montserrat_800ExtraBold",
+    marginLeft: 10,
+  },
+  ml: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Montserrat_800ExtraBold",
+    marginLeft: 10,
+  },
+  contendorValores: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  valorContainer: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    alignItems: "center",
     marginBottom: 10,
   },
-  sabor: {
-    width: "40%",
+  valor: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Montserrat_800ExtraBold",
   },
-  sabor2: {
-    width: "40%",
+
+  storeContainer: {
+    marginBottom: 20,
   },
-  h2: {
+  store: {
+    color: "white",
+  },
+  storeName: {
+    color: "#A3AABF",
+  },
+  closingTime: {
+    color: "#40A5E7",
+  },
+  descriptionContainer: {
+    marginBottom: 20,
+  },
+  descriptionTitle: {
     color: "white",
     fontSize: 19,
     fontFamily: "Montserrat_800ExtraBold",
   },
-  h3: {
-    fontFamily: "Montserrat_800ExtraBold",
-    fontSize: 16,
+  description: {
+    color: "#A3AABF",
   },
-  button: {
-    marginTop: 17,
-    backgroundColor: "#a04e38",
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  addButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 5,
     padding: 10,
-    width: 210,
+  },
+  addButtonText: {
+    color: "#000",
+    marginLeft: 10,
+    fontSize: 16,
+    fontFamily: "Montserrat_800ExtraBold",
+  },
+  mixButton: {
+    width: 200,
+    backgroundColor: "#40A5E7",
+    padding: 10,
     borderRadius: 4,
   },
-  buttonText: {
+  mixButtonText: {
     color: "#fff",
     fontSize: 16,
     textAlign: "center",
     fontFamily: "Montserrat_800ExtraBold",
-  },
-  //
-  containerBotones: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "70%",
-    paddingHorizontal: 30,
-    paddingVertical: 15,
-    backgroundColor: "#161B21",
-    marginBottom: 10,
-  },
-  botonComprar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#212834",
-    borderRadius: 5,
-    paddingLeft: 14,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 14,
-  },
-  botonText: {
-    color: "#A3AABF",
-    marginLeft: 10,
-  },
-  botonCircularContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  botonCircular: {
-    backgroundColor: "#212834",
-    borderRadius: 50,
-    padding: 10,
-    marginLeft: 10,
-  },
-  producto: {
-    padding: 10,
-  },
-  //
-  image: {
-    width: "60%",
-    height: "110%",
-    borderRadius: 10,
-    resizeMode: "cover",
-    position: "absolute",
-    zIndex:100
-  },
-
-  absoluteImage: {
-    top: 100,
-    right: -40,
   },
 });
 

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#212834",
     borderColor: "#212834",
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 12,
     marginVertical: 1,
   },
   searchIcon: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome } from "@expo/vector-icons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const ProductCardBuy = ({ product }) => {
   return (
@@ -16,8 +16,8 @@ const ProductCardBuy = ({ product }) => {
           <Text style={styles.h3}>s/{product.price}</Text>
         </View>
         <View style={styles.circle}></View>
-        {/* Icono "+" */}
-        <FontAwesome name="plus" size={18} color="#fff" style={styles.icon} />
+        <Ionicons sty name="star" size={9} color="white" style={styles.icon} />
+        <Text style={styles.texto} >4.5</Text>
       </LinearGradient>
       <Image source={{ uri: product.image }} style={styles.image} />
     </View>
@@ -93,17 +93,25 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    bottom: 14,
-    right: 16,
+    bottom: 12,
+    right: 32,
     zIndex: 4,
+  },
+  texto: {
+    position: "absolute",
+    bottom: 10,
+    right: 15,
+    zIndex: 4,
+    fontSize:11,
+    color: "#fff",
   },
   circle: {
     position: "absolute",
     bottom: 6,
     right: 6,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 45,
+    height: 20,
+    borderRadius: 12,
     backgroundColor: "#212834",
     zIndex: 3,
   },
