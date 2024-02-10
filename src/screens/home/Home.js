@@ -31,7 +31,6 @@ export default function Home() {
   const { userData } = useUser();
   const navigation = useNavigation();
 
-
   const party = {
     Name: "La combinació perfecta ",
     Flavor: "Pack Whisky Something Special: Botella 750ml + Botella 200ml",
@@ -39,7 +38,6 @@ export default function Home() {
     ImgProduct:
       "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
   };
-
 
   const filterProductsByType = async (type) => {
     let typeId;

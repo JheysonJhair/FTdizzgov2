@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 import {
   useFonts,
@@ -35,6 +36,7 @@ const Perfil = () => {
   const [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
   });
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -57,8 +59,8 @@ const Perfil = () => {
         setImage(result.uri);
         setModalStatus("success");
         setModalVisible(true);
-        setText("Actualizado con exito");
-        setText2("Su perfil se subió exitosamente!.");
+        setText("Actualizado con éxito");
+        setText2("¡Su perfil se subió exitosamente!");
         setTimeout(() => {
           setModalVisible(false);
         }, 2000);
@@ -75,134 +77,171 @@ const Perfil = () => {
   if (!fontsLoaded) {
     return null;
   }
+
   const sampleProduct1 = {
-    Name: "Four Loko ",
-    Flavor: "blue",
-    PriceProduct: 12,
+    Name: "Johnnie Walker",
+    Flavor: "Red label",
+    PriceProduct: 64.9,
     ImgProduct:
-      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
+      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706936662/Whiskys/lk6iniw9x8s8wsfqw5to.png",
   };
   const sampleProduct2 = {
-    Name: "Everrs ",
-    Flavor: "Neutral",
-    PriceProduct: 5,
+    Name: "Johnnie Walker",
+    Flavor: "Double Black",
+    PriceProduct: 234.9,
     ImgProduct:
-      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
+      "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706932744/Whiskys/x0g3jzoakf6cohekbwit.png",
   };
 
   const selectedProduct =
     selectedButton === "bookmark" ? sampleProduct1 : sampleProduct2;
-
+  const handleProductClick = (product) => {
+    navigation.navigate("Information", { product });
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.editButton} onPress={pickImage}>
-          {image ? (
-            <>
-              <Image source={{ uri: image }} style={styles.profileImage} />
-              <View style={styles.editIconContainer}>
-                <Icon name="plus" size={20} color="#fff" />
-              </View>
-            </>
-          ) : (
-            <>
-              <Image
-                source={{ uri: userData.ProfileImage }}
-                style={styles.profileImage}
-              />
-              <View style={styles.editIconContainer}>
-                <Icon name="plus" size={20} color="#fff" />
-              </View>
-            </>
-          )}
-        </TouchableOpacity>
+      <ScrollView style={styles.content}>
+        <View style={styles.profileContainer}>
+          <TouchableOpacity style={styles.editButton} onPress={pickImage}>
+            {image ? (
+              <>
+                <Image source={{ uri: image }} style={styles.profileImage} />
+                <View style={styles.editIconContainer}>
+                  <Icon name="plus" size={20} color="#fff" />
+                </View>
+              </>
+            ) : (
+              <>
+                <Image
+                  source={{ uri: userData.ProfileImage }}
+                  style={styles.profileImage}
+                />
+                <View style={styles.editIconContainer}>
+                  <Icon name="plus" size={20} color="#fff" />
+                </View>
+              </>
+            )}
+          </TouchableOpacity>
 
-        <Text style={styles.profileName}>
-          @
-          {userData.UserName ||
-            userData.FirstName.replace(/\s+/g, "").toLowerCase() +
-              userData.LastName.split(" ")[0].replace(/\s+/g, "").toLowerCase()}
-        </Text>
+          <Text style={styles.profileName}>
+            @
+            {userData.UserName ||
+              userData.FirstName.replace(/\s+/g, "").toLowerCase() +
+                userData.LastName.split(" ")[0]
+                  .replace(/\s+/g, "")
+                  .toLowerCase()}
+          </Text>
 
-        <Text style={styles.profileDescription}>
-          {userData.Description ||
-            "Experimenté soledad en un vaso, sin encontrar la compañía que esperada."}
-        </Text>
+          <Text style={styles.profileDescription}>
+            {userData.Description ||
+              "Experimenté soledad en un vaso, sin encontrar la compañía que esperaba."}
+          </Text>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("EditPerfil")}
-          style={styles.editProfileButton}
-        >
-          <Text style={styles.editProfileButtonText}>Editar perfil</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.containerButtons}>
-        <TouchableOpacity
-          onPress={() => setSelectedButton("bookmark")}
-          style={[
-            styles.button,
-            selectedButton === "bookmark" && styles.selectedButton,
-          ]}
-        >
-          <Icon
-            name="bookmark"
-            size={24}
-            color={selectedButton === "bookmark" ? "#40A5E7" : "#FFFFFF"}
-            style={styles.bookmarkIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setSelectedButton("heart")}
-          style={[
-            styles.button,
-            selectedButton === "heart" && styles.selectedButton,
-          ]}
-        >
-          <Icon
-            name="heart"
-            size={24}
-            color={selectedButton === "heart" ? "#40A5E7" : "#FFFFFF"}
-            style={styles.heartIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.scrollVerticalContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("EditPerfil")}
+            style={styles.editProfileButton}
+          >
+            <Text style={styles.editProfileButtonText}>Editar perfil</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.containerButtons}>
+          <TouchableOpacity
+            onPress={() => setSelectedButton("bookmark")}
+            style={[
+              styles.button,
+              selectedButton === "bookmark" && styles.selectedButton,
+            ]}
+          >
+            <Icon
+              name="bookmark"
+              size={24}
+              color={selectedButton === "bookmark" ? "#40A5E7" : "#FFFFFF"}
+              style={styles.bookmarkIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setSelectedButton("heart")}
+            style={[
+              styles.button,
+              selectedButton === "heart" && styles.selectedButton,
+            ]}
+          >
+            <Icon
+              name="heart"
+              size={24}
+              color={selectedButton === "heart" ? "#40A5E7" : "#FFFFFF"}
+              style={styles.heartIcon}
+            />
+          </TouchableOpacity>
+        </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={styles.scrollVertical}
+          contentContainerStyle={styles.scrollViewContent}
         >
-          <View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
-            >
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-            </ScrollView>
-          </View>
-          <View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.enlaces}
-            >
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-              <CardProduct product={selectedProduct} />
-            </ScrollView>
+          <View style={styles.cardContainer}>
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
+            <CardProduct
+              key={selectedProduct.IdProduct}
+              product={selectedProduct}
+              onPress={() => handleProductClick(selectedProduct)}
+              style={styles.cardItem}
+            />
           </View>
         </ScrollView>
-      </View>
-      <StatusModal
-        visible={modalVisible}
-        status={modalStatus}
-        text={text}
-        text2={text2}
-      />
+        <StatusModal
+          visible={modalVisible}
+          status={modalStatus}
+          text={text}
+          text2={text2}
+        />
+      </ScrollView>
       <View style={styles.absoluteIconsContainer}>
         <Footer iconName="home" selectedIcon={null} />
         <Footer iconName="comments" selectedIcon={null} />
@@ -218,8 +257,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#161B21",
-    alignItems: "center",
-    justifyContent: "center",
     width: "100%",
   },
   profileContainer: {
@@ -248,12 +285,10 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "#161B21",
   },
-
   editIcon: {
     color: "#fff",
     fontWeight: "bold",
   },
-
   profileName: {
     fontFamily: "Montserrat_800ExtraBold",
     fontSize: 24,
@@ -279,27 +314,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
   },
-  //
-  content: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-  },
-  h3: {
-    color: "#fff",
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  scrollVerticalContainer: {
-    paddingTop: 10,
-    position: "relative",
-    paddingEnd: 5,
-    paddingStart: 5,
-    flex: 8,
-    paddingBottom: 58,
-  },
-  //
   containerButtons: {
     paddingTop: 16,
     flexDirection: "row",
@@ -314,7 +328,11 @@ const styles = StyleSheet.create({
     color: "#40A5E7",
     borderRadius: 5,
   },
-  //
+  scrollVerticalContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+    paddingBottom: 58,
+  },
   absoluteIconsContainer: {
     position: "absolute",
     width: "100%",
@@ -325,6 +343,24 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderTopWidth: 1,
     borderTopColor: "#74797c",
+  },
+  content: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingBottom: 58,
+  },
+  cardContainer: {
+    width: "95%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  cardItem: {
+    width: "30%",
   },
 });
 

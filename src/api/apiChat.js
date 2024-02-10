@@ -6,6 +6,7 @@ export const getMensajes = async () => {
     const mensajesFormateados = data.map((mensaje) => ({
       _id: mensaje.IdMessage,
       text: mensaje.Text,
+      image: mensaje.Image,
       createdAt: mensaje.createDate,
       user: {
         _id: mensaje.User.IdUser,
@@ -43,5 +44,28 @@ export const sendMessage = async (id, text) => {
     return user;
   } catch (error) {
     throw new Error("Error al enviar mensaje");
+  }
+};
+
+//Enviar Imagen
+export const sendImage = async (formData) => {
+  try {
+    const response = await fetch("https://dizzgob.ccontrolz.com/chat/sendMessageImage", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al enviar image");
+    }
+
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    throw new Error("Error al enviar image");
   }
 };

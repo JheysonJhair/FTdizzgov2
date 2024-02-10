@@ -34,11 +34,14 @@ const ProductMix = ({ route, navigation }) => {
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.productContainer}>
+          <View style={styles.valorContainer}>
+            <Text  style={styles.rating2}>NombredelaMezcla</Text>
+          </View>
           <Image source={{ uri: product.ImgProduct }} style={styles.image} />
           <View style={styles.contendorValores}>
             <View style={styles.valorContainer}>
               <View style={styles.ratingContainerItem2}>
-                <Ionicons name="md-add" size={26} color="#A3AABF" />
+                <Ionicons name="md-remove" size={26} color="#A3AABF" />
               </View>
             </View>
             <View style={styles.valorContainer}>
@@ -131,16 +134,18 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     borderRadius: 25,
   },
-  subtitle:{
+  subtitle: {
     color: "white",
     fontSize: 18,
     fontFamily: "Montserrat_800ExtraBold",
-    marginBottom:10
+    marginBottom: 10,
   },
   rating: {
     color: "#40A5E7",
   },
-
+  rating2: {
+    color: "#fff",
+  },
   contendorValores: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -163,8 +168,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 5,
+    paddingBottom: 10,
   },
   addButton: {
     flexDirection: "row",
@@ -190,7 +195,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     fontFamily: "Montserrat_800ExtraBold",
-  },  producto: {
+  },
+  producto: {
     padding: 10,
   },
 });
