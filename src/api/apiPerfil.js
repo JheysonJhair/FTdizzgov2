@@ -1,3 +1,4 @@
+//Actualizar perfil
 export const updateProfile = async (formData) => {
   try {
     const response = await fetch(`https://dizzgob.ccontrolz.com/user/updateUser`, {
@@ -22,6 +23,7 @@ export const updateProfile = async (formData) => {
   }
 };
 
+//Actualizar imagen de perfil
 export const updateProfileImage = async (userId, formData) => {
   try {
     const response = await fetch(`https://dizzgob.ccontrolz.com/user/updateImageProfile/${userId}`, {

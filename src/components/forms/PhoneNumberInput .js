@@ -20,7 +20,7 @@ const PhoneNumberInput = ({ onPhoneNumberChange }) => {
       <View style={[styles.inputContainer, { flex: 2, marginRight: 5 }]}>
         <TextInput
           style={styles.input}
-          placeholder="Código de país"
+          placeholder="XXX"
           value={countryCode}
           onChangeText={handleCountryCodeChange}
           placeholderTextColor="#C6CBD9"

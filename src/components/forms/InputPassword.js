@@ -42,13 +42,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 10,
     width: "95%",
-    paddingHorizontal: 12,
-    padding: 2,
   },
   notEditable: {
     opacity: 0.5,
   },
   input: {
+    paddingHorizontal: 12,
+    padding: 2,
     flex: 1,
     color: "white",
     fontSize: 16,
@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   eyeIcon: {
-    padding: 10,
+    position: "absolute",
+    padding: 14,
+    right: 0,
   },
 });
 

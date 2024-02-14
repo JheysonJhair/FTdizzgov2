@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: "100%",
     marginBottom: 8,
-    textAlignVertical: "top", // Alineación del texto en la parte superior del TextInput
+    textAlignVertical: "top",
   },
 });
 

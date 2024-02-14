@@ -25,7 +25,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
-//Register
+//Registrar
 export const registerUser = async ({
   Email,
   Password,
@@ -53,7 +53,7 @@ export const registerUser = async ({
   }
 };
 
-//Verficar email
+//Verificar email
 export const verifyEmail = async (email) => {
   try {
     const url = `https://dizzgob.ccontrolz.com/auth-validate?email=${encodeURIComponent(
@@ -67,7 +67,7 @@ export const verifyEmail = async (email) => {
   }
 };
 
-//Verficar codigo
+//Verificar codigo
 export const verifyCode = async (code, gmail) => {
   try {
     const url = "https://dizzgob.ccontrolz.com/user/validate";
@@ -99,14 +99,17 @@ export const recoverPassword = async (email) => {
 //Actualizar contraseña
 export const updatePassword = async (jsonData) => {
   try {
-    const response = await fetch(`https://dizzgob.ccontrolz.com/user/recoverPassword`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json", 
-      },
-      body: JSON.stringify(jsonData), 
-    });
+    const response = await fetch(
+      `https://dizzgob.ccontrolz.com/user/recoverPassword`,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonData),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -117,6 +120,9 @@ export const updatePassword = async (jsonData) => {
     }
   } catch (error) {
     console.error("Error:", error);
-    return { success: false, error: "Error en la solicitud actualizar contraseña" };
+    return {
+      success: false,
+      error: "Error en la solicitud actualizar contraseña",
+    };
   }
 };

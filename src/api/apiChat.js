@@ -1,3 +1,4 @@
+//Traer mensajes
 export const getMensajes = async () => {
   try {
     const mensajes = await fetch("https://dizzgob.ccontrolz.com/chat/getAll");
@@ -50,14 +51,17 @@ export const sendMessage = async (id, text) => {
 //Enviar Imagen
 export const sendImage = async (formData) => {
   try {
-    const response = await fetch("https://dizzgob.ccontrolz.com/chat/sendMessageImage", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      "https://dizzgob.ccontrolz.com/chat/sendMessageImage",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData,
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Error al enviar image");
