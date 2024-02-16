@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "expo-checkbox";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../api/apiLogin";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
@@ -11,6 +10,7 @@ import GoogleButton from "../../components/forms/GoogleButton";
 import FacebookButton from "../../components/forms/FacebookButton";
 import StatusModal from "../../components/modals/StatusModal ";
 
+import { loginUser } from "../../api/apiLogin";
 import { useUser } from "../../components/utils/UserContext";
 
 export default function Login() {

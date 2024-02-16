@@ -2,29 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   GiftedChat,
   Bubble,
-  Send,
   Composer,
   InputToolbar,
 } from "react-native-gifted-chat";
-import { TouchableOpacity, View, Text, Image } from "react-native";
+
+import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import StatusModal from "../../components/modals/StatusModal ";
 import * as ImagePicker from "expo-image-picker";
 
-import { getMensajes } from "../../api/apiChat";
-import { sendMessage } from "../../api/apiChat";
-import { sendImage } from "../../api/apiChat";
+import { getMensajes, sendMessage, sendImage } from "../../api/apiChat";
 import { useUser } from "../../components/utils/UserContext";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const { userData } = useUser();
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalStatus, setModalStatus] = useState("error");
-  const [text, setText] = useState("");
-  const [text2, setText2] = useState("");
 
   useEffect(() => {
     const fetchMensajes = async () => {
@@ -107,16 +99,6 @@ const Chat = () => {
     );
   };
 
-  useEffect(() => {
-    if (modalVisible) {
-      const timeout = setTimeout(() => {
-        setModalVisible(false);
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [modalVisible]);
-
   const renderBubble = (props) => {
     return (
       <View>
@@ -154,19 +136,14 @@ const Chat = () => {
               wrapperStyle={{
                 left: {
                   backgroundColor: "#212834",
-                  borderRadius: 10,
+                  borderRadius: 5,
                 },
                 right: {
                   backgroundColor: "#40A5E7",
-                  borderRadius: 10,
+                  borderRadius: 5,
                 },
               }}
             >
-              <Image
-                source={{ uri: props.currentMessage.image }}
-                style={{ width: 300, height: 300, borderRadius: 10 }}
-                resizeMode="contain"
-              />
             </Bubble>
           </View>
         )}
@@ -175,14 +152,18 @@ const Chat = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/fondochat.png")}
+        style={styles.backgroundImage}
+      />
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={false}
         showUserAvatar={false}
         onSend={(newMessages) => onSend(newMessages)}
         messagesContainerStyle={{
-          backgroundColor: "#161B21",
+          backgroundColor: "transparent",
         }}
         textInputStyle={{
           backgroundColor: "#212834",
@@ -216,14 +197,20 @@ const Chat = () => {
         onInputTextChanged={(text) => setInputText(text)}
         text={inputText}
       />
-      <StatusModal
-        visible={modalVisible}
-        status={modalStatus}
-        text={text}
-        text2={text2}
-      />
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: "relative", 
+  },
+  backgroundImage: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+  },
+});
 
 export default Chat;

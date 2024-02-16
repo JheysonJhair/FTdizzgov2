@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { getGradientColors } from "../utils/GradientUtils";
 
 const ProductCardBuy = ({ product }) => {
   return (
@@ -11,30 +12,17 @@ const ProductCardBuy = ({ product }) => {
         style={styles.card}
       >
         <View style={styles.content}>
-          <Text style={styles.h1}>{product.title}</Text>
-          <Text style={styles.h2}>Sabor: {product.sabor}</Text>
-          <Text style={styles.h3}>s/{product.price}</Text>
+          <Text style={styles.h1}>{product.Name}</Text>
+          <Text style={styles.h2}>Sabor: {product.Flavor}</Text>
+          <Text style={styles.h3}>s/{product.PriceProduct}</Text>
         </View>
         <View style={styles.circle}></View>
         <Ionicons sty name="star" size={9} color="white" style={styles.icon} />
         <Text style={styles.texto} >4.5</Text>
       </LinearGradient>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image source={{ uri: product.ImgProduct }} style={styles.image} />
     </View>
   );
-};
-
-const getGradientColors = (sabor) => {
-  switch (sabor) {
-    case "blue":
-      return ["#0635a3", "#0686a0"];
-    case "red":
-      return ["#FF1493", "#FF4500"];
-    case "neutral":
-      return ["#FFFACD", "#D3D3D3"];
-    default:
-      return ["#b9bac9", "#71727f"];
-  }
 };
 
 const styles = StyleSheet.create({

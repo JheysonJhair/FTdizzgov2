@@ -18,20 +18,22 @@ const ProductInformation = ({ route, navigation }) => {
   const handleProductClick = (product) => {
     navigation.navigate("Mix", { product });
   };
+  const handleShopingCar = () => {
+    navigation.navigate("Carrito");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
           <Ionicons name="arrow-back" size={23} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.backButton2} >
+        <TouchableOpacity style={styles.shopingButton} onPress={handleShopingCar}>
           <Ionicons name="cart" size={23} color="white" />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.productContainer}>
           <Image source={{ uri: product.ImgProduct }} style={styles.image} />
-
           <Text style={styles.title}>{product.Name}</Text>
           <View style={styles.ratingContainer}>
             <View style={styles.ratingContainerItem}>
@@ -60,22 +62,22 @@ const ProductInformation = ({ route, navigation }) => {
           </View>
           <View style={styles.contendorValores}>
             <View style={styles.valorContainer}>
-              <View style={styles.ratingContainerItem2}>
+              <View style={styles.containerDetail}>
                 <Text style={styles.valor}>{product.Flavor}</Text>
               </View>
-              <Text style={styles.subtitile}>Sabor</Text>
+              <Text style={styles.subtitle}>Sabor</Text>
             </View>
             <View style={styles.valorContainer}>
-              <View style={styles.ratingContainerItem2}>
+              <View style={styles.containerDetail}>
                 <Text style={styles.valor}>{product.Volume * 100}%</Text>
               </View>
-              <Text style={styles.subtitile}>% Alcohol</Text>
+              <Text style={styles.subtitle}>% Alcohol</Text>
             </View>
             <View style={styles.valorContainer}>
-              <View style={styles.ratingContainerItem2}>
+              <View style={styles.containerDetail}>
                 <Text style={styles.valor}>{product.Ml}</Text>
               </View>
-              <Text style={styles.subtitile}>Ml</Text>
+              <Text style={styles.subtitle}>Ml</Text>
             </View>
           </View>
 
@@ -122,11 +124,12 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  backButton2: {
+  shopingButton: {
     position: "absolute",
     right: 15,
     top: 12
   },
+  //
   content: {
     flex: 1,
   },
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginEnd: 20,
   },
-  ratingContainerItem2: {
+  containerDetail: {
     backgroundColor: "#212834",
     paddingTop: 8,
     paddingBottom: 8,
@@ -170,40 +173,15 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     borderRadius: 25,
   },
-  hc: {
-    padding: 10,
-  },
-  subtitile: {
-    color: "white",
-    fontSize: 14,
-  },
   rating: {
     color: "white",
   },
+  //
   detailsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
     marginTop: 10,
-  },
-  containerMap: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  storeContainer2:{
-    width: 40,
-    height: 40,
-    backgroundColor: "#0C98B7",
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center", 
-  },
-  detailsRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
   },
   price: {
     color: "white",
@@ -222,22 +200,16 @@ const styles = StyleSheet.create({
     padding: 15,
     marginLeft: 10,
   },
-  flavor: {
+  subtitle: {
     color: "white",
-    fontSize: 16,
-    fontFamily: "Montserrat_800ExtraBold",
+    fontSize: 14,
   },
-  volume: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Montserrat_800ExtraBold",
-    marginLeft: 10,
-  },
-  ml: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Montserrat_800ExtraBold",
-    marginLeft: 10,
+  //
+  detailsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
   contendorValores: {
     flexDirection: "row",
@@ -255,9 +227,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Montserrat_800ExtraBold",
   },
-
+  //
+  containerMap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   storeContainer: {
     marginBottom: 20,
+  },
+  storeContainer2:{
+    width: 40,
+    height: 40,
+    backgroundColor: "#0C98B7",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center", 
   },
   store: {
     color: "white",
@@ -279,6 +264,7 @@ const styles = StyleSheet.create({
   description: {
     color: "#A3AABF",
   },
+  //
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",

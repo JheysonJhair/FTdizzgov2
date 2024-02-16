@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
-import CardProductBuy from "../../components/products/CardProductBuy";
+
 import Button from "../../components/forms/Button";
 
 const Buy = ({ route, navigation }) => {
@@ -30,64 +30,60 @@ const Buy = ({ route, navigation }) => {
   };
   const { product } = route.params;
   return (
-<View style={styles.container}>
-  <View>
-    <View>
-      <LinearGradient
-        colors={["#40A5E7", "#40A5E7"]}
-        style={styles.containerGradient}
-      >
-        <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={23} color="white" />
-        </TouchableOpacity>
-      </LinearGradient>
-    </View>
-    <View>
-      <LinearGradient
-        colors={["#40A5E7", "#161B21"]}
-        style={styles.containerInformation}
-      >
-        <Image source={{ uri: product.image }} style={styles.image} />
-      </LinearGradient>
-    </View>
-    <View style={styles.infor}>
-      <Text style={styles.h1}>{product.nombre}</Text>
-      <Text style={styles.h22}>
-        10 puntos <Text style={styles.h23}>(por persona)</Text>
-      </Text>
-      <Text style={styles.h31}>Código de recibo:</Text>
-      <Text style={styles.h32}>1A21XCS</Text>
-    </View>
-    <View style={styles.bottomContainer}>
-      <View style={styles.totalContainer}>
-        <Text style={styles.h22}>Total acumulado</Text>
-        <Text style={styles.h233}>s/23.00</Text>
+    <View style={styles.container}>
+      <View>
+        <View>
+          <LinearGradient
+            colors={["#40A5E7", "#40A5E7"]}
+            style={styles.containerGradient}
+          >
+            <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
+              <Ionicons name="arrow-back" size={23} color="white" />
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
+        <View>
+          <LinearGradient
+            colors={["#40A5E7", "#161B21"]}
+            style={styles.containerInformation}
+          >
+            <Image source={{ uri: product.ImgProduct }} style={styles.image} />
+          </LinearGradient>
+        </View>
+        <View style={styles.infor}>
+          <Text style={styles.h1}>{product.Name}</Text>
+          <Text style={styles.h22}>
+            10 puntos <Text style={styles.h23}>(por persona)</Text>
+          </Text>
+          <Text style={styles.h31}>Código de recibo:</Text>
+          <Text style={styles.h32}>1A21XCS</Text>
+        </View>
+        <View style={styles.bottomContainer}>
+          <View style={styles.totalContainer}>
+            <Text style={styles.h22}>Total acumulado</Text>
+            <Text style={styles.h233}>s/23.00</Text>
+          </View>
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity
+              onPress={handleDecrement}
+              style={styles.quantityButton}
+            >
+              <Text style={styles.quantityButtonText}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity
+              onPress={handleIncrement}
+              style={styles.quantityButton2}
+            >
+              <Text style={styles.quantityButtonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.bottomContainer2}>
+          <Button title="Comprar" onPress={() => console.log("Comprar")} />
+        </View>
       </View>
-      <View style={styles.quantityContainer}>
-        <TouchableOpacity
-          onPress={handleDecrement}
-          style={styles.quantityButton}
-        >
-          <Text style={styles.quantityButtonText}>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.quantityText}>{quantity}</Text>
-        <TouchableOpacity
-          onPress={handleIncrement}
-          style={styles.quantityButton2}
-        >
-          <Text style={styles.quantityButtonText}>+</Text>
-        </TouchableOpacity>
-      </View>
     </View>
-    <View style={styles.bottomContainer2}>
-    <Button
-      title="Comprar"
-      onPress={() => console.log("Comprar")}
-    />
-  </View>
-  </View>
-</View>
-
   );
 };
 
@@ -105,6 +101,12 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
+  image: {
+    width: 220,
+    height: 390,
+    borderRadius: 10,
+    resizeMode: "cover",
+  },
   containerInformation: {
     justifyContent: "center",
     alignItems: "center",
@@ -114,21 +116,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   totalContainer: {
-    justifyContent: "flex-start", 
+    justifyContent: "flex-start",
     paddingHorizontal: 20,
     marginTop: 10,
   },
   quantityContainer: {
     flexDirection: "row",
-    justifyContent: "flex-end", 
+    justifyContent: "flex-end",
     paddingHorizontal: 20,
     marginTop: 10,
-  },
-  image: {
-    width: 220,
-    height: 390,
-    borderRadius: 10,
-    resizeMode: "cover",
   },
   h1: {
     color: "white",
@@ -187,7 +183,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   quantityText: {
-
     fontSize: 18,
     color: "#FFF",
     margin: 5,
@@ -195,7 +190,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flexDirection: "row",
-    justifyContent: "space-between", 
+    justifyContent: "space-between",
     paddingHorizontal: 10,
     marginTop: 10,
   },

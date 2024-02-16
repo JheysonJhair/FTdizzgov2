@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
 import DatePickerInput from "../../components/forms/DatePickerInput";
 import PhoneNumberInput from "../../components/forms/PhoneNumberInput ";
-
 import StatusModal from "../../components/modals/StatusModal ";
 
-import { registerUser } from "../../api/apiLogin";
-import { loginUser } from "../../api/apiLogin";
-
+import { registerUser, loginUser } from "../../api/apiLogin";
 import { useUser } from "../../components/utils/UserContext";
+
 export default function RegisterTwo() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const route = useRoute();

@@ -17,11 +17,11 @@ import {
 import TextArea from "../../components/forms/TextArea";
 import InputTwo from "../../components/forms/InputTwo";
 import Button from "../../components/forms/Button";
-
-import { useUser } from "../../components/utils/UserContext";
 import StatusModal from "../../components/modals/StatusModal ";
-import { updateProfile } from "../../api/apiPerfil";
-import { updateProfileImage } from "../../api/apiPerfil";
+
+import { updateProfile, updateProfileImage } from "../../api/apiPerfil";
+import { useUser } from "../../components/utils/UserContext";
+
 const EditPerfil = () => {
   const { userData, setUserInfo } = useUser();
 

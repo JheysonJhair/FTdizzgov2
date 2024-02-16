@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { getGradientColors } from "../utils/GradientUtils";
 
 const CardShopingCar = ({ product, onPresss }) => {
   const [quantity, setQuantity] = useState(1);
@@ -14,32 +15,21 @@ const CardShopingCar = ({ product, onPresss }) => {
       setQuantity(quantity - 1);
     }
   };
-  const getGradientColors = (sabor) => {
-    switch (sabor) {
-      case "blue":
-        return ["#0635a3", "#0686a0"];
-      case "red":
-        return ["#FF1493", "#FF4500"];
-      case "neutral":
-        return ["#FFFACD", "#D3D3D3"];
-      case "aple":
-        return ["#013317", "#8aad99"];
-      default:
-        return ["#b9bac9", "#71727f"];
-    }
-  };
+
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity onPress={onPresss}>
         <LinearGradient
-          colors={getGradientColors(product.sabor)}
+          colors={getGradientColors(product.Flavor)}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
           style={styles.card}
         >
-          <Image source={{ uri: product.image }} style={styles.image} />
+          <Image source={{ uri: product.ImgProduct }} style={styles.image} />
           <View style={styles.content}>
-            <Text style={styles.h1}>{product.nombre}</Text>
-            <Text style={styles.h2}>Sabor {product.sabor}</Text>
-            <Text style={styles.h2}>{product.ml} ml</Text>
+            <Text style={styles.h1}>{product.Name}</Text>
+            <Text style={styles.h2}>Sabor {product.Flavor}</Text>
+            <Text style={styles.h2}>{product.Ml} ml</Text>
           </View>
           <View style={styles.quantityContainer}>
             <TouchableOpacity

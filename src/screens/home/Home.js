@@ -32,9 +32,10 @@ export default function Home() {
   const navigation = useNavigation();
 
   const party = {
-    Name: "La combinació perfecta ",
-    Flavor: "Pack Whisky Something Special: Botella 750ml + Botella 200ml",
+    Name: "La combinación perfecta",
+    Options: "Pack Whisky Something Special: Botella 750ml + Botella 200ml",
     PriceProduct: 220,
+    Flavor:"",
     ImgProduct:
       "https://res.cloudinary.com/dfbgjpndh/image/upload/v1706714687/wpib0gexhzwuorgemb76.png",
   };
@@ -66,8 +67,8 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         if (selectedCategory === "Para ti") {
-          const response1 = await getBestSellers(100);
-          const response2 = await getRecommended(100);
+          const response1 = await getBestSellers(5);
+          const response2 = await getRecommended(8);
           if (Array.isArray(response1.data)) {
             setBestSellers(response1.data);
             setPartyWeapon(response1.data);
@@ -104,7 +105,7 @@ export default function Home() {
             <TouchableOpacity
               onPress={() => navigation.navigate("Notifications")}
             >
-              <Icon name="bell" size={20} color="#fff" />
+              <Icon name="bell" size={18} color="#fff" />
             </TouchableOpacity>
             <View style={styles.profileImageContainer}>
               <Image
@@ -316,9 +317,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 4,
   },
-  h2: {
-    color: "#fff",
-  },
+  //
   content: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -337,17 +336,6 @@ const styles = StyleSheet.create({
     flex: 8,
     paddingBottom: 58,
   },
-  absoluteIconsContainer: {
-    position: "absolute",
-    width: "100%",
-    backgroundColor: "#161B21",
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 15,
-    borderTopWidth: 1,
-    borderTopColor: "#74797c",
-  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: "flex-start",
@@ -361,5 +349,17 @@ const styles = StyleSheet.create({
   },
   cardItem: {
     width: "30%",
+  },
+  //
+  absoluteIconsContainer: {
+    position: "absolute",
+    width: "100%",
+    backgroundColor: "#161B21",
+    bottom: 0,
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingVertical: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#74797c",
   },
 });

@@ -1,12 +1,13 @@
 import React from "react";
 import { Text, StyleSheet, View, KeyboardAvoidingView } from "react-native";
-import Button from "../../components/forms/Button";
-import ButtonTwo from "../../components/forms/ButtonTwo";
+import { useNavigation } from "@react-navigation/native";
 import {
   useFonts,
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
-import { useNavigation } from "@react-navigation/native";
+
+import Button from "../../components/forms/Button";
+import ButtonTwo from "../../components/forms/ButtonTwo";
 
 const Welcome = () => {
   const navigation = useNavigation();

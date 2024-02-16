@@ -6,27 +6,30 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CardShopingCar from "../../components/products/CardShopingCar";
 import CardShopingMescla from "../../components/products/CardShopingMescla";
+
 import Footer from "../../components/utils/Footer";
-import { useNavigation } from "@react-navigation/native";
 
 const ShoppingCart = () => {
   const [activeTab, setActiveTab] = useState("pedidos");
   const navigation = useNavigation();
 
   const mescla = {
-    nombre: "Mescla",
-    options: "Four loko, hielo",
-    image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
+    Name: "Mescla",
+    Options: "Four loko, Hielo, Everest",
+    Flavor: "mezcla",
+    ImgProduct: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
 
   const producto = {
-    nombre: "Four loko",
-    sabor: "red",
-    ml: 250,
-    price: 10,
-    image: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
+    Name: "Ruskaya",
+    Flavor: "Apple",
+    Ml: 250,
+    PriceProduct: 10,
+    ImgProduct: "https://licoresbrisol.com.pe/web/webimg/1495_1_1000.png",
   };
 
   const handleProductClick = (product) => {

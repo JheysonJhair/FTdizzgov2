@@ -6,18 +6,17 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  FlatList,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   useFonts,
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";
+
 import CardProduct from "../../components/products/CardProduct";
-import { useNavigation } from "@react-navigation/native";
 import Footer from "../../components/utils/Footer";
-import { updateProfileImage } from "../../api/apiPerfil";
 
 import StatusModal from "../../components/modals/StatusModal ";
 import { useUser } from "../../components/utils/UserContext";
@@ -284,10 +283,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 4,
     borderColor: "#161B21",
-  },
-  editIcon: {
-    color: "#fff",
-    fontWeight: "bold",
   },
   profileName: {
     fontFamily: "Montserrat_800ExtraBold",

@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import Button from "../../components/forms/Button";
-import VerificationInput from "../../components/forms/VerificationInput ";
 import Input from "../../components/forms/Input";
+import VerificationInput from "../../components/forms/VerificationInput ";
+import StatusModal from "../../components/modals/StatusModal ";
+
 import {
   useFonts,
   Montserrat_800ExtraBold,
 } from "@expo-google-fonts/montserrat";
-import { useNavigation } from "@react-navigation/native";
-import StatusModal from "../../components/modals/StatusModal ";
-
 
 import { recoverPassword } from "../../api/apiLogin";
 import { verifyCode } from "../../api/apiLogin";
@@ -68,7 +69,7 @@ const ForgetPassword = () => {
       const verificationResponse = await verifyCode(verificationCode, email);
       if (verificationResponse.value == true) {
         setIsVerified(true);
-        navigation.navigate("NewPassword",{ email });
+        navigation.navigate("NewPassword", { email });
       } else {
         setModalStatus("error");
         setModalVisible(true);

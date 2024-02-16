@@ -10,8 +10,7 @@ import InputPassword from "../../components/forms/InputPassword";
 import VerificationInput from "../../components/forms/VerificationInput ";
 import StatusModal from "../../components/modals/StatusModal ";
 
-import { verifyEmail } from "../../api/apiLogin";
-import { verifyCode } from "../../api/apiLogin";
+import { verifyEmail, verifyCode } from "../../api/apiLogin";
 
 export default function Register() {
   const navigation = useNavigation();
@@ -60,26 +59,29 @@ export default function Register() {
 
   const handleReceiveCode = async () => {
     const emailRegex = /\S+@\S+\.\S+/;
-  
+
     if (!emailRegex.test(email)) {
       setModalStatus("error");
       setModalVisible(true);
       setText("Correo invalido");
-      setText2("Por favor, ingresa una dirección de correo electrónico válida.");
+      setText2(
+        "Por favor, ingresa una dirección de correo electrónico válida."
+      );
       return;
     }
-  
+
     const verificationResponse = await verifyEmail(email);
-  
+
     if (verificationResponse.status === 200) {
       setModalStatus("loading");
       setModalVisible(true);
       setText("Verificando...");
-      setText2("Te hemos enviado un código a tu correo. Por favor, verifica en la carpeta de spam si no lo encuentras en la bandeja de entrada.");
+      setText2(
+        "Te hemos enviado un código a tu correo. Por favor, verifica en la carpeta de spam si no lo encuentras en la bandeja de entrada."
+      );
       setIsReceivingCode(true);
     }
   };
-  
 
   const handleVerficar = async () => {
     try {
@@ -114,7 +116,7 @@ export default function Register() {
   const handleLogin = () => {
     navigation.navigate("Login");
   };
-  
+
   useEffect(() => {
     if (modalVisible) {
       const timeout = setTimeout(() => {

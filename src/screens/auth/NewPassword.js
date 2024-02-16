@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { useRoute, useNavigation } from "@react-navigation/native";
+
 import Button from "../../components/forms/Button";
 import InputPassword from "../../components/forms/InputPassword";
-import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
-import { updatePassword } from "../../api/apiLogin";
 import StatusModal from "../../components/modals/StatusModal ";
+
+import { updatePassword } from "../../api/apiLogin";
 
 const NewPassword = () => {
   const navigation = useNavigation();
@@ -56,7 +57,6 @@ const NewPassword = () => {
         setTimeout(() => {
           navigation.navigate("Login");
         }, 3000);
-
       } else {
         console.error("Error al actualizar la contraseña:", response.error);
       }
