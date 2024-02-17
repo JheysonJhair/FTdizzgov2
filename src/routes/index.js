@@ -15,6 +15,8 @@ import Chat from "../screens/chat/Chat";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import NewPassword from "../screens/auth/NewPassword";
 import ProductMix from "../screens/products/ProductMix";
+import PrivateChat from "../screens/chat/PrivateChat";
+import UserInfo from "../screens/chat/UserInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -142,6 +144,18 @@ export default function Routes() {
           headerTintColor: "#fff",
           title: "Fiesta Dizzgo",
         }}
+      />
+      <Stack.Screen
+        name="ChatPrivate"
+        component={PrivateChat}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ChatInformation"
+        component={UserInfo}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

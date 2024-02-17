@@ -8,26 +8,25 @@ import {
 
 import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Iconn from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 
-import UserProfileModal from "../../components/modals/UserProfileModal";
-
-import { getMensajes, sendMessage, sendImage } from "../../api/apiChat";
+import { getMensajesPrivates, sendMessage, sendImage } from "../../api/apiChat";
 import { useUser } from "../../components/utils/UserContext";
 import { useNavigation } from "@react-navigation/native";
 
-const Chat = () => {
+const PrivateChat = ({ route }) => {
+  const { user } = route.params;
+
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const { userData } = useUser();
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const fetchMensajes = async () => {
       try {
-        const mensajes = await getMensajes();
+        const mensajes = await getMensajesPrivates();
         setMessages(mensajes.reverse());
       } catch (error) {
         console.error("Error al obtener los mensajes:", error.message);
@@ -48,6 +47,9 @@ const Chat = () => {
     } catch (error) {
       console.error("Error al enviar mensaje:", error.message);
     }
+  };
+  const navigateToInformation = () => {
+    navigation.navigate("ChatInformation", { user: user });
   };
 
   const handleChooseImage = async () => {
@@ -110,7 +112,7 @@ const Chat = () => {
       <View>
         {props.currentMessage.user._id !== userData.IdUser && (
           <Text style={{ color: "#40A5E7", fontWeight: "bold", fontSize: 11 }}>
-            {props.currentMessage.user.name}
+            {user.name}
           </Text>
         )}
         {props.currentMessage.text ? (
@@ -156,25 +158,33 @@ const Chat = () => {
     );
   };
 
-  const openUserProfileModal = (user) => {
-    console.log("abierto");
-    setSelectedUser(user);
-    setModalVisible(true);
-  };
-
-  const closeUserProfileModal = () => {
-    console.log("cerrado");
-    setSelectedUser(null);
-    setModalVisible(false);
-  };
-
   return (
     <View style={styles.container}>
       <Image
         source={require("../../assets/fondochat.png")}
         style={styles.backgroundImage}
       />
-      <Text>hola</Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Iconn
+            name="arrow-back"
+            size={24}
+            color="#fff"
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={navigateToInformation}>
+          <Image
+            source={{ uri: user.avatar }}
+            style={{ width: 36, height: 36, borderRadius: 18 }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={navigateToInformation}>
+          <View>
+            <Text style={styles.title}>{user.name}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={false}
@@ -184,9 +194,7 @@ const Chat = () => {
           backgroundColor: "transparent",
         }}
         renderAvatar={(props) => (
-          <TouchableOpacity
-            onPress={() => openUserProfileModal(props.currentMessage.user)}
-          >
+          <TouchableOpacity>
             <Image
               source={{ uri: props.currentMessage.user.avatar }}
               style={{ width: 40, height: 40, borderRadius: 20 }}
@@ -225,20 +233,6 @@ const Chat = () => {
         onInputTextChanged={(text) => setInputText(text)}
         text={inputText}
       />
-      <UserProfileModal
-        visible={modalVisible}
-        avatar={selectedUser?.avatar}
-        userName={selectedUser?.name}
-        onClose={closeUserProfileModal}
-        onChatPress={() => {
-          navigation.navigate("ChatPrivate", { user: selectedUser });
-          closeUserProfileModal();
-        }}
-        onInformationPress={() => {
-          navigation.navigate("ChatInformation", { user: selectedUser });
-          closeUserProfileModal();
-        }}
-      />
     </View>
   );
 };
@@ -253,6 +247,23 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#141B20",
+  },
+  backIcon: {
+    marginRight: 4,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: "#fff",
+    padding: 8,
+  },
 });
 
-export default Chat;
+export default PrivateChat;

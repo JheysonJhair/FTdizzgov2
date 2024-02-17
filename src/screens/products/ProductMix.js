@@ -159,9 +159,9 @@ const ProductMix = ({ route, navigation }) => {
               <Text style={styles.rating}>Mezcla hasta 3 productos </Text>
               <Text style={styles.valor}>
                 {product.Name} +{" "}
-                {selectedProducts.length > 0 && selectedProducts[0].title} +{" "}
-                {selectedProducts.length > 1 && selectedProducts[1].title}
-                {selectedProducts.length > 2 && selectedProducts[2].title}
+                {selectedProducts.length > 0 && selectedProducts[0].Name} +{" "}
+                {selectedProducts.length > 1 && selectedProducts[1].Name}
+                {selectedProducts.length > 2 && selectedProducts[2].Name}
               </Text>
             </View>
           </View>
