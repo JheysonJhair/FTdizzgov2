@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "expo-checkbox";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Button from "../../components/forms/Button";
 import Input from "../../components/forms/Input";
@@ -25,7 +26,7 @@ export default function Login() {
   const [isChecked, setChecked] = useState(false);
   const [email, setEmail] = useState("201054@unamba.edu.pe");
   const [password, setPassword] = useState("12345678");
-
+  console.log(isChecked);
   const onHandleLogin = async (email, password) => {
     try {
       if (!email || !password) {
@@ -48,6 +49,9 @@ export default function Login() {
       const user = await loginUser(email, password);
 
       if (user.msg == "Ingreso correctamente") {
+        if (isChecked) {
+          saveUserData();
+        } 
         setUserInfo({
           IdUser: user.value.IdUser,
           FirstName: user.value.FirstName,
@@ -89,6 +93,22 @@ export default function Login() {
     navigation.navigate("ForgetPassword");
   };
 
+  ///
+  const saveUserData = async () => {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify({ email, password }));
+    } catch (error) {
+      console.error("Error al guardar datos de usuario:", error);
+    }
+  }
+  const clearUserData = async () => {
+    try {
+      await AsyncStorage.removeItem("userData");
+    } catch (error) {
+      console.error("Error al borrar datos de usuario:", error);
+    }
+  };
+  ///
   useEffect(() => {
     if (modalVisible) {
       const timeout = setTimeout(() => {
