@@ -349,13 +349,10 @@ const styles = StyleSheet.create({
     paddingBottom: 52,
   },
   cardContainer: {
-    width: "95%",
+    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-  },
-  cardItem: {
-    width: "30%",
   },
 });
 

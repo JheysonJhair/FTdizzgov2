@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Switch,
+  ScrollView, // Importa ScrollView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -34,60 +35,61 @@ const UserInfoScreen = ({ route }) => {
         </TouchableOpacity>
         <Text style={styles.title}>{user.name}</Text>
       </View>
-
-      <View style={styles.content}>
-        <Image source={{ uri: user.avatar }} style={styles.avatar} />
-        <Text style={styles.userName}>{user.name}</Text>
-        <Text style={styles.phoneName}>+51 987 876 876</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={navigateToChat}>
-            <Icon name="chatbox" size={24} color="#40A5E7" />
-            <Text style={styles.buttonText}>Mensaje</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Icon name="call" size={24} color="#40A5E7" />
-            <Text style={styles.buttonText}>Llamar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Icon name="videocam" size={24} color="#40A5E7" />
-            <Text style={styles.buttonText}>Video</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.line}></View>
-
-        <View style={styles.descriptionContainer}>
-          <Text style={[styles.description, { textAlign: "left" }]}>
-            Just Me
-          </Text>
-          <Text style={[styles.fecha, { textAlign: "left" }]}>
-            2 de enero del 2024
-          </Text>
-        </View>
-
-        <View style={styles.line2}></View>
-
-        <View style={styles.optionsContainer}>
-          <View style={styles.option}>
-            <Icon name="notifications" size={24} color="#A3AABF" />
-            <Text style={styles.optionText2}>Silenciar Notificaciones</Text>
-            <Switch
-              trackColor={{ false: "#767577", true: "#75c0ef" }}
-              thumbColor={notificationsEnabled ? "#40A5E7" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleNotifications}
-              value={notificationsEnabled}
-            />
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.content}>
+          <Image source={{ uri: user.avatar }} style={styles.avatar} />
+          <Text style={styles.userName}>{user.name}</Text>
+          <Text style={styles.phoneName}>+51 987 876 876</Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={navigateToChat}>
+              <Icon name="chatbox" size={24} color="#40A5E7" />
+              <Text style={styles.buttonText}>Mensaje</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Icon name="call" size={24} color="#40A5E7" />
+              <Text style={styles.buttonText}>Llamar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Icon name="videocam" size={24} color="#40A5E7" />
+              <Text style={styles.buttonText}>Video</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.option}>
-            <Icon name="settings" size={24} color="#A3AABF" />
-            <Text style={styles.optionText}>Personalizar Notificaciones</Text>
+          <View style={styles.line}></View>
+
+          <View style={styles.descriptionContainer}>
+            <Text style={[styles.description, { textAlign: "left" }]}>
+              Just Me
+            </Text>
+            <Text style={[styles.fecha, { textAlign: "left" }]}>
+              2 de enero del 2024
+            </Text>
           </View>
-          <View style={styles.option}>
-            <Icon name="close-circle" size={24} color="#A3AABF" />
-            <Text style={styles.optionText}>Bloquear contacto</Text>
+
+          <View style={styles.line2}></View>
+
+          <View style={styles.optionsContainer}>
+            <View style={styles.option}>
+              <Icon name="notifications" size={24} color="#A3AABF" />
+              <Text style={styles.optionText2}>Silenciar Notificaciones</Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#75c0ef" }}
+                thumbColor={notificationsEnabled ? "#40A5E7" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleNotifications}
+                value={notificationsEnabled}
+              />
+            </View>
+            <View style={styles.option}>
+              <Icon name="settings" size={24} color="#A3AABF" />
+              <Text style={styles.optionText}>Personalizar Notificaciones</Text>
+            </View>
+            <View style={styles.option}>
+              <Icon name="close-circle" size={24} color="#A3AABF" />
+              <Text style={styles.optionText}>Bloquear contacto</Text>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -112,10 +114,12 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   content: {
-    flex: 1,
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 20,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
   avatar: {
     width: 200,
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     color: "#A3AABF",
   },
   optionText2: {
-    marginRight: "30%",
+    marginRight: 70,
     fontSize: 16,
     color: "#A3AABF",
   },
