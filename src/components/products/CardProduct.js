@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card: {
-    width: 112,
+    width: 106,
     height: 170,
     borderRadius: 8,
     overflow: "hidden",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     transform: [{ rotate: "12deg" }],
     marginTop: -20,
-    marginLeft: 20,
+    marginLeft: 16,
     position: "absolute",
     zIndex: 3,
   },

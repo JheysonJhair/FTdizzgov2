@@ -16,6 +16,7 @@ import CardProduct from "../../components/products/CardProduct";
 import CardProductParty from "../../components/products/CardProductParty";
 import SearchInput from "../../components/forms/SearchInput";
 import Footer from "../../components/utils/Footer";
+import LoadingIndicator from "../../components/utils/LoadingIndicator";
 import { useUser } from "../../components/utils/UserContext";
 import {
   getBestSellers,
@@ -31,6 +32,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Para ti");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { userData } = useUser();
   const navigation = useNavigation();
 
@@ -71,6 +73,8 @@ export default function Home() {
   };
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true); 
+
       try {
         if (selectedCategory === "Para ti") {
           const response1 = await getBestSellers(5);
@@ -87,6 +91,8 @@ export default function Home() {
         }
       } catch (error) {
         console.error("Error al obtener productos:", error.message);
+      } finally {
+        setIsLoading(false); 
       }
     };
     fetchProducts();
@@ -110,7 +116,9 @@ export default function Home() {
                 />
               </View>
               <View style={styles.profileContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Notifications")}
+                >
                   <Icon name="bell" size={18} color="#fff" />
                 </TouchableOpacity>
                 <View style={styles.profileImageContainer}>
@@ -129,7 +137,7 @@ export default function Home() {
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={styles.enlaces}
+                style={styles.enlaces2}
               >
                 {[
                   "Para ti",
@@ -152,7 +160,9 @@ export default function Home() {
                           color:
                             selectedCategory === category ? "#40A5E7" : "#fff",
                           borderBottomColor:
-                            selectedCategory === category ? "#40A5E7" : "#1E1E1E",
+                            selectedCategory === category
+                              ? "#40A5E7"
+                              : "#1E1E1E",
                           borderBottomWidth: 1,
                           fontWeight: "bold",
                         },
@@ -172,99 +182,105 @@ export default function Home() {
               style={styles.scrollVertical}
             >
               <View>
-                {selectedCategory === "Para ti" ? (
-                  <>
-                    <View style={styles.content}>
-                      <Text style={styles.h3}>Lo más vendido</Text>
-                      <Icon name="arrow-right" size={22} color="#fff" />
-                    </View>
-                    <ScrollView
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      style={styles.enlaces}
-                    >
-                      {bestSellers.map((product) => (
-                        <CardProduct
-                          key={product.IdProduct}
-                          product={product}
-                          onPress={() => handleProductClick(product)}
-                        />
-                      ))}
-                    </ScrollView>
-                  </>
+                {isLoading ? (
+                  <LoadingIndicator />
                 ) : (
-                  <>
-                    <View style={styles.content}>
-                      <Text style={styles.h3}>
-                        {selectedCategory === "Para ti"
-                          ? "Lo más vendido"
-                          : `Bebidas con ${selectedCategory}`}
-                      </Text>
-                    </View>
-                    <ScrollView
-                      showsVerticalScrollIndicator={false}
-                      contentContainerStyle={styles.scrollViewContent}
-                    >
-                      <View style={styles.cardContainer}>
-                        {filteredProducts.map((product) => (
-                          <CardProduct
-                            key={product.IdProduct}
-                            product={product}
-                            onPress={() => handleProductClick(product)}
-                            style={styles.cardItem}
-                          />
-                        ))}
-                      </View>
-                    </ScrollView>
-                  </>
-                )}
-                {selectedCategory === "Para ti" && (
-                  <>
-                    <View style={styles.content}>
-                      <Text style={styles.h3}>Recomendados</Text>
-                      <Icon name="arrow-right" size={22} color="#fff" />
-                    </View>
-                    <ScrollView
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      style={styles.enlaces}
-                    >
-                      {recommended.map((product) => (
-                        <CardProduct
-                          key={product.IdProduct}
-                          product={product}
-                          onPress={() => handleProductClick(product)}
-                        />
-                      ))}
-                    </ScrollView>
-                    <View style={styles.content}>
-                      <Text style={styles.h3}>Arma tu propia fiesta</Text>
-                      <Icon name="arrow-right" size={22} color="#fff" />
-                    </View>
-                    <ScrollView
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                      style={styles.enlaces}
-                    >
-                      {/* {partyWeapon.map((product) => (
+                  <View>
+                    {selectedCategory === "Para ti" ? (
+                      <>
+                        <View style={styles.content}>
+                          <Text style={styles.h3}>Lo más vendido</Text>
+                          <Icon name="arrow-right" size={22} color="#fff" />
+                        </View>
+                        <ScrollView
+                          horizontal
+                          showsHorizontalScrollIndicator={false}
+                          style={styles.enlaces}
+                        >
+                          {bestSellers.map((product) => (
+                            <CardProduct
+                              key={product.IdProduct}
+                              product={product}
+                              onPress={() => handleProductClick(product)}
+                            />
+                          ))}
+                        </ScrollView>
+                      </>
+                    ) : (
+                      <>
+                        <View style={styles.content}>
+                          <Text style={styles.h3}>
+                            {selectedCategory === "Para ti"
+                              ? "Lo más vendido"
+                              : `Bebidas con ${selectedCategory}`}
+                          </Text>
+                        </View>
+                        <ScrollView
+                          showsVerticalScrollIndicator={false}
+                          contentContainerStyle={styles.scrollViewContent}
+                        >
+                          <View style={styles.cardContainer2}>
+                            {filteredProducts.map((product) => (
+                              <CardProduct
+                                key={product.IdProduct}
+                                product={product}
+                                onPress={() => handleProductClick(product)}
+                                style={styles.cardItem2}
+                              />
+                            ))}
+                          </View>
+                        </ScrollView>
+                      </>
+                    )}
+                    {selectedCategory === "Para ti" && (
+                      <>
+                        <View style={styles.content}>
+                          <Text style={styles.h3}>Recomendados</Text>
+                          <Icon name="arrow-right" size={22} color="#fff" />
+                        </View>
+                        <ScrollView
+                          horizontal
+                          showsHorizontalScrollIndicator={false}
+                          style={styles.enlaces}
+                        >
+                          {recommended.map((product) => (
+                            <CardProduct
+                              key={product.IdProduct}
+                              product={product}
+                              onPress={() => handleProductClick(product)}
+                            />
+                          ))}
+                        </ScrollView>
+                        <View style={styles.content}>
+                          <Text style={styles.h3}>Arma tu propia fiesta</Text>
+                          <Icon name="arrow-right" size={22} color="#fff" />
+                        </View>
+                        <ScrollView
+                          horizontal
+                          showsHorizontalScrollIndicator={false}
+                          style={styles.enlaces}
+                        >
+                          {/* {partyWeapon.map((product) => (
                       <CardProduct
                         key={product.IdProduct}
                         product={product}
                         onPress={() => handleProductClick(product)}
                       />
                     ))} */}
-                      <CardProductParty
-                        key={party.IdProduct}
-                        product={party}
-                        onPress={() => handleProductClick(party)}
-                      />
-                      <CardProductParty
-                        key={party.IdProduct}
-                        product={party}
-                        onPress={() => handleProductClick(party)}
-                      />
-                    </ScrollView>
-                  </>
+                          <CardProductParty
+                            key={party.IdProduct}
+                            product={party}
+                            onPress={() => handleProductClick(party)}
+                          />
+                          <CardProductParty
+                            key={party.IdProduct}
+                            product={party}
+                            onPress={() => handleProductClick(party)}
+                          />
+                        </ScrollView>
+                      </>
+                    )}
+                  </View>
                 )}
               </View>
             </ScrollView>
@@ -348,9 +364,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: 5,
   },
+  enlaces2: {
+    flexDirection: "row",
+    paddingTop: 8,
+  },
   enlaces: {
     flexDirection: "row",
     paddingTop: 8,
+    paddingLeft: 8,
   },
   enlace: {
     paddingHorizontal: 10,
@@ -371,22 +392,20 @@ const styles = StyleSheet.create({
   },
   scrollVerticalContainer: {
     flex: 1,
-    paddingBottom: 58,
+    paddingBottom: 52,
   },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  cardContainer: {
-    width: "102%",
+  cardContainer2: {
+    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-  cardItem: {
-    width: "30%",
-  },
+
   absoluteIconsContainer: {
     position: "absolute",
     width: "100%",
@@ -394,7 +413,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     justifyContent: "center",
-    paddingVertical: 15,
+    paddingVertical: 13,
     borderTopWidth: 1,
     borderTopColor: "#74797c",
   },

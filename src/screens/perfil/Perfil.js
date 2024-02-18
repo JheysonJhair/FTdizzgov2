@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   scrollVerticalContainer: {
     flexGrow: 1,
     justifyContent: "center",
-    paddingBottom: 58,
+    paddingBottom: 52,
   },
   absoluteIconsContainer: {
     position: "absolute",
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     justifyContent: "center",
-    paddingVertical: 15,
+    paddingVertical: 13,
     borderTopWidth: 1,
     borderTopColor: "#74797c",
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingBottom: 58,
+    paddingBottom: 52,
   },
   cardContainer: {
     width: "95%",
