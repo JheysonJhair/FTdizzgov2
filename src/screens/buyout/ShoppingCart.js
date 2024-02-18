@@ -96,6 +96,30 @@ const ShoppingCart = () => {
                   product={producto}
                   onPresss={() => handleProductClick(producto)}
                 />
+                                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
+                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
+                                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
+                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
+                                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
+                <CardShopingCar
+                  product={producto}
+                  onPresss={() => handleProductClick(producto)}
+                />
               </>
             )}
             {activeTab === "mezclas" && (
@@ -135,7 +159,7 @@ const styles = StyleSheet.create({
   },
   Container2: {
     padding: 12,
-    paddingBottom: 160,
+    paddingBottom: 127,
   },
   headerContainer: {
     flex: 1,

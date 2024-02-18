@@ -219,13 +219,13 @@ export default function Home() {
                           showsVerticalScrollIndicator={false}
                           contentContainerStyle={styles.scrollViewContent}
                         >
-                          <View style={styles.cardContainer2}>
+                          <View style={styles.cardContainer}>
                             {filteredProducts.map((product) => (
                               <CardProduct
                                 key={product.IdProduct}
                                 product={product}
                                 onPress={() => handleProductClick(product)}
-                                style={styles.cardItem2}
+                                style={styles.cardItem}
                               />
                             ))}
                           </View>
@@ -388,6 +388,7 @@ const styles = StyleSheet.create({
   h3: {
     color: "#fff",
     fontSize: 25,
+    marginLeft: 5,
     fontWeight: "bold",
   },
   scrollVerticalContainer: {
@@ -399,13 +400,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  cardContainer2: {
+  cardContainer: {
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-
   absoluteIconsContainer: {
     position: "absolute",
     width: "100%",

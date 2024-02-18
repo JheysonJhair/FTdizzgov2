@@ -214,24 +214,6 @@ const Perfil = () => {
               onPress={() => handleProductClick(selectedProduct)}
               style={styles.cardItem}
             />
-            <CardProduct
-              key={selectedProduct.IdProduct}
-              product={selectedProduct}
-              onPress={() => handleProductClick(selectedProduct)}
-              style={styles.cardItem}
-            />
-            <CardProduct
-              key={selectedProduct.IdProduct}
-              product={selectedProduct}
-              onPress={() => handleProductClick(selectedProduct)}
-              style={styles.cardItem}
-            />
-            <CardProduct
-              key={selectedProduct.IdProduct}
-              product={selectedProduct}
-              onPress={() => handleProductClick(selectedProduct)}
-              style={styles.cardItem}
-            />
           </View>
         </ScrollView>
         <StatusModal
@@ -346,7 +328,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingBottom: 52,
+    paddingBottom: 60,
   },
   cardContainer: {
     width: "100%",

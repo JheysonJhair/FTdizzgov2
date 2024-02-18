@@ -157,13 +157,11 @@ const Chat = () => {
   };
 
   const openUserProfileModal = (user) => {
-    console.log("abierto");
     setSelectedUser(user);
     setModalVisible(true);
   };
 
   const closeUserProfileModal = () => {
-    console.log("cerrado");
     setSelectedUser(null);
     setModalVisible(false);
   };
@@ -174,7 +172,6 @@ const Chat = () => {
         source={require("../../assets/fondochat.png")}
         style={styles.backgroundImage}
       />
-      <Text>hola</Text>
       <GiftedChat
         messages={messages}
         showAvatarForEveryMessage={false}
