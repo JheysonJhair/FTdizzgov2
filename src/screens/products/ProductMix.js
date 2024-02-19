@@ -147,22 +147,40 @@ const ProductMix = ({ route, navigation }) => {
           </View>
           <View style={styles.contendorValores}>
             <View style={styles.valorContainer}>
-              <View style={styles.progressBarContainer}>
-                <View
-                  style={[styles.progressBar, { width: `${progressWidth}%` }]}
-                />
-                <Text style={styles.valorPorcentaje}>
-                  {progressWidth}% de diversión{" "}
-                </Text>
-              </View>
-
-              <Text style={styles.rating}>Mezcla hasta 3 productos </Text>
               <Text style={styles.valor}>
                 {product.Name} +{" "}
                 {selectedProducts.length > 0 && selectedProducts[0].Name} +{" "}
                 {selectedProducts.length > 1 && selectedProducts[1].Name}
                 {selectedProducts.length > 2 && selectedProducts[2].Name}
               </Text>
+            </View>
+          </View>
+          <View style={styles.containerPadre}>
+            <View style={styles.containerDiversion}>
+              <View style={{ alignItems: "center" }}>
+                <Image
+                  source={require("../../assets/vectorHappy.png")}
+                  style={{ width: 45, height: 45 }}
+                />
+              </View>
+              <View style={styles.barra}>
+                <View style={styles.containerTextos}>
+                  <View style={styles.textoIzquierda}>
+                    <Text style={styles.valorFiesta}>
+                      Diversión en la Fiesta
+                    </Text>
+                  </View>
+                  <View style={styles.textoDerecha}>
+                    <Text style={styles.valorFiesta}>S/. 150.00</Text>
+                  </View>
+                </View>
+                <View style={styles.progressBarContainer}>
+                  <View
+                    style={[styles.progressBar, { width: `${progressWidth}%` }]}
+                  />
+                  <Text style={styles.valorPorcentaje}>{progressWidth}%</Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>
@@ -253,6 +271,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignItems: "center",
   },
+  valorFiesta: {
+    color: "white",
+  },
   mixNameInput: {
     color: "#fff",
     fontSize: 20,
@@ -266,7 +287,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 190,
-    height: 235,
+    height: 220,
     borderRadius: 10,
   },
   imageContainerFont: {
@@ -291,31 +312,55 @@ const styles = StyleSheet.create({
     backgroundColor: "#212834",
     paddingTop: 1,
     paddingBottom: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderRadius: 25,
     position: "absolute",
     bottom: -30,
     alignSelf: "center",
   },
   //
+  containerPadre: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  containerDiversion: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+  },
+  barra:{
+    width: "80%",
+  },  
+  containerTextos: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom:5
+  },
+  textoIzquierda: {
+    flex: 4, 
+  },
+  textoDerecha: {
+    flex: 2, 
+    alignItems: 'flex-end',
+  },
   valorPorcentaje: {
     textAlign: "center",
     color: "#fff",
+    fontSize:12,
     zIndex: 999,
-    marginLeft: "26%",
+    marginLeft: "35%",
     position: "absolute",
   },
   progressBarContainer: {
-    width: "92%",
-    height: 25,
+    height: 19,
     backgroundColor: "#212834",
     borderRadius: 10,
     marginBottom: 10,
   },
   progressBar: {
-    height: "92%",
-    backgroundColor: "#40A5E7",
+    height: "100%",
+    backgroundColor: "#9FEF00",
     borderRadius: 10,
   },
   //
@@ -328,6 +373,7 @@ const styles = StyleSheet.create({
     color: "white",
     width: 320,
     fontSize: 24,
+    marginBottom:10,
     fontFamily: "Montserrat_800ExtraBold",
     textAlign: "center",
   },

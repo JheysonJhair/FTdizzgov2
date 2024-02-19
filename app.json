@@ -36,6 +36,7 @@
         "googleSignIn": {
           "apiKey": "TU_CLAVE_API"
         },
+        "permissions": ["LOCATION"],
         "scheme": "dizzgo"
       }
     },

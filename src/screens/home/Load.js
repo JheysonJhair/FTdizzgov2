@@ -18,6 +18,7 @@ const Load = () => {
     Montserrat_800ExtraBold,
     Montserrat_400Regular_Italic,
   });
+  const [showLogo, setShowLogo] = useState(true); // Estado para controlar la visibilidad del logo
 
   const { setUserInfo } = useUser();
 
@@ -53,12 +54,19 @@ const Load = () => {
   };
 
   useEffect(() => {
-    retrieveUserData();
+    const timer = setTimeout(() => {
+      setShowLogo(false); // Ocultar el logo después de 2 segundos
+      retrieveUserData(); // Llamar a la función para recuperar los datos del usuario
+    }, 2000);
+
+    // Limpiar el temporizador al desmontar el componente
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>

@@ -287,9 +287,9 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
   },
   mixButton: {
-    width: 200,
+    width: "55%",
     backgroundColor: "#40A5E7",
-    padding: 10,
+    padding: 11,
     borderRadius: 4,
   },
   mixButtonText: {

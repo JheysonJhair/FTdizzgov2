@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import CardProduct from "../../components/products/CardProduct";
 import CardProductParty from "../../components/products/CardProductParty";
@@ -102,6 +103,15 @@ export default function Home() {
     navigation.navigate("Information", { product });
   };
 
+  //
+  const clearUserData = async () => {
+    try {
+      await AsyncStorage.removeItem("userData");
+      console.log("eliminadoo")
+    } catch (error) {
+      console.error("Error al borrar datos de usuario:", error);
+    }
+  };
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback>
@@ -308,12 +318,21 @@ export default function Home() {
                   <Text style={styles.profileOptionText}>Mi código QR</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("AjustesYPrivacidad")}
+                  onPress={() => navigation.navigate("MiCodigoQR")}
                   style={styles.profileOption}
                 >
                   <Icon name="gear" size={20} color="#272728" />
                   <Text style={styles.profileOptionText}>
                     Ajustes y privacidad
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => clearUserData()}
+                  style={styles.profileOption}
+                >
+                  <Icon name="sign-out" size={20} color="#272728" />
+                  <Text style={styles.profileOptionText}>
+                    Cerrar sesión
                   </Text>
                 </TouchableOpacity>
               </View>
