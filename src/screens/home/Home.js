@@ -6,12 +6,11 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Touchable,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CardProduct from "../../components/products/CardProduct";
 import CardProductParty from "../../components/products/CardProductParty";
@@ -74,7 +73,7 @@ export default function Home() {
   };
   useEffect(() => {
     const fetchProducts = async () => {
-      setIsLoading(true); 
+      setIsLoading(true);
 
       try {
         if (selectedCategory === "Para ti") {
@@ -93,7 +92,7 @@ export default function Home() {
       } catch (error) {
         console.error("Error al obtener productos:", error.message);
       } finally {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     };
     fetchProducts();
@@ -107,11 +106,12 @@ export default function Home() {
   const clearUserData = async () => {
     try {
       await AsyncStorage.removeItem("userData");
-      console.log("eliminadoo")
+      console.log("eliminadoo");
     } catch (error) {
       console.error("Error al borrar datos de usuario:", error);
     }
   };
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback>
@@ -331,9 +331,7 @@ export default function Home() {
                   style={styles.profileOption}
                 >
                   <Icon name="sign-out" size={20} color="#272728" />
-                  <Text style={styles.profileOptionText}>
-                    Cerrar sesión
-                  </Text>
+                  <Text style={styles.profileOptionText}>Cerrar sesión</Text>
                 </TouchableOpacity>
               </View>
             </TouchableWithoutFeedback>

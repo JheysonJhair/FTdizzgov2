@@ -16,23 +16,6 @@ const Welcome = () => {
     Montserrat_800ExtraBold,
   });
 
-  // Función para solicitar permisos y obtener la ubicación actual
-  const getLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Permiso denegado', 'Por favor, concede permiso para acceder a la ubicación.');
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    console.log('Ubicación actual:', location);
-  };
-
-  // Obtener la ubicación cuando se monta el componente
-  useEffect(() => {
-    getLocation();
-  }, []);
-
   if (!fontsLoaded) {
     return null;
   }

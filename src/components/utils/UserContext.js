@@ -14,6 +14,8 @@ export const UserProvider = ({ children }) => {
     BirthDate: "",
     Phone: "",
     ProfileImage: "",
+    Latitude: "",
+    Longitude: "",
   });
 
   const setUserInfo = ({
@@ -27,6 +29,8 @@ export const UserProvider = ({ children }) => {
     BirthDate,
     Phone,
     ProfileImage,
+    Latitude,
+    Longitude
   }) => {
     setUserData({
       ...userData,
@@ -40,6 +44,8 @@ export const UserProvider = ({ children }) => {
       BirthDate,
       Phone,
       ProfileImage,
+      Latitude,
+      Longitude
     });
   };
 

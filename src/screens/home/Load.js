@@ -18,7 +18,7 @@ const Load = () => {
     Montserrat_800ExtraBold,
     Montserrat_400Regular_Italic,
   });
-  const [showLogo, setShowLogo] = useState(true); // Estado para controlar la visibilidad del logo
+  const [showLogo, setShowLogo] = useState(true); 
 
   const { setUserInfo } = useUser();
 
@@ -43,10 +43,10 @@ const Load = () => {
           });
           navigation.navigate("Home");
         } else {
-          navigation.navigate("Welcome");
+          navigation.navigate("userLocation");
         }
       } else {
-        navigation.navigate("Welcome");
+        navigation.navigate("userLocation");
       }
     } catch (error) {
       console.error("Error al recuperar datos de usuario:", error);
@@ -55,11 +55,10 @@ const Load = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowLogo(false); // Ocultar el logo después de 2 segundos
-      retrieveUserData(); // Llamar a la función para recuperar los datos del usuario
-    }, 2000);
+      setShowLogo(false);
+      retrieveUserData(); 
+    }, 1000);
 
-    // Limpiar el temporizador al desmontar el componente
     return () => clearTimeout(timer);
   }, [navigation]);
 

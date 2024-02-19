@@ -17,6 +17,8 @@ import NewPassword from "../screens/auth/NewPassword";
 import ProductMix from "../screens/products/ProductMix";
 import PrivateChat from "../screens/chat/PrivateChat";
 import UserInfo from "../screens/chat/UserInfo";
+import Userlocation from "../screens/maps/Userlocation";
+import MapDelivery from "../screens/maps/MapDelivery";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +28,28 @@ export default function Routes() {
       <Stack.Screen
         name="Load"
         component={Load}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="userLocation"
+        component={Userlocation}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+          title: "Mi ubicación",
+        }}
+      />
+      <Stack.Screen
+        name="mapLocation"
+        component={MapDelivery}
         options={{ headerShown: false }}
       />
       <Stack.Screen

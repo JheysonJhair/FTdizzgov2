@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { UserProvider } from "./src/components/utils/UserContext";
+import { LocationProvider } from "./src/components/utils/LocationContext ";
 import * as NavigationBar from 'expo-navigation-bar';
 
 import Routes from "./src/routes";
@@ -21,10 +22,12 @@ export default function App() {
   }, []);
   return (
     <UserProvider>
-      <NavigationContainer>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
-        <Routes />
-      </NavigationContainer>
+      <LocationProvider>
+        <NavigationContainer>
+          <StatusBar backgroundColor="#000" barStyle="light-content" />
+          <Routes />
+        </NavigationContainer>
+      </LocationProvider>
     </UserProvider>
   );
 }
