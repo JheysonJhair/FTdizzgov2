@@ -43,10 +43,10 @@ const Load = () => {
           });
           navigation.navigate("Home");
         } else {
-          navigation.navigate("userLocation");
+          navigation.navigate("Location");
         }
       } else {
-        navigation.navigate("userLocation");
+        navigation.navigate("Location");
       }
     } catch (error) {
       console.error("Error al recuperar datos de usuario:", error);

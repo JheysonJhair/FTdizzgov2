@@ -7,7 +7,7 @@ export const getGradientColors = (sabor) => {
     case "red":
       return ["#FF1493", "#FF4500"];
     case "neutral":
-    case "White Rabbit Saloon":
+    case "Whitse Rabbit Saloon":
     case "Gold Label":
       return ["#FFFACD", "#D3D3D3"];
     case "Apple":

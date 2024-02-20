@@ -19,6 +19,8 @@ import PrivateChat from "../screens/chat/PrivateChat";
 import UserInfo from "../screens/chat/UserInfo";
 import Userlocation from "../screens/maps/Userlocation";
 import MapDelivery from "../screens/maps/MapDelivery";
+import ActivateLocation from "../screens/maps/ActivateLocation";
+import ProductOrder from "../screens/products/ProductOrder";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,11 @@ export default function Routes() {
       <Stack.Screen
         name="Load"
         component={Load}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Location"
+        component={ActivateLocation}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -95,6 +102,11 @@ export default function Routes() {
       <Stack.Screen
         name="Mix"
         component={ProductMix}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Order"
+        component={ProductOrder}
         options={{ headerShown: false }}
       />
       <Stack.Screen

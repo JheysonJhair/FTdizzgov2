@@ -58,6 +58,7 @@ function UserLocation() {
   const handleWelcome = () => {
     navigation.navigate("Welcome");
   };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: "84%",
+    height: "85%",
   },
   contAddress: {
     width: "100%",

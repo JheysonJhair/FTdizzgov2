@@ -65,6 +65,20 @@ const ProductMix = ({ route, navigation }) => {
   const handleShopingCar = () => {
     navigation.navigate("Carrito");
   };
+  const handleMixButtonPress = () => {
+    const totalPrice =
+      product.PriceProduct +
+      ((selectedProducts.length > 0 && selectedProducts[0].PriceProduct) || 0) +
+      ((selectedProducts.length > 1 && selectedProducts[1].PriceProduct) || 0);
+
+    const ProductsData = {
+      mainProduct: product,
+      secondaryProducts: selectedProducts,
+      totalPrice: totalPrice,
+    };
+
+    navigation.navigate("Order", { ProductsData });
+  };
 
   return (
     <View style={styles.container}>
@@ -151,7 +165,6 @@ const ProductMix = ({ route, navigation }) => {
                 {product.Name} +{" "}
                 {selectedProducts.length > 0 && selectedProducts[0].Name} +{" "}
                 {selectedProducts.length > 1 && selectedProducts[1].Name}
-                {selectedProducts.length > 2 && selectedProducts[2].Name}
               </Text>
             </View>
           </View>
@@ -160,7 +173,7 @@ const ProductMix = ({ route, navigation }) => {
               <View style={{ alignItems: "center" }}>
                 <Image
                   source={require("../../assets/vectorHappy.png")}
-                  style={{ width: 45, height: 45 }}
+                  style={{ width: 40, height: 40 }}
                 />
               </View>
               <View style={styles.barra}>
@@ -171,7 +184,13 @@ const ProductMix = ({ route, navigation }) => {
                     </Text>
                   </View>
                   <View style={styles.textoDerecha}>
-                    <Text style={styles.valorFiesta}>S/. 150.00</Text>
+                    <Text style={styles.valorFiesta}>
+                      {product.PriceProduct +
+                        (selectedProducts.length > 0 &&
+                          selectedProducts[0].PriceProduct) +
+                        (selectedProducts.length > 1 &&
+                          selectedProducts[1].PriceProduct)}
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.progressBarContainer}>
@@ -228,9 +247,12 @@ const ProductMix = ({ route, navigation }) => {
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.addButton}>
-          <Text style={styles.addButtonText}>s/220.00</Text>
+          <Ionicons name="bookmark" size={24} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.mixButton}>
+        <TouchableOpacity
+          style={styles.mixButton}
+          onPress={handleMixButtonPress}
+        >
           <Text style={styles.mixButtonText}>Ordenar</Text>
         </TouchableOpacity>
       </View>
@@ -329,31 +351,31 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "80%",
   },
-  barra:{
+  barra: {
     width: "80%",
-  },  
+  },
   containerTextos: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom:5
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 5,
   },
   textoIzquierda: {
-    flex: 4, 
+    flex: 4,
   },
   textoDerecha: {
-    flex: 2, 
-    alignItems: 'flex-end',
+    flex: 2,
+    alignItems: "flex-end",
   },
   valorPorcentaje: {
     textAlign: "center",
     color: "#fff",
-    fontSize:12,
+    fontSize: 12,
     zIndex: 999,
     marginLeft: "35%",
     position: "absolute",
   },
   progressBarContainer: {
-    height: 19,
+    height: 16,
     backgroundColor: "#212834",
     borderRadius: 10,
     marginBottom: 10,
@@ -373,7 +395,7 @@ const styles = StyleSheet.create({
     color: "white",
     width: 320,
     fontSize: 24,
-    marginBottom:10,
+    marginBottom: 10,
     fontFamily: "Montserrat_800ExtraBold",
     textAlign: "center",
   },
@@ -409,7 +431,7 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_800ExtraBold",
   },
   mixButton: {
-    width: 200,
+    width: "80%",
     backgroundColor: "#40A5E7",
     padding: 10,
     borderRadius: 4,
