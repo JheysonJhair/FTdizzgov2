@@ -57,7 +57,19 @@ export default function Routes() {
       <Stack.Screen
         name="mapLocation"
         component={MapDelivery}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#161B21",
+          },
+          headerTitleStyle: {
+            color: "#fff",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#fff",
+          title: "Ubicación de tienda",
+        }}
       />
       <Stack.Screen
         name="Welcome"
