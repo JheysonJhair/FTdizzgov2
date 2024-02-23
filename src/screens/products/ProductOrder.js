@@ -3,7 +3,6 @@ import {
   View,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Image,
@@ -16,7 +15,7 @@ const efectivo = require("../../assets/efectivo.png");
 
 const ProductOrder = ({ route, navigation }) => {
   const [selectedOption, setSelectedOption] = useState("domicilio");
-
+  const [isScrolled, setIsScrolled] = useState(false);
   const handleGoBack = () => {
     navigation.navigate("Home");
   };
@@ -29,15 +28,21 @@ const ProductOrder = ({ route, navigation }) => {
   };
 
   const handleMapPress = () => {
-    const latitud = -13.633595417759722;
-    const longitud = -72.88768925525375;
+    const latitudDestination = -13.633595417759722;
+    const longitudDestination = -72.88768925525375;
 
-    navigation.navigate("mapLocation", { latitud, longitud });
+    navigation.navigate("mapLocation", {
+      latitudDestination,
+      longitudDestination,
+    });
+  };
+  const handleScroll = (event) => {
+    setIsScrolled(event.nativeEvent.contentOffset.y > 0);
   };
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#5394bc", "#5394bc"]}
+        colors={isScrolled ? ["#161B21", "#161B21"] : ["#5394bc", "#5394bc"]}
         style={styles.containerGradient}
       >
         <View style={styles.header}>
@@ -53,7 +58,11 @@ const ProductOrder = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
       </LinearGradient>
-      <ScrollView style={styles.content}>
+      <ScrollView
+        style={styles.content}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
         <LinearGradient
           colors={["#5394bc", "#161B21"]}
           style={styles.containerInformation}
@@ -351,7 +360,7 @@ const ProductOrder = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.mixButton}
-          onPress={() => console.log("fin")}
+          onPress={() =>  navigation.navigate("AskedNumber")}
         >
           <Text style={styles.mixButtonText}>Hacer pedido</Text>
         </TouchableOpacity>

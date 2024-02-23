@@ -21,13 +21,25 @@ const ProductInformation = ({ route, navigation }) => {
   const handleShopingCar = () => {
     navigation.navigate("Carrito");
   };
+  const handleMapPress = () => {
+    const latitudDestination = -13.634155378255885;
+    const longitudDestination = -72.88540463535574;
+
+    navigation.navigate("mapLocation", {
+      latitudDestination,
+      longitudDestination,
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
           <Ionicons name="arrow-back" size={23} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.shopingButton} onPress={handleShopingCar}>
+        <TouchableOpacity
+          style={styles.shopingButton}
+          onPress={handleShopingCar}
+        >
           <Ionicons name="cart" size={23} color="white" />
         </TouchableOpacity>
       </View>
@@ -87,9 +99,11 @@ const ProductInformation = ({ route, navigation }) => {
               <Text style={styles.storeName}>"Al que te dije"</Text>
               <Text style={styles.closingTime}>Cierra en 18 horas</Text>
             </View>
-            <View style={styles.storeContainer2}>
-              <Ionicons name="md-map" size={20} color="white" />
-            </View>
+            <TouchableOpacity onPress={handleMapPress}>
+              <View style={styles.storeContainer2}>
+                <Ionicons name="md-map" size={20} color="white" />
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionTitle}>Descripción</Text>
@@ -102,7 +116,10 @@ const ProductInformation = ({ route, navigation }) => {
           <Ionicons name="cart" size={24} color="#000" />
           <Text style={styles.addButtonText}>Agregar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.mixButton} onPress={() => handleProductClick(product)}>
+        <TouchableOpacity
+          style={styles.mixButton}
+          onPress={() => handleProductClick(product)}
+        >
           <Text style={styles.mixButtonText}>Mezclar</Text>
         </TouchableOpacity>
       </View>
@@ -127,7 +144,7 @@ const styles = StyleSheet.create({
   shopingButton: {
     position: "absolute",
     right: 15,
-    top: 12
+    top: 12,
   },
   //
   content: {
@@ -236,13 +253,13 @@ const styles = StyleSheet.create({
   storeContainer: {
     marginBottom: 20,
   },
-  storeContainer2:{
+  storeContainer2: {
     width: 40,
     height: 40,
     backgroundColor: "#0C98B7",
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
   },
   store: {
     color: "white",

@@ -1,34 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
-import { useLocation } from "../../components/utils/LocationContext ";
+import MapViewDirections from "react-native-maps-directions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const tienda = require("../../assets/tienda.png");
 
 function MapDelivery({ route }) {
-  const { latitud, longitude } = route.params;
-  const { locationData } = useLocation();
-console.log(locationData)
-  const [origin, setOrigin] = useState({
-    latitude: -13.6374022,
-    longitude: -72.8999067,
-  });
+  const { latitudDestination, longitudDestination } = route.params;
+
+  const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState({
-    latitude: -13.633595417759722,
-    longitude: -72.88768925525375,
+    latitude: latitudDestination,
+    longitude: longitudDestination,
   });
+
+  const retrieveLocationData = async () => {
+    try {
+      const locationData = await AsyncStorage.getItem("locationData");
+      if (locationData !== null) {
+        const { latitude, longitude } = JSON.parse(locationData);
+        setOrigin({ latitude, longitude });
+      } else {
+        console.log("No hay datos de ubicación guardados.");
+      }
+    } catch (error) {
+      console.error("Error al recuperar datos de ubicación:", error);
+    }
+  };
+
+  useEffect(() => {
+    retrieveLocationData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: origin.latitude,
-          longitude: origin.longitude,
-          latitudeDelta: 0.09,
-          longitudeDelta: 0.04,
-        }}
+        initialRegion={
+          origin
+            ? {
+                latitude: origin.latitude,
+                longitude: origin.longitude,
+                latitudeDelta: 0.09,
+                longitudeDelta: 0.04,
+              }
+            : null
+        }
       >
-        <Marker coordinate={origin}></Marker>
-        <Marker coordinate={destination}></Marker>
-        <Polyline coordinates={[origin,destination]}></Polyline>
+        {origin && <Marker coordinate={origin}></Marker>}
+        <Marker coordinate={destination} image={tienda}></Marker>
+        {origin && (
+          <MapViewDirections
+            origin={origin}
+            destination={destination}
+            apikey={""}
+            strokeColor="#40A5E7"
+            strokeWidth={4}
+          />
+        )}
+        {origin && (
+          <Polyline
+            coordinates={[origin, destination]}
+            strokeColor="#40A5E7"
+            strokeWidth={4}
+          ></Polyline>
+        )}
       </MapView>
     </View>
   );

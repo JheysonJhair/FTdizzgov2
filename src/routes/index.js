@@ -21,6 +21,8 @@ import Userlocation from "../screens/maps/Userlocation";
 import MapDelivery from "../screens/maps/MapDelivery";
 import ActivateLocation from "../screens/maps/ActivateLocation";
 import ProductOrder from "../screens/products/ProductOrder";
+import AskedNumber from "../screens/maps/AskedNumber";
+import OrderPedido from "../screens/maps/OrderDelivery";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +72,16 @@ export default function Routes() {
           headerTintColor: "#fff",
           title: "Ubicación de tienda",
         }}
+      />
+      <Stack.Screen
+        name="AskedNumber"
+        component={AskedNumber}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderPedido"
+        component={OrderPedido}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Welcome"

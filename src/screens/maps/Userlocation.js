@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Button from "../../components/forms/Button";
 import { useLocation } from "../../components/utils/LocationContext ";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function UserLocation() {
   const navigation = useNavigation();
@@ -51,11 +52,23 @@ function UserLocation() {
   if (!location) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Text style={styles.address}>Loading...</Text>
       </View>
     );
   }
+  const saveUserData = async () => {
+    try {
+      await AsyncStorage.setItem(
+        "locationData",
+        JSON.stringify({ latitude: location.latitude, longitude: location.longitude })
+      );
+    } catch (error) {
+      console.error("Error al guardar datos de locacion:", error);
+    }
+  };
+  
   const handleWelcome = () => {
+    saveUserData();
     navigation.navigate("Welcome");
   };
 

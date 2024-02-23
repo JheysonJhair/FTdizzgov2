@@ -2,11 +2,11 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Button = ({ onPress, title }) => {
+const Button = ({ onPress, title, disabled }) => {
   return (
-    <TouchableOpacity style={styles.boton} onPress={onPress}>
+    <TouchableOpacity style={styles.boton} onPress={onPress} disabled={disabled}>
       <LinearGradient
-        colors={["#40A5E7", "#4274D7"]}
+        colors={disabled ? ["#9E9E9E", "#616161"] : ["#40A5E7", "#4274D7"]}
         style={styles.linearGradient}
       >
         <Text style={styles.textoBoton}>{title}</Text>

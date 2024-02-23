@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const InputThree = ({ placeholder, onChangeText, value, isVerified }) => {
+const InputThree = ({ placeholder, onChangeText, value, isVerified, keyboardType }) => {
   return (
     <TextInput
       style={[styles.input, isVerified && styles.disabledInput]}
@@ -10,6 +10,7 @@ const InputThree = ({ placeholder, onChangeText, value, isVerified }) => {
       value={value}
       placeholderTextColor="#FFFFFF"
       editable={!isVerified}
+      keyboardType={keyboardType} 
     />
   );
 };
