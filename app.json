@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
+    "scheme": "dizzgo",
     "plugins": [
       [
         "expo-image-picker",
@@ -23,7 +24,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#212834"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -36,7 +37,7 @@
       "package": "com.jhair.dizzgo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#212834"
       },
       "config": {
         "googleSignIn": {
