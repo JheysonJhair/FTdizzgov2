@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "dizzgo",
-    "slug": "dizzgo",
+    "name": "Dizzgo",
+    "slug": "Dizzgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "dizzgo",
+    "scheme": "Dizzgo",
     "plugins": [
       [
         "expo-image-picker",
@@ -37,7 +37,7 @@
       "package": "com.jhair.dizzgo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#212834"
+        "backgroundColor": "#ffffff"
       },
       "config": {
         "googleSignIn": {
