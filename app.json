@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Dizzgo",
-    "slug": "Dizzgo",
+    "name": "dizzgo",
+    "slug": "dizzgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "Dizzgo",
+    "scheme": "dizzgo",
     "plugins": [
       [
         "expo-image-picker",
